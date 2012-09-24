@@ -1,7 +1,1 @@
-5060c0e60c0ca,127.0.0.1,GET,http://localhost:82/app_dev.php/_configurator/,1348518118,
-5060c0e7aeeba,127.0.0.1,GET,http://localhost:82/app_dev.php/_configurator/step/0,1348518119,
-5060c1355f944,127.0.0.1,POST,http://localhost:82/app_dev.php/_configurator/step/0,1348518197,
-5060c137dd8ae,127.0.0.1,GET,http://localhost:82/app_dev.php/_configurator/step/1,1348518199,
-5060c13b3b706,127.0.0.1,POST,http://localhost:82/app_dev.php/_configurator/step/1,1348518203,
-5060c13dbcece,127.0.0.1,GET,http://localhost:82/app_dev.php/_configurator/final,1348518205,
-5060c14973bb8,127.0.0.1,GET,http://localhost:82/app_dev.php/,1348518217,
+5060d92db8bcf,127.0.0.1,GET,http://localhost:82/app_dev.php/,1348524333,

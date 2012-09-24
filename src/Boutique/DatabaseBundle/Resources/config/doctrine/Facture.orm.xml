@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Boutique\DatabaseBundle\Entity\Facture" table="facture">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="date" type="datetime" column="date" nullable="false"/>
+    <field name="client" type="integer" column="client" nullable="true"/>
+    <field name="montant" type="float" column="montant" nullable="false"/>
+    <field name="tva" type="float" column="tva" nullable="false"/>
+    <field name="montantRemise" type="float" column="montant_remise" nullable="false"/>
+    <many-to-one field="idRemise" target-entity="Remise">
+      <join-columns>
+        <join-column name="id_remise" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

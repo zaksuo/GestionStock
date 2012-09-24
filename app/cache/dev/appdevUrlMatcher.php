@@ -162,6 +162,16 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // boutique_database_homepage
+        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?<name>[^/]+)$#s', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Boutique\\DatabaseBundle\\Controller\\DefaultController::indexAction',)), array('_route' => 'boutique_database_homepage'));
+        }
+
+        // boutique_gestion_stock_homepage
+        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?<name>[^/]+)$#s', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Boutique\\GestionStockBundle\\Controller\\DefaultController::indexAction',)), array('_route' => 'boutique_gestion_stock_homepage'));
+        }
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }
