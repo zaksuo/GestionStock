@@ -1,0 +1,5 @@
+_assetic:
+    resource: .
+    type: assetic
+_app:
+    resource: 'D:/Projets/PHP/Perso/GestionStock/app/config/routing_dev.yml'
