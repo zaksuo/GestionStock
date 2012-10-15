@@ -1,0 +1,44 @@
+{% extends "BoutiqueDatabaseBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h1>Article</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Code article</th>
+                <td>{{ entity.code }}</td>
+            </tr>
+            <tr>
+                <th>Nom de l'article</th>
+                <td>{{ entity.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Prix de vente</th>
+                <td>{{ entity.prixVente }}</td>
+            </tr>
+            <tr>
+                <th>Stocks</th>
+                <td>
+                    <ul>
+                    {% for stock in entity.stocks %}
+                        <li>{{ stock.quantite }} entrées le {{ stock.dateEntree|date("d/m/Y \\à\\ H:i") }}</li>
+                    {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('article') }}">Annuler</a> | 
+    <a href="{{ path('article_edit', { 'id': entity.id }) }}">Modifier article</a> |
+    <a href="{{ path('stock_add', { 'id_article': entity.id }) }}">Ajouter du stock</a>
+    <!--<a href="{{ path('article_delete', { 'id': entity.id }) }}">Supprimer</a>-->
+
+{% endblock %}

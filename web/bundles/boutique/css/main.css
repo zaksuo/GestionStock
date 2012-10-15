@@ -1,0 +1,31 @@
+/* 
+    Document   : main
+    Created on : 15 oct. 2012, 08:15:14
+    Author     : gautierju
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+table {
+    border : 1px solid gray;
+    border-collapse: collapse;
+}
+
+table th {
+    background-color : gray;
+    color : white;
+    font-weight : bold;
+    padding-left : 10px;
+    padding-right : 10px;
+    border : 1px solid white;
+}
+
+table td {
+    padding-left : 10px;
+    padding-right : 10px;
+    border : 1px solid gray;
+}

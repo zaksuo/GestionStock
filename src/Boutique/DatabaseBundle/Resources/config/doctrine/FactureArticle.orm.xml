@@ -6,6 +6,11 @@
     </id>
     <field name="idRemise" type="integer" column="id_remise" nullable="true"/>
     <field name="quantite" type="integer" column="quantite" nullable="false"/>
+    <many-to-one field="idStock" target-entity="Stock">
+      <join-columns>
+        <join-column name="id_stock" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
     <many-to-one field="idArticle" target-entity="Article">
       <join-columns>
         <join-column name="id_article" referenced-column-name="id"/>
@@ -14,11 +19,6 @@
     <many-to-one field="idFacture" target-entity="Facture">
       <join-columns>
         <join-column name="id_facture" referenced-column-name="id"/>
-      </join-columns>
-    </many-to-one>
-    <many-to-one field="idStock" target-entity="Stock">
-      <join-columns>
-        <join-column name="id_stock" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

@@ -1,0 +1,16 @@
+{% extends "BoutiqueDatabaseBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h1>Ajouter une entrée de stock à l'article "{{ article.code }} - {{ article.libelle }}"</h1>
+
+    <form action="{{ path('stock_create', {id_article: article.id}) }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit">Ajouter</button>
+        </p>
+    </form>
+
+    <a href="{{ path('article') }}">Annuler</a>
+
+{% endblock %}

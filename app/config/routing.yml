@@ -1,5 +1,5 @@
 boutique_database:
-    resource: "@BoutiqueDatabaseBundle/Resources/config/routing.xml"
+    resource: "@BoutiqueDatabaseBundle/Resources/config/routing.yml"
     prefix:   /
 
 boutique_gestion_stock:

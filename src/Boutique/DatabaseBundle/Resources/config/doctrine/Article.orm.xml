@@ -3,20 +3,22 @@
   <entity name="Boutique\DatabaseBundle\Entity\Article" table="article">
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
+      
     </id>
     <field name="code" type="string" column="code" length="10" nullable="false"/>
     <field name="libelle" type="string" column="libelle" length="50" nullable="false"/>
-    <field name="desc" type="text" column="desc" nullable="true"/>
+    <field name="description" type="text" column="description" nullable="true"/>
     <field name="prixVente" type="float" column="prix_vente" nullable="false"/>
-    <many-to-one field="typeArticle" target-entity="TypeArticle">
-      <join-columns>
-        <join-column name="type_article" referenced-column-name="id"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="typeTva" target-entity="TypeTva">
       <join-columns>
         <join-column name="type_tva" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
+    <many-to-one field="typeArticle" target-entity="TypeArticle">
+      <join-columns>
+        <join-column name="type_article" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <one-to-many field="stocks" target-entity="Stock" mapped-by="idArticle" />
   </entity>
 </doctrine-mapping>
