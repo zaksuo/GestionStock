@@ -10,6 +10,10 @@ root {
     display: block;
 }
 
+.hidden {
+    display : none;
+}
+
 table {
     border : 1px solid gray;
     border-collapse: collapse;

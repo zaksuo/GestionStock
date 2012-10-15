@@ -25,3 +25,7 @@ article_update:
 article_delete:
   pattern: /{id}/delete
   defaults: { _controller: BoutiqueDatabaseBundle:Article:delete, _method: post }
+  
+article_search:
+  pattern: /search
+  defaults: { _controller: BoutiqueDatabaseBundle:Article:search }

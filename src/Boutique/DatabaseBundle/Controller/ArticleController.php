@@ -158,4 +158,18 @@ class ArticleController extends Controller
     {
         return $this->redirect($this->generateUrl('article'));
     }
+    
+    public function searchAction(Request $request) {
+        $search = $request->get('search_article');
+  
+        if( !is_null($search) ) {
+            $em = $this->getDoctrine()->getManager();
+            
+            $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch($search);
+        }
+        
+        return $this->render('BoutiqueDatabaseBundle:Ajax_Article:articles.html.twig', array(
+            'articles'      => $articles
+        ));
+    }
 }
