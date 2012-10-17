@@ -7,8 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Boutique\DatabaseBundle\Entity\Article;
 use Boutique\DatabaseBundle\Entity\Stock;
+use Boutique\DatabaseBundle\Entity\ArticleStock;
+
 use Boutique\DatabaseBundle\Form\ArticleType;
 use Boutique\DatabaseBundle\Form\ArticleStockType;
+
 
 /**
  * Article controller.
@@ -39,14 +42,16 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BoutiqueDatabaseBundle:Article')->find($id);
+        $article = $em->getRepository('BoutiqueDatabaseBundle:Article')->find($id);
 
-        if (!$entity) {
+        if (!$article) {
             throw $this->createNotFoundException('Erreur : Cet article n\'exite pas.');
         }
 
+        var_dump($article->getStocks());
+        
         return $this->render('BoutiqueDatabaseBundle:Article:show.html.twig', array(
-            'entity'      => $entity
+            'article'      => $article
         ));
     }
 
@@ -71,20 +76,24 @@ class ArticleController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        
         $article = new Article();
         $form = $this->createForm(new ArticleStockType(), $article);
         $form->bind($request);
         
         $stock = $article->getNewStock();
         
+        $article_stock = new ArticleStock();
+        $article_stock->setQuantite($stock->getQuantite());
+        $em->persist($article_stock);
+        
         if ($form->isValid()) {
-            
-            $em = $this->getDoctrine()->getManager();
+            $article->setArticleStock($article_stock);
             $em->persist($article);
             
             $stock->setDateEntree(new \DateTime('now'));
             $stock->setIdArticle($article);
-            
             $em->persist($stock);
             
             $em->flush();

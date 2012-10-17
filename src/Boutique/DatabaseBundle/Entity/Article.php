@@ -222,14 +222,32 @@ class Article
         $this->stock = $stocks;
     }
     
-    public function getSommeStocks() {
-        $somme = 0;
-        $stocks = $this->getStocks();
-        
-        foreach( $stocks as $stock ) {
-            $somme += $stock->getQuantite();
-        }
+    /**
+     * @var Boutique\DatabaseBundle\Entity\ArticleStock
+     */
+    private $articleStock;
 
-        return $somme;
+
+    /**
+     * Set articleStock
+     *
+     * @param Boutique\DatabaseBundle\Entity\ArticleStock $articleStock
+     * @return Article
+     */
+    public function setArticleStock(\Boutique\DatabaseBundle\Entity\ArticleStock $articleStock = null)
+    {
+        $this->articleStock = $articleStock;
+    
+        return $this;
+    }
+
+    /**
+     * Get articleStock
+     *
+     * @return Boutique\DatabaseBundle\Entity\ArticleStock 
+     */
+    public function getArticleStock()
+    {
+        return $this->articleStock;
     }
 }

@@ -8,26 +8,30 @@
         <tbody>
             <tr>
                 <th>Code article</th>
-                <td>{{ entity.code }}</td>
+                <td>{{ article.code }}</td>
             </tr>
             <tr>
                 <th>Nom de l'article</th>
-                <td>{{ entity.libelle }}</td>
+                <td>{{ article.libelle }}</td>
             </tr>
             <tr>
                 <th>Description</th>
-                <td>{{ entity.description }}</td>
+                <td>{{ article.description }}</td>
             </tr>
             <tr>
                 <th>Prix de vente</th>
-                <td>{{ entity.prixVente }}</td>
+                <td>{{ article.prixVente }}</td>
             </tr>
             <tr>
-                <th>Stocks</th>
+                <th>Quantité restante</th>
+                <td>{{ article.articleStock.quantite }}</td>
+            </tr>
+            <tr>
+                <th>Entrées de stock</th>
                 <td>
                     <ul>
-                    {% for stock in entity.stocks %}
-                        <li>{{ stock.quantite }} entrées le {{ stock.dateEntree|date("d/m/Y \\à\\ H:i") }}</li>
+                    {% for stock in article.stocks %}
+                        <li>{{ stock.dateEntree|date("d/m/Y") }} : Ajout de {{ stock.quantite }} entrées ({{ stock.prixAchat }} €/unité)</li>
                     {% endfor %}
                     </ul>
                 </td>
@@ -37,8 +41,8 @@
     </table>
 
     <a href="{{ path('article') }}">Annuler</a> | 
-    <a href="{{ path('article_edit', { 'id': entity.id }) }}">Modifier article</a> |
-    <a href="{{ path('stock_add', { 'id_article': entity.id }) }}">Ajouter du stock</a>
-    <!--<a href="{{ path('article_delete', { 'id': entity.id }) }}">Supprimer</a>-->
+    <a href="{{ path('article_edit', { 'id': article.id }) }}">Modifier article</a> |
+    <a href="{{ path('stock_add', { 'id_article': article.id }) }}">Ajouter du stock</a>
+    <!--<a href="{{ path('article_delete', { 'id': article.id }) }}">Supprimer</a>-->
 
 {% endblock %}
