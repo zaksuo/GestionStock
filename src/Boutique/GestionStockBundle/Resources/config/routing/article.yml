@@ -1,0 +1,31 @@
+article:
+  pattern: /
+  defaults: { _controller: BoutiqueGestionStockBundle:Article:index }
+
+article_show:
+  pattern:  /{id}/show
+  defaults: { _controller: BoutiqueGestionStockBundle:Article:show }
+
+article_new:
+  pattern: /new
+  defaults: { _controller: BoutiqueGestionStockBundle:Article:new }
+
+article_create:
+  pattern: /create
+  defaults: { _controller: BoutiqueGestionStockBundle:Article:create, _method: post }
+
+article_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: BoutiqueGestionStockBundle:Article:edit }
+
+article_update:
+  pattern: /{id}/update
+  defaults: { _controller: BoutiqueGestionStockBundle:Article:update, _method: post }
+
+article_delete:
+  pattern: /{id}/delete
+  defaults: { _controller: BoutiqueGestionStockBundle:Article:delete, _method: post }
+  
+article_search:
+  pattern: /search
+  defaults: { _controller: BoutiqueGestionStockBundle:Article:search }

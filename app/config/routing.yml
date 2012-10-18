@@ -3,7 +3,7 @@ boutique_database:
     prefix:   /
 
 boutique_gestion_stock:
-    resource: "@BoutiqueGestionStockBundle/Resources/config/routing.xml"
+    resource: "@BoutiqueGestionStockBundle/Resources/config/routing.yml"
     prefix:   /
 
 

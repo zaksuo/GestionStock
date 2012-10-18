@@ -1,7 +1,1 @@
-boutique_database_article:
-    resource: "@BoutiqueDatabaseBundle/Resources/config/routing/article.yml"
-    prefix:   /article
 
-boutique_database_stock:
-    resource: "@BoutiqueDatabaseBundle/Resources/config/routing/stock.yml"
-    prefix:   /stock

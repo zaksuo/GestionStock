@@ -1,0 +1,11 @@
+stock_new:
+  pattern: /new_stock
+  defaults: { _controller: BoutiqueGestionStockBundle:Stock:newStock }
+  
+stock_add:
+  pattern: /{id_article}/add_stock
+  defaults: { _controller: BoutiqueGestionStockBundle:Stock:addStock, _method: post }
+  
+stock_create:
+  pattern: create_stock
+  defaults: { _controller: BoutiqueGestionStockBundle:Stock:createStock, _method: post }

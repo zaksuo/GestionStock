@@ -12,7 +12,7 @@ class StockArticleType extends AbstractType
     {
         $builder
             ->add('quantite', null, array('required' => false, 'label' => 'Quantité d\'articles'))
-            ->add('prix_achat', null, array('required' => false, 'label' => 'Prix d\'achat'))
+            ->add('prixAchat', null, array('required' => false, 'label' => 'Prix d\'achat'))
             ->add('delottage', null, array('required' => false, 'label' => 'Ces objets ont ils été achetés en lot ?'))
         ;
     }

@@ -15,7 +15,9 @@
     </head>
     <body>
         {% block body %}
-            {% block content %}{% endblock %}
+            <div id="banner">{% include '::_banner.html.twig' %}</div>
+            <div id="body_content">{% block content %}{% endblock %}</div>
+            <div id="side_links">{% include '::_side_links.html.twig' %}</div>
         {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

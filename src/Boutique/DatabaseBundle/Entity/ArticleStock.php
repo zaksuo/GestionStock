@@ -20,6 +20,10 @@ class ArticleStock
     private $id;
 
 
+    public function __toString() {
+        return "$this->id";
+    }
+    
     /**
      * Set quantite
      *

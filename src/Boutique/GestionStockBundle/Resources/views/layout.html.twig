@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheet %}
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/boutique/js/bundles/gestionStock_article.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/boutique/js/bundles/gestionStock_stock.js') }}"></script>
+{% endblock %}

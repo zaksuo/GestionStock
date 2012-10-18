@@ -11,9 +11,9 @@ class StockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('id_article', null, array('required' => false, 'label' => 'Article à restocker'))
+            //->add('idArticle', 'hidden', array('required' => false))
             ->add('quantite', null, array('required' => false, 'label' => 'Quantité d\'articles'))
-            ->add('prix_achat', null, array('required' => false, 'label' => 'Prix d\'achat'))
+            ->add('prixAchat', null, array('required' => false, 'label' => 'Prix d\'achat'))
             ->add('delottage', null, array('required' => false, 'label' => 'Ces objets ont ils été achetés en lot ?'))
         ;
     }
@@ -21,7 +21,8 @@ class StockType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Boutique\DatabaseBundle\Entity\Stock'
+            'data_class' => 'Boutique\DatabaseBundle\Entity\Stock',
+            'csrf_protection' => false
         ));
     }
 

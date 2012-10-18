@@ -1,0 +1,7 @@
+boutique_database_article:
+    resource: "@BoutiqueGestionStockBundle/Resources/config/routing/article.yml"
+    prefix:   /article
+
+boutique_database_stock:
+    resource: "@BoutiqueGestionStockBundle/Resources/config/routing/stock.yml"
+    prefix:   /stock

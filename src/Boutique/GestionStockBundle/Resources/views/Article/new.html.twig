@@ -1,0 +1,16 @@
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h1>Ajouter un article</h1>
+
+    <form action="{{ path('article_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit">Créer</button>
+        </p>
+    </form>
+
+    <a href="{{ path('article') }}">Annuler</a>
+
+{% endblock %}

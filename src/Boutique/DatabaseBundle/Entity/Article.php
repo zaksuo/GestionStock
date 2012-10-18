@@ -218,7 +218,7 @@ class Article
         return $this->stocks;
     }
     
-    public function setStocks($stock) {
+    public function setStocks($stocks) {
         $this->stock = $stocks;
     }
     

@@ -1,0 +1,30 @@
+    <h3>Articles trouvés</h3>
+
+    {% if articles|length > 0 %}
+        <table class="records_list">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Libellé</th>
+                    <th>Prix de vente</th>
+                    <th>Quantité</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td class="article_code">{{ article.code }}</td>
+                    <td class="article_libelle">{{ article.libelle }}</td>
+                    <td class="article_prixVente">{{ article.prixVente }}</td>
+                    <td class="article_quantite">{{ article.articleStock.quantite }}</td>
+                    <td id="{{ article.id }}">
+                        <a class="select_restock_link" href="{{ path('stock_add', {'id_article' : article.id}) }}">sélectionner</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        Aucun article correspondant à votre recherche a été trouvé.
+    {% endif %}
