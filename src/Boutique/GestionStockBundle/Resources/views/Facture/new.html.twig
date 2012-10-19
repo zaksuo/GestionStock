@@ -1,0 +1,16 @@
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h1>Nouvelle facture</h1>
+
+    Rechercher un article : 
+    <form id="search_article_form" action="{{ path('facture_article_search', {'id_facture' : facture.id}) }}" method="post">
+        <input id="search_article_field" type='text' name='search_article' >
+    </form>
+
+    <div id="search_results"></div>
+    
+    <div id="restock_form"><a href="{{ path('article') }}">Annuler</a></div>
+
+{% endblock %}

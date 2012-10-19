@@ -1,0 +1,8 @@
+<ul>
+    <li>
+        {{ article.code }} - {{ article.libelle }} : {{ article.prixVente }} €  x  
+        <form action="" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form) }}
+        </form>
+    </li>
+</ul>

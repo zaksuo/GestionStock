@@ -11,12 +11,7 @@ use Boutique\DatabaseBundle\Form\StockType;
 class StockController extends Controller
 {
     public function newStockAction() {
-        $stock = new Stock();
-        $form = $this->createForm(new StockType(), $stock);
-        
-        return $this->render('BoutiqueGestionStockBundle:Stock:new.html.twig', array(
-            'form'   => $form->createView()
-         ));
+        return $this->render('BoutiqueGestionStockBundle:Stock:new.html.twig');
     }
     
     public function addStockAction($id_article = null, $ajax = false) {

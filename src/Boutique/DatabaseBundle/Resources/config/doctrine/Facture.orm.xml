@@ -5,9 +5,9 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="date" type="datetime" column="date" nullable="false"/>
-    <field name="client" type="integer" column="client" nullable="true"/>
-    <field name="montant" type="float" column="montant" nullable="false"/>
-    <field name="montantRemise" type="float" column="montant_remise" nullable="false"/>
-    <field name="remise" type="integer" column="remise" nullable="false"/>
+    <field name="client" type="integer" column="client" nullable="true" />
+    <field name="montantFacture" type="float" column="montant_facture"/>
+    <field name="montantRemise" type="float" column="montant_remise"/>
+    <field name="valide" type="boolean" column="valide"/>
   </entity>
 </doctrine-mapping>

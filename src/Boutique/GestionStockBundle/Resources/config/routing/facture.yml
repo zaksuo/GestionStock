@@ -1,11 +1,19 @@
 facture:
   pattern: /
-  defaults: { _controller: BoutiqueGestionStockBundle:Facture:index }
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:index }
 
 facture_show:
   pattern: /{id}/show
-  defaults: { _controller: BoutiqueGestionStockBundle:Facture:show }
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:show }
   
 facture_new:
   pattern: /new
-  defaults: { _controller: BoutiqueGestionStockBundle:Facture:new }
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:new }
+  
+facture_article_search:
+  pattern: /search
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:searchArticle }
+  
+facturation_article_add:
+  pattern: /{id_facture}/article_add/{id_article}
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:addArticle }

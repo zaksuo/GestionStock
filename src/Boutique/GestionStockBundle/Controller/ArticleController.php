@@ -175,7 +175,7 @@ class ArticleController extends Controller
             $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch($search);
         }
         
-        return $this->render('BoutiqueGestionStockBundle:Ajax_Article:articles.html.twig', array(
+        return $this->render('BoutiqueGestionStockBundle:Ajax_Article:article_restock.html.twig', array(
             'articles'      => $articles
         ));
     }

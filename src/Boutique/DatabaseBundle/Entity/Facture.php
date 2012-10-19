@@ -22,12 +22,7 @@ class Facture
     /**
      * @var float $montant
      */
-    private $montant;
-
-    /**
-     * @var float $tva
-     */
-    private $tva;
+    private $montantFacture;
 
     /**
      * @var float $montantRemise
@@ -38,12 +33,6 @@ class Facture
      * @var integer $id
      */
     private $id;
-
-    /**
-     * @var Boutique\DatabaseBundle\Entity\Remise
-     */
-    private $idRemise;
-
 
     /**
      * Set date
@@ -92,12 +81,12 @@ class Facture
     }
 
     /**
-     * Set montant
+     * Set montantFacture
      *
      * @param float $montant
      * @return Facture
      */
-    public function setMontant($montant)
+    public function setMontantFacture($montant)
     {
         $this->montant = $montant;
     
@@ -105,36 +94,13 @@ class Facture
     }
 
     /**
-     * Get montant
+     * Get montantFacture
      *
      * @return float 
      */
-    public function getMontant()
+    public function getMontantFacture()
     {
         return $this->montant;
-    }
-
-    /**
-     * Set tva
-     *
-     * @param float $tva
-     * @return Facture
-     */
-    public function setTva($tva)
-    {
-        $this->tva = $tva;
-    
-        return $this;
-    }
-
-    /**
-     * Get tva
-     *
-     * @return float 
-     */
-    public function getTva()
-    {
-        return $this->tva;
     }
 
     /**
@@ -169,55 +135,42 @@ class Facture
     {
         return $this->id;
     }
+    /**
+     * @var boolean $valide
+     */
+    private $valide;
+
 
     /**
-     * Set idRemise
+     * Set valide
      *
-     * @param Boutique\DatabaseBundle\Entity\Remise $idRemise
+     * @param boolean $valide
      * @return Facture
      */
-    public function setIdRemise(\Boutique\DatabaseBundle\Entity\Remise $idRemise = null)
+    public function setValide($valide)
     {
-        $this->idRemise = $idRemise;
+        $this->valide = $valide;
     
         return $this;
     }
 
     /**
-     * Get idRemise
+     * Get valide
      *
-     * @return Boutique\DatabaseBundle\Entity\Remise 
+     * @return boolean 
      */
-    public function getIdRemise()
+    public function getValide()
     {
-        return $this->idRemise;
+        return $this->valide;
     }
-    /**
-     * @var integer $remise
-     */
-    private $remise;
-
-
-    /**
-     * Set remise
-     *
-     * @param integer $remise
-     * @return Facture
-     */
-    public function setRemise($remise)
-    {
-        $this->remise = $remise;
     
+    
+    public function init() {
+        $this->montantFacture = 0;
+        $this->montantRemise = 0;
+        $this->date = new \DateTime('now');
+        $this->valide = false;
+        
         return $this;
-    }
-
-    /**
-     * Get remise
-     *
-     * @return integer 
-     */
-    public function getRemise()
-    {
-        return $this->remise;
     }
 }
