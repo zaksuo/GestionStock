@@ -5,3 +5,7 @@ boutique_database_article:
 boutique_database_stock:
     resource: "@BoutiqueGestionStockBundle/Resources/config/routing/stock.yml"
     prefix:   /stock
+
+boutique_database_facture:
+    resource: "@BoutiqueGestionStockBundle/Resources/config/routing/facture.yml"
+    prefix:   /facture

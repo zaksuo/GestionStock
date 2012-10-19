@@ -15,6 +15,10 @@
                 <td>{{ article.libelle }}</td>
             </tr>
             <tr>
+                <th>Type de vente</th>
+                <td>{{ article.typeVente.libelle }}</td>
+            </tr>
+            <tr>
                 <th>Description</th>
                 <td>{{ article.description }}</td>
             </tr>
@@ -29,7 +33,7 @@
             <tr>
                 <th>Entrées de stock</th>
                 <td>
-                    <ul>
+                    <ul id="stock_list">
                     {% for stock in article.stocks %}
                         <li>{{ stock.dateEntree|date("d/m/Y") }} : Ajout de {{ stock.quantite }} entrées ({{ stock.prixAchat }} €/unité)</li>
                     {% endfor %}

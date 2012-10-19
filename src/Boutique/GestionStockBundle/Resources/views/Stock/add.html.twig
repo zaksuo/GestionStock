@@ -1,11 +1,5 @@
-ajax : {{ ajax }}
-
-{% if ajax equals 1 %}
-    {% include 'BoutiqueGestionStockBundle:Stock:_form.html.twig' with {'article': article, 'form': form} %}
+{% if ajax == true %}
+    {% include 'BoutiqueGestionStockBundle:Stock:_formAjax.html.twig' with {'article': article, 'form': form} %}
 {% else %}
-    {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
-
-    {% block content %}
-        {% include 'BoutiqueGestionStockBundle:Stock:_form.html.twig' with {'article': article, 'form': form} %}
-    {% endblock %}
-{% endif %}
+    {% include 'BoutiqueGestionStockBundle:Stock:_form.html.twig' with {'article': article, 'form': form} %}
+ {% endif %}

@@ -1,0 +1,18 @@
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
+
+{% block content %}
+    <h1> Liste de toutes les factures</h1>
+
+    {% if factures|length > 0 %}
+        {{ factures|length }} factures :
+
+        <ul>
+            {% for facture in factures %}
+                <li>{{ date|date('d/m/Y à H:i)}} - facture n°{{ id }}</li>
+            {% endfor %}
+        </ul>
+        
+    {% else %}
+        Aucune facture trouvée.
+    {% endif %}
+{% endblock %}

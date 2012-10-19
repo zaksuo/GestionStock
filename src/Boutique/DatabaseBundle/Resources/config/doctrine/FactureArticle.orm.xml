@@ -4,21 +4,16 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="idRemise" type="integer" column="id_remise" nullable="true"/>
+    <field name="prixUnitaire" type="integer" column="prix_unitaire" nullable="false"/>
     <field name="quantite" type="integer" column="quantite" nullable="false"/>
-    <many-to-one field="idStock" target-entity="Stock">
+    <many-to-one field="facture" target-entity="Facture">
       <join-columns>
-        <join-column name="id_stock" referenced-column-name="id"/>
+        <join-column name="facture" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="idArticle" target-entity="Article">
+    <many-to-one field="article" target-entity="Article">
       <join-columns>
-        <join-column name="id_article" referenced-column-name="id"/>
-      </join-columns>
-    </many-to-one>
-    <many-to-one field="idFacture" target-entity="Facture">
-      <join-columns>
-        <join-column name="id_facture" referenced-column-name="id"/>
+        <join-column name="article" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

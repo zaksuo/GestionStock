@@ -1,15 +1,19 @@
-<h1>Ajouter une entrée de stock à l'article "{{ article.code }} - {{ article.libelle }}"</h1>
-    
-<form action="{{ path('stock_create') }}" method="post" {{ form_enctype(form) }}>
-    <input type="hidden" name="boutique_databasebundle_stocktype[idArticle]" id="boutique_databasebundle_stocktype_idArticle" value="{{ article.id }}"/>
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
-    {{ form_errors(form) }}
-    <p>{{ form_label(form.quantite) }} : {{ form_widget(form.quantite) }}</p>
-    <p>{{ form_label(form.prixAchat) }} : {{ form_widget(form.prixAchat) }}</p>
-    <p>{{ form_label(form.delottage) }} : {{ form_widget(form.delottage) }}</p>
-    {{ form_rest(form) }}
+    {% block content %}
+        <h1>Ajouter une entrée de stock à l'article "{{ article.code }} - {{ article.libelle }}"</h1>
 
-    <p><button type="submit">Ajouter</button></p>
-</form>
+        <form action="{{ path('stock_create') }}" method="post" {{ form_enctype(form) }}>
+            <input type="hidden" name="boutique_databasebundle_stocktype[idArticle]" id="boutique_databasebundle_stocktype_idArticle" value="{{ article.id }}"/>
 
-<a href="{{ path('article') }}">Annuler</a>
+            {{ form_errors(form) }}
+            <p>{{ form_label(form.quantite) }} : {{ form_widget(form.quantite) }}</p>
+            <p>{{ form_label(form.prixAchat) }} : {{ form_widget(form.prixAchat) }}</p>
+            <p>{{ form_label(form.delottage) }} : {{ form_widget(form.delottage) }}</p>
+            {{ form_rest(form) }}
+
+            <p><button type="submit">Ajouter</button></p>
+        </form>
+
+        <a href="{{ path('article') }}">Annuler</a>
+{% endblock %}

@@ -7,12 +7,7 @@
     <field name="date" type="datetime" column="date" nullable="false"/>
     <field name="client" type="integer" column="client" nullable="true"/>
     <field name="montant" type="float" column="montant" nullable="false"/>
-    <field name="tva" type="float" column="tva" nullable="false"/>
     <field name="montantRemise" type="float" column="montant_remise" nullable="false"/>
-    <many-to-one field="idRemise" target-entity="Remise">
-      <join-columns>
-        <join-column name="id_remise" referenced-column-name="id"/>
-      </join-columns>
-    </many-to-one>
+    <field name="remise" type="integer" column="remise" nullable="false"/>
   </entity>
 </doctrine-mapping>

@@ -16,6 +16,7 @@ class ArticleStockType extends AbstractType
             ->add('description', null, array('required' => false, 'label' => 'Description'))
             ->add('prixVente', null, array('required' => false, 'label' => 'Prix de vente'))
             ->add('typeArticle', null, array('required' => false, 'label' => 'Catégorie d\'article'))
+            ->add('typeVente', null, array('required' => false, 'label' => 'Type de vente'))
             ->add('typeTva', null, array('required' => false, 'label' => 'T.V.A.'))
             ->add('new_stock', new StockType(), array('label' => ''));
         ;

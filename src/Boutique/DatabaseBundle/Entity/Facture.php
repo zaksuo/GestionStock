@@ -192,4 +192,32 @@ class Facture
     {
         return $this->idRemise;
     }
+    /**
+     * @var integer $remise
+     */
+    private $remise;
+
+
+    /**
+     * Set remise
+     *
+     * @param integer $remise
+     * @return Facture
+     */
+    public function setRemise($remise)
+    {
+        $this->remise = $remise;
+    
+        return $this;
+    }
+
+    /**
+     * Get remise
+     *
+     * @return integer 
+     */
+    public function getRemise()
+    {
+        return $this->remise;
+    }
 }

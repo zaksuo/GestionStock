@@ -250,4 +250,32 @@ class Article
     {
         return $this->articleStock;
     }
+    /**
+     * @var Boutique\DatabaseBundle\Entity\TypeVente
+     */
+    private $typeVente;
+
+
+    /**
+     * Set typeVente
+     *
+     * @param Boutique\DatabaseBundle\Entity\TypeVente $typeVente
+     * @return Article
+     */
+    public function setTypeVente(\Boutique\DatabaseBundle\Entity\TypeVente $typeVente = null)
+    {
+        $this->typeVente = $typeVente;
+    
+        return $this;
+    }
+
+    /**
+     * Get typeVente
+     *
+     * @return Boutique\DatabaseBundle\Entity\TypeVente 
+     */
+    public function getTypeVente()
+    {
+        return $this->typeVente;
+    }
 }

@@ -1,0 +1,11 @@
+facture:
+  pattern: /
+  defaults: { _controller: BoutiqueGestionStockBundle:Facture:index }
+
+facture_show:
+  pattern: /{id}/show
+  defaults: { _controller: BoutiqueGestionStockBundle:Facture:show }
+  
+facture_new:
+  pattern: /new
+  defaults: { _controller: BoutiqueGestionStockBundle:Facture:new }

@@ -164,4 +164,88 @@ class FactureArticle
     {
         return $this->idStock;
     }
+    /**
+     * @var integer $prixUnitaire
+     */
+    private $prixUnitaire;
+
+    /**
+     * @var Boutique\DatabaseBundle\Entity\Facture
+     */
+    private $facture;
+
+    /**
+     * @var Boutique\DatabaseBundle\Entity\Article
+     */
+    private $article;
+
+
+    /**
+     * Set prixUnitaire
+     *
+     * @param integer $prixUnitaire
+     * @return FactureArticle
+     */
+    public function setPrixUnitaire($prixUnitaire)
+    {
+        $this->prixUnitaire = $prixUnitaire;
+    
+        return $this;
+    }
+
+    /**
+     * Get prixUnitaire
+     *
+     * @return integer 
+     */
+    public function getPrixUnitaire()
+    {
+        return $this->prixUnitaire;
+    }
+
+    /**
+     * Set facture
+     *
+     * @param Boutique\DatabaseBundle\Entity\Facture $facture
+     * @return FactureArticle
+     */
+    public function setFacture(\Boutique\DatabaseBundle\Entity\Facture $facture = null)
+    {
+        $this->facture = $facture;
+    
+        return $this;
+    }
+
+    /**
+     * Get facture
+     *
+     * @return Boutique\DatabaseBundle\Entity\Facture 
+     */
+    public function getFacture()
+    {
+        return $this->facture;
+    }
+
+    /**
+     * Set article
+     *
+     * @param Boutique\DatabaseBundle\Entity\Article $article
+     * @return FactureArticle
+     */
+    public function setArticle(\Boutique\DatabaseBundle\Entity\Article $article = null)
+    {
+        $this->article = $article;
+    
+        return $this;
+    }
+
+    /**
+     * Get article
+     *
+     * @return Boutique\DatabaseBundle\Entity\Article 
+     */
+    public function getArticle()
+    {
+        return $this->article;
+    }
 }

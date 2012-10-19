@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Boutique\DatabaseBundle\Entity\FactureRemise" table="facture_remise">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="facture" type="integer" column="facture" nullable="false"/>
+    <field name="remise" type="integer" column="remise" nullable="false"/>
+    <field name="montantRemise" type="float" column="montant_remise" nullable="false"/>
+  </entity>
+</doctrine-mapping>
