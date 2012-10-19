@@ -3,8 +3,8 @@ stock_new:
   defaults: { _controller: BoutiqueGestionStockBundle:Stock:newStock }
   
 stock_add:
-  pattern: /{id_article}/add_stock
-  defaults: { _controller: BoutiqueGestionStockBundle:Stock:addStock, _method: post }
+  pattern: /{id_article}/add_stock/{ajax}
+  defaults: { _controller: BoutiqueGestionStockBundle:Stock:addStock, _method: post, ajax : false }
   
 stock_create:
   pattern: create_stock

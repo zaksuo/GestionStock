@@ -69,6 +69,11 @@ table td {
     background : white;
 }
 
+ul {
+    margin : 0;
+    padding : 0;
+}
+
 #side_links {
     width : 200px;
     float : right;
@@ -79,4 +84,8 @@ table td {
     -border-radius: 5px 5px 20px 5px;
     padding : 15px;
     background : white;
+}
+
+#side_links ul {
+    list-style-type: none;
 }

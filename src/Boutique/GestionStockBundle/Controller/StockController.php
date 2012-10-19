@@ -19,14 +19,19 @@ class StockController extends Controller
          ));
     }
     
-    public function addStockAction($id_article = null) {
+    public function addStockAction($id_article = null, $ajax = false) {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('BoutiqueDatabaseBundle:Article')->find($id_article);
         
         $stock = new Stock();
         $form = $this->createForm(new StockType(), $stock);
         
+        if( !isset($ajax) ) {
+            $ajax = 0;
+        }
+        
         return $this->render('BoutiqueGestionStockBundle:Stock:add.html.twig', array(
+            'ajax' => $ajax,
             'article' => $article,
             'form'   => $form->createView()
         ));

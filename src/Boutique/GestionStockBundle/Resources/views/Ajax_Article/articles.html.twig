@@ -19,7 +19,7 @@
                     <td class="article_prixVente">{{ article.prixVente }}</td>
                     <td class="article_quantite">{{ article.articleStock.quantite }}</td>
                     <td id="{{ article.id }}">
-                        <a class="select_restock_link" href="{{ path('stock_add', {'id_article' : article.id}) }}">sélectionner</a>
+                        <a class="select_restock_link" href="{{ path('stock_add', {'id_article': article.id, 'ajax': true}) }}">sélectionner</a>
                     </td>
                 </tr>
             {% endfor %}
