@@ -3,6 +3,7 @@
 namespace Boutique\GestionStockBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Boutique\DatabaseBundle\Entity\Facture;
@@ -16,7 +17,7 @@ use Boutique\DatabaseBundle\Form\FactureArticleType;
  */
 class FacturationController extends Controller
 {
-    public function indexAction() {
+    public function indexFactureAction() {
         $em = $this->getDoctrine()->getManager();
         
         $factures = $em->getRepository('BoutiqueDatabaseBundle:Facture')->findAll(array('orderBy' => 'date'));
@@ -26,7 +27,7 @@ class FacturationController extends Controller
         ));
     }
     
-    public function newAction() {
+    public function newFactureAction() {
         $em = $this->getDoctrine()->getManager();
         
         $facture = new Facture();
@@ -40,7 +41,7 @@ class FacturationController extends Controller
         ));
     }
     
-    public function showAction( $id ) {
+    public function showFactureAction( $id ) {
         $em = $this->getDoctrine()->getManager();
         
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id);
@@ -50,7 +51,7 @@ class FacturationController extends Controller
         ));
     }
     
-    public function editAction( $id ) {
+    public function editFactureAction( $id ) {
         $em = $this->getDoctrine()->getManager();
         
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id);
@@ -60,7 +61,7 @@ class FacturationController extends Controller
         ));
     }
     
-    public function deleteAction($id) {
+    public function deleteFactureAction($id) {
         $em = $this->getDoctrine()->getManager();
         
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id);
@@ -84,6 +85,16 @@ class FacturationController extends Controller
         
         return $this->render('BoutiqueGestionStockBundle:Facture:index.html.twig', array(
             'factures' => $factures,
+        ));
+    }
+    
+    public function updateFactureTotalAction($id_facture) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
+       
+        return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:facture_total.html.twig', array(
+            'facture' => $facture
         ));
     }
     
@@ -121,7 +132,7 @@ class FacturationController extends Controller
         ));
     }
     
-    public function updateArticleQuantiteAction(Request $request, $id_fact_article ) {
+    public function updateArticleQuantiteAction(Request $request, $id_fact_article) {
         $em = $this->getDoctrine()->getManager();
         
         $quantite = $request->get('quantite');
@@ -131,32 +142,19 @@ class FacturationController extends Controller
         $em->persist($fact_article);
         $em->flush();
         
-        $prix_total = $fact_article->getArticlePrixTotal();
-        
-        return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:article_prix_total.html.twig', array(
-            'prix_total' => $prix_total
+        return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig', array(
+            'fact_article' => $fact_article
         ));
     }
-    
-    public function getArticleTotalTvaAction( $id_fact_article ) {
+   
+    public function removeArticleAction(Request $request, $id_fact_article) {
         $em = $this->getDoctrine()->getManager();
         
         $fact_article = $em->getRepository('BoutiqueDatabaseBundle:FactureArticle')->find($id_fact_article);
         
-        $tva = $fact_article->getTotalArticleTva();
+        $em->remove($fact_article);
+        $em->flush();
         
-        return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:article_total_tva.html.twig', array(
-            'tva' => $tva
-        ));
-    }
-    
-    public function updateFactureTotalAction($id_facture) {
-        $em = $this->getDoctrine()->getManager();
-        
-        $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
-       
-        return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:facture_total.html.twig', array(
-            'facture' => $facture
-        ));
+        return new Response('', 200, array('Content-Type' => 'text/html'));
     }
 }

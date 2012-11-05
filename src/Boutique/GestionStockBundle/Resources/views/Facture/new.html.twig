@@ -6,11 +6,13 @@
 
     <div class="hidden" id="id_facture">{{ facture.id }}</div>
 
-    Rechercher un article : 
-    <form id="search_facture_article_form" action="{{ path('facture_article_search', {'id_facture' : facture.id}) }}" method="post">
-        <input id="search_facture_article_field" type='text' name='search_facture_article' >
-    </form>
-_
+    <div class="facture_article_search">
+        Rechercher un article : 
+        <form id="search_facture_article_form" action="{{ path('facture_article_search', {'id_facture' : facture.id}) }}" method="post">
+            <input id="search_facture_article_field" type='text' name='search_facture_article' >
+        </form>
+_   </div>
+    
     <div id="search_results"></div>
     <div id="facture_erreurs"></div>
     

@@ -1,14 +1,18 @@
 $(document).ready(function(){
     $(".facture_article_row:odd").css('background', '#bcd5e6');
     
+    $('.facture_article_row').live('mouseover', function(){
+        $(this).find('.facture_article_actions').show();
+    }).live('mouseout', function() {
+        $(this).find('.facture_article_actions').hide();
+    });
+    
     $('#search_facture_article_field').keyup(function() {
         if($('#search_facture_article_field').val().length >= 2 ) {
 
             $('#search_facture_article_form').ajaxSubmit({
                 target: '#search_results',
                 replaceTarget: false,
-                //clearForm: true,
-                //resetForm: true,
                 type: 'post'
             });
         }
@@ -29,7 +33,7 @@ $(document).ready(function(){
             });
 
             if( article_existant ) {
-                $("#facture_erreurs").html("Cet article a déjà  été ajouté à la facture. Augmentez la quantité pour en ajouter.").fade(30);
+                $("#facture_erreurs").html("Cet article a dÃ©jÃ Â  Ã©tÃ© ajoutÃ© Ã Â la facture. Augmentez la quantitÃ© pour en ajouter.").fade(30);
             }
             else {
                 $.ajax({
@@ -37,54 +41,48 @@ $(document).ready(function(){
                     success: function( data ) {
                         $('.facture_empty').hide();
                         $("#facture_article_list ul.facture_content").append(data);
-                        $(".facture_article_row:odd").css('background', '#bcd5e6');
+                        updateRowColors();
                     }
                 });
                 $("#search_results").empty();
             }
     });
 
-    $('.facture_article_quantite_field').live('keyup', function() {
-        var value = $(this).val();
+    $('.facture_article_quantite_field').live('focusout', function() {
+        var form = $(this).parent().parent().parent();
         
-        var id_article = $(this).parent().parent().parent().parent().attr('id');
-        var prix_total_ht = $(this).parent().parent().parent().children('.prix_total_ht');
-
-        var form = $(this).parent();
-
-        var total_ht = getArticlePrixTotalHt(form, value, prix_total_ht);
-        var total_tva = updateArticleTvaTotal(id_article);
-        if( total_ht || total_tva ) updateFactureTotal();
+        var articleRow = form.parent();
+        
+        form.ajaxSubmit({
+            target: articleRow,
+            replaceTarget: true,
+            success: updateRowColors,
+            type: 'post'
+        });
+        
+        updateFactureTotal();
     });
 
-    function getArticlePrixTotalHt(form, value, updateField) {
-        if( value == parseFloat(value) || value == parseInt(value) ) {
-            form.ajaxSubmit({
-                target: updateField,
-                replaceTarget: false,
-                type: 'post'
-            });
-            return true;
-        }
-        else {
-            $("#facture_erreurs").html("La valeur saisie n'est pas conforme, ce doit Ãªtre un dÃ©cimal ou un entier").fade(30);
-            return false;
-        }
-    }
-
-    function updateArticleTvaTotal(idFactArticle) {
-        var url = "getArticleTotalTva"
+    $('.facture_article_actions a').live('click', function(e) {
+        e.preventDefault();
+        article_row = $(this).parent().parent();
+        
+        url = $(this).attr('href');
+        
         $.ajax({
             url : url,
-            success: function( data ) {
-                $('#'+idFactArticle+" facture_article_tva article_tva").html(data);
-                alert(data);
+            success: function() {
+                article_row.remove();
+                updateRowColors();
             }
         });
+    });
+
+    function updateRowColors() {
+        $(".facture_article_row:odd").css('background', '#bcd5e6');
     }
 
     function updateFactureTotal() {
-        var id_facture = $("#id_facture").text();
         var url = "updateTotal"
         $.ajax({
             url : url,

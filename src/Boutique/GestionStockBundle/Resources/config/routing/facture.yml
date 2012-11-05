@@ -1,26 +1,30 @@
 facture:
   pattern: /
-  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:index }
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:indexFacture }
 
 facture_show:
   pattern: /{id}/show
-  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:show }
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:showFacture }
   
 facture_new:
   pattern: /new
-  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:new }
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:newFacture }
 
 facture_edit:
   pattern: /{id}/edit
-  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:edit }
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:editFacture }
 
 facture_delete:
   pattern: /{id}/delete
-  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:delete }
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:deleteFacture }
   
 facture_article_search:
   pattern: /{id_facture}/search
   defaults: { _controller: BoutiqueGestionStockBundle:Facturation:searchArticle }
+
+facture_update_total:
+  pattern: /{id_facture}/updateTotal
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:updateFactureTotal }
   
 facturation_article_add:
   pattern: /{id_facture}/article_add/{id_article}
@@ -30,10 +34,6 @@ facture_article_update_quantite:
   pattern: /{id_fact_article}/update
   defaults: { _controller: BoutiqueGestionStockBundle:Facturation:updateArticleQuantite }
 
-facture_article_get_total_tva:
-  pattern: /{id_fact_article}/getArticleTotalTva
-  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:getArticleTotalTva }
-  
-facture_update_total:
-  pattern: /{id_facture}/updateTotal
-  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:updateFactureTotal }
+facture_article_remove:
+  pattern: /{id_fact_article}/removeArticle
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:removeArticle }
