@@ -1,0 +1,17 @@
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h1>Facture {{facture.id}}</h1>
+
+    {% if facture.hasFactArticles %}
+        <ul>
+            {% for fact_article in facture.factArticles %}
+                <li>{{ fact_article.article.code }} - {{ fact_article.article.libelle }}: {{ fact_article.prixUnitaire }} x {{ fact_article.quantite }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        Cette facture ne contient aucun article.
+    {% endif %}
+
+{% endblock %}

@@ -9,11 +9,31 @@ facture_show:
 facture_new:
   pattern: /new
   defaults: { _controller: BoutiqueGestionStockBundle:Facturation:new }
+
+facture_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:edit }
+
+facture_delete:
+  pattern: /{id}/delete
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:delete }
   
 facture_article_search:
-  pattern: /search
+  pattern: /{id_facture}/search
   defaults: { _controller: BoutiqueGestionStockBundle:Facturation:searchArticle }
   
 facturation_article_add:
   pattern: /{id_facture}/article_add/{id_article}
   defaults: { _controller: BoutiqueGestionStockBundle:Facturation:addArticle }
+  
+facture_article_update_quantite:
+  pattern: /{id_fact_article}/update
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:updateArticleQuantite }
+
+facture_article_get_total_tva:
+  pattern: /{id_fact_article}/getArticleTotalTva
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:getArticleTotalTva }
+  
+facture_update_total:
+  pattern: /{id_facture}/updateTotal
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:updateFactureTotal }

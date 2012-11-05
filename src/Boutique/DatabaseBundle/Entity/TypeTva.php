@@ -15,7 +15,7 @@ class TypeTva
     private $libelle;
 
     /**
-     * @var integer $valeur
+     * @var float $valeur
      */
     private $valeur;
 

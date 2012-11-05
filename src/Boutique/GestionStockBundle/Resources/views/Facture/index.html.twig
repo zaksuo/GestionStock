@@ -8,7 +8,7 @@
 
         <ul>
             {% for facture in factures %}
-                <li>{{ date|date('d/m/Y à H:i)}} - facture n°{{ id }}</li>
+                <li>{{ facture.date|date('d/m/Y à H:i')}} - <a href="{% if facture.valide %}{{ path('facture_show', {'id': facture.id}) }}{% else %}{{ path('facture_edit', {'id': facture.id}) }}{% endif %}">facture n°{{ facture.id }}</a> ({{ facture.factArticles|length }} articles) - {% if facture.valide %}Finalisée{% else %}Non finalisée <a href="{{ path('facture_delete', {'id': facture.id}) }}">Supprimer</a>{% endif %}</li>
             {% endfor %}
         </ul>
         

@@ -9,5 +9,8 @@
     <field name="montantFacture" type="float" column="montant_facture"/>
     <field name="montantRemise" type="float" column="montant_remise"/>
     <field name="valide" type="boolean" column="valide"/>
+    
+    <one-to-many field="factArticles" target-entity="FactureArticle" mapped-by="facture"/>
+    <one-to-many field="factRemises" target-entity="FactureRemise" mapped-by="remise" />
   </entity>
 </doctrine-mapping>

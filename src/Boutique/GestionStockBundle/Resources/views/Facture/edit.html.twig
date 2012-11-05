@@ -1,0 +1,51 @@
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h1>Modification de la facture n°{{ facture.id }}</h1>
+
+    <div class="hidden" id="id_facture">{{ facture.id }}</div>
+
+    Rechercher un article : 
+    <form id="search_facture_article_form" action="{{ path('facture_article_search', {'id_facture' : facture.id}) }}" method="post">
+        <input id="search_facture_article_field" type='text' name='search_facture_article' >
+    </form>
+    
+    <div id="search_results"></div>
+    <div id="facture_erreurs"></div>
+    
+    <div id="facture_article_list">
+        <div class="facture_empty" {% if facture.factArticles|length > 0 %}style="display : none;" {% endif %}>Cette facture ne contient actuellement aucun article. Vous pouvez en ajouter en utilisant le champ de recherche.</div>
+        <ul class="facture_content">
+            {% for fact_article in facture.factArticles %}
+                <li class="facture_article_row" id="{{ fact_article.article.id }}">
+                    <div class="facture_article_info">
+                        <div class="article_denomination">{{ fact_article.article.code }} - {{ fact_article.article.libelle }}</div>
+                        <div class="article_prix_unitaire">{{ fact_article.prixUnitaire }} €</div>
+                        <div class="multiplicateur"> x </div>
+                        <div class="facture_article_quantite_form">
+                            <form action="{{ path('facture_article_update_quantite', {'id_fact_article': fact_article.id}) }}" method="post">
+                                <input type="text" class="facture_article_quantite_field" name="quantite" value="{{ fact_article.quantite }}" size="5" />
+                            </form>
+                        </div>
+                        <div class="prix_total_ht">{{ fact_article.getArticlePrixTotal }} €</div>
+                    </div>
+                    <div class="facture_article_tva">
+                        <div class="tva_info">TVA {{ fact_article.article.typeTva.libelle }}</div>
+                        <div class="article_tva">{{ fact_article.getTotalArticleTva }} €</div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <ul id="facture_total">
+            <li id="facture_prix_total_ht">Total HT : {{ facture.getPrixTotalHt }} €</li>
+            <li id="facture_prix_total_tva">Total TVA : {{ facture.getTvaTotal }} €</li>
+            <li id="facture_prix_total_ttc">Total TTC : {{ facture.getPrixTotalTtc }} €</li>
+        </ul>
+    </div>
+
+    <a href="{{ path('facture') }}">Annuler</a>
+    <button id="facture_validate">Valider la facture</button>
+
+{% endblock %}

@@ -1,6 +1,4 @@
-$(document).ready(function(){
-   $('.records_list tr:odd').css('background-color', '#CDCDCD');
-   
+$(document).ready(function(){   
    $('#search_article_field').keyup(function() {
        if($('#search_article_field').val().length >= 2 ) {
            

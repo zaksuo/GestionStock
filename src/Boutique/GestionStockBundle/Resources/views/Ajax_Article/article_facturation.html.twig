@@ -19,7 +19,7 @@
                 <td class="article_prixVente">{{ article.prixVente }}</td>
                 <td class="article_quantite">{{ article.articleStock.quantite }}</td>
                 <td id="{{ article.id }}">
-                    <a class="select_facturation__article_link" href="{{ path('facturation_article_add', {'id_facture': facture.id, 'id_article': article.id}) }}">sélectionner</a>
+                    <a class="select_facture_article_link" href="{{ path('facturation_article_add', {'id_facture': facture.id, 'id_article': article.id}) }}">sélectionner</a>
                 </td>
             </tr>
         {% endfor %}

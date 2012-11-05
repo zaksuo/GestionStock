@@ -5,7 +5,11 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="facture" type="integer" column="facture" nullable="false"/>
-    <field name="remise" type="integer" column="remise" nullable="false"/>
     <field name="montantRemise" type="float" column="montant_remise" nullable="false"/>
+    <many-to-one field="remise" target-entity="Remise">
+      <join-columns>
+        <join-column name="remise" referenced-column-name="id" />
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>

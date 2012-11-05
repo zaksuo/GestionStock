@@ -33,7 +33,19 @@ class Facture
      * @var integer $id
      */
     private $id;
-
+    
+    private $factArticles;
+    private $factRemises;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->remises = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Set date
      *
@@ -172,5 +184,109 @@ class Facture
         $this->valide = false;
         
         return $this;
+    }
+    
+    /**
+     * Add articles
+     *
+     * @param Boutique\DatabaseBundle\Entity\FactureArticle $article
+     * @return Facture
+     */
+    public function addFactArticle(\Boutique\DatabaseBundle\Entity\FactureArticle $article)
+    {
+        $this->articles[] = $article;
+    
+        return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param Boutique\DatabaseBundle\Entity\FactureArticle $article
+     */
+    public function removeFactArticle(\Boutique\DatabaseBundle\Entity\FactureArticle $article)
+    {
+        $this->articles->removeElement($article);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getFactArticles()
+    {
+        return $this->factArticles;
+    }
+
+    /**
+     * Add remises
+     *
+     * @param Boutique\DatabaseBundle\Entity\FactureRemise $remise
+     * @return Facture
+     */
+    public function addFactRemise(\Boutique\DatabaseBundle\Entity\FactureRemise $remise)
+    {
+        $this->remises[] = $remise;
+    
+        return $this;
+    }
+
+    /**
+     * Remove remises
+     *
+     * @param Boutique\DatabaseBundle\Entity\FactureRemise $remise
+     */
+    public function removeFactRemise(\Boutique\DatabaseBundle\Entity\FactureRemise $remise)
+    {
+        $this->remises->removeElement($remise);
+    }
+
+    /**
+     * Get remises
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getFactRemises()
+    {
+        return $this->factRemises;
+    }
+    
+    public function hasFactArticles() {
+        if( count($this->factArticles) > 0 )
+            return true;
+        return false;
+    }
+    
+    public function hasFactRemises() {
+        if( count($this->factRemises) > 0 )
+            return true;
+        return false;
+    }
+    
+    public function getPrixTotalHt() {
+        $prix_total_ht = 0;
+        
+        if( count( $this->getFactArticles() ) > 0 ) {
+            foreach($this->factArticles as $article) {
+                $prix_total_ht += $article->getQuantite() * $article->getPrixUnitaire();
+            }
+        }
+        
+        return $prix_total_ht;
+    }
+    
+    public function getTvaTotal() {
+        $tva_total = 0;
+        if( count( $this->getFactArticles() ) > 0 ) {
+            foreach($this->factArticles as $article) {
+                $tva_total += $article->getArticle()->getTypeTva()->getValeur() * ($article->getQuantite() * $article->getPrixUnitaire()) /100;
+            }
+        }
+        return $tva_total;
+    }
+    
+    public function getPrixTotalTtc() {
+        return $this->getPrixTotalHt() + $this->getTvaTotal();
     }
 }
