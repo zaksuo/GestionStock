@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Boutique\DatabaseBundle\Entity\Facture;
 use Boutique\DatabaseBundle\Entity\FactureArticle;
 use Boutique\DatabaseBundle\Form\FactureArticleType;
+use Boutique\DatabaseBundle\Entity\Client;
+use Boutique\DatabaseBundle\Form\ClientType;
 
 
 /**
@@ -36,16 +38,30 @@ class FacturationController extends Controller
         $em->persist($facture);
         $em->flush();
         
+        $client = new Client();
+        $client_form = $this->createForm(new ClientType(), $client);
+        
         return $this->render('BoutiqueGestionStockBundle:Facture:edit.html.twig', array(
-            'facture' => $facture
+            'facture' => $facture,
+            'client_form' => $client_form->createView()
         ));
     }
     
-    public function showFactureAction( $id ) {
+    public function showFactureAction( $id, $pdf = 0 ) {
         $em = $this->getDoctrine()->getManager();
         
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id);
-
+        
+        if( $pdf ) {
+            $html = $this->renderView('BoutiqueGestionStockBundle:Facture:pdf.html.twig', array('facture' => $facture));
+            $pdfGenerator = $this->get('spraed.pdf.generator');
+            
+            return new Response($pdfGenerator->generatePDF($html),
+                200,
+                array('Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename="facture'.$id.'.pdf"' )
+            );
+        }
+            
         return $this->render('BoutiqueGestionStockBundle:Facture:show.html.twig', array(
             'facture' => $facture,
         ));
@@ -55,10 +71,14 @@ class FacturationController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id);
-
+        
+        $client = new Client();
+        $client_form = $this->createForm(new ClientType(), $client);
+                
         return $this->render('BoutiqueGestionStockBundle:Facture:edit.html.twig', array(
             'facture' => $facture,
-            'errors' => array()
+            'errors' => array(),
+            'client_form' => $client_form->createView()
         ));
     }
     
@@ -185,6 +205,35 @@ class FacturationController extends Controller
         
         return $this->render('BoutiqueGestionStockBundle:Ajax_Client:facture_client_show.html.twig', array(
             'facture' => $facture
+        ));
+    }
+    
+    public function newClientAction(Request $request, $id_facture) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
+        
+        $client  = new Client();
+        $form = $this->createForm(new ClientType(), $client);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $client->setDateCreation(new \DateTime('now'));
+            $em->persist($client);
+            
+            $facture->setClient($client);
+            $em->persist($facture);
+        
+            $em->flush();
+
+            return $this->render('BoutiqueGestionStockBundle:Ajax_Client:facture_client_show.html.twig', array(
+                'facture' => $facture
+            ));
+        }
+        
+        return $this->render('BoutiqueGestionStockBundle:Ajax_Client:new.html.twig', array(
+            'client' => $client
         ));
     }
     

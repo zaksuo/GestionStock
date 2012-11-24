@@ -59,7 +59,7 @@ class ClientController extends Controller
 
         return $this->render('BoutiqueGestionStockBundle:Client:new.html.twig', array(
             'client' => $client,
-            'form'   => $form->createView(),
+            'client_form'   => $form->createView(),
         ));
     }
 

@@ -108,7 +108,28 @@ $(document).ready(function(){
         });
     });
 
+    $('#facture_client_new').live('click', function(e) {
+       e.preventDefault();
+       $('#facture_client_new_container').show();
+    });
+
+    $('#client_new_form_cancel').live('click', function(e) {
+        e.preventDefault();
+       $('#facture_client_new_container').hide();
+    });
     
+    $('#facture_client_new_submit').live('click', function(e) {
+        e.preventDefault();
+        var form = $('#facture_client_new_form');
+        form.ajaxSubmit({
+            target: $('.facture_client'),
+            replaceTarget: true,
+            success: hideClientForm,
+            resetForm: true,
+            clearForm: true,
+            type: 'post'
+        });
+    })
 
     function updateRowColors() {
         $(".facture_article_row:odd").css('background', '#bcd5e6');
@@ -122,6 +143,10 @@ $(document).ready(function(){
                 $("#facture_total").replaceWith(data);
             }
         });
+    }
+    
+    function hideClientForm() {
+        $('#facture_client_new_container').hide();
     }
 });
 

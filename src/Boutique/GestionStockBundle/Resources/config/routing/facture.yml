@@ -3,8 +3,8 @@ facture:
   defaults: { _controller: BoutiqueGestionStockBundle:Facturation:indexFacture }
 
 facture_show:
-  pattern: /{id}/show
-  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:showFacture }
+  pattern: /{id}/show/{pdf}
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:showFacture, pdf : 0 }
   
 facture_new:
   pattern: /new
@@ -49,3 +49,7 @@ facture_article_update_quantite:
 facture_article_remove:
   pattern: /{id_fact_article}/removeArticle
   defaults: { _controller: BoutiqueGestionStockBundle:Facturation:removeArticle }
+  
+facture_client_new:
+  pattern: /{id_facture}/newClient
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:newClient }

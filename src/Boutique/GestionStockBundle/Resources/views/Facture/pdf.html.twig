@@ -1,0 +1,43 @@
+<h1>Facture {{facture.id}}</h1>
+
+{% if facture.client|length > 0 %}
+    <table>
+        <tbody>
+            <tr>
+                <th>Numéro</th>
+                <td>{{ facture.client.id }}</td>
+            </tr>
+            <tr>
+                <th>Client</th>
+                <td>{{ facture.client.prenom }} {{ facture.client.nom }}</td>
+            </tr>
+            <tr>
+                <th>E-mail</th>
+                <td>{{ facture.client.mail }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>
+                    {{ facture.client.adresseNumero }} {{ facture.client.adresseVoie }}<br />
+                    {% if facture.client.adresseComplement|length > 0 %}{{ facture.client.adresseComplement }}<br />{% endif %}
+                    {{ facture.client.codePostal }}<br />
+                    {{ facture.client.adresseVille }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% endif %}
+
+{% if facture.hasFactArticles %}
+    <ul>
+        {% for fact_article in facture.factArticles %}
+            <li>
+                {{ fact_article.article.code }} - {{ fact_article.article.libelle }}: {{ fact_article.prixUnitaire }} € / {{ fact_article.article.typeVente.unite }}
+                <br />
+                x {{ fact_article.quantite }} {{ fact_article.article.typeVente.unite }}(s) : {{ fact_article.getArticlePrixTotal }} €
+            </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    Cette facture ne contient aucun article.
+{% endif %}

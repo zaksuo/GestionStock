@@ -38,17 +38,8 @@
     </table>
 
     <ul class="record_actions">
-        <li>
-            <a href="{{ path('client') }}">Retour</a>
-        </li>
-        <li>
-            <a href="{{ path('client_edit', { 'id': client.id }) }}">Modifier</a>
-        </li>
-        <li>
-            <form action="{{ path('client_delete', { 'id': client.id }) }}" method="post">
-                {{ form_widget(delete_form) }}
-                <button type="submit">Supprimer</button>
-            </form>
-        </li>
+        <a href="{{ path('client') }}">Retour</a> |
+        <a href="{{ path('client_edit', { 'id': client.id }) }}">Modifier</a> | 
+        <a href="#">Supprimer</a>
     </ul>
 {% endblock %}
