@@ -1,0 +1,8 @@
+<div class="facture_client_search">
+    Rechercher un client : 
+    <form id="facture_client_search_form" action="{{ path('facture_client_search', {'id_facture' : facture.id}) }}" method="post">
+        <input id="facture_client_search_field" type='text' name='search_facture_client' >
+    </form>
+
+    <div id="client_search_results"></div>
+</div>

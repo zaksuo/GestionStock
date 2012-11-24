@@ -1,0 +1,32 @@
+<h3>Clients trouvés</h3>
+
+{% if clients|length > 0 %}
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Numéro</th>
+                <th>Nom Prénom</th>
+                <th>Date de naissance</th>
+                <th>Mail</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for client in clients %}
+            <tr>
+                <td class="client_id">{{ client.id }}</td>
+                <td class="client_nom">{{ client.nom }} {{ client.prenom }}</td>
+                <td class="client_date_naissance">{{ client.dateNaissance|date('d/m/Y') }}</td>
+                <td class="client_mail">{{ client.mail }}</td>
+                <td id="{{ client.id }}">
+                <a class="select_facture_client_link" href="{{ path('facturation_client_add', {'id_facture': facture.id, 'id_client': client.id}) }}">sélectionner</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    Aucun client correspondant à votre recherche n'a été trouvé.
+{% endif %}
+    
+<br />Le client que vous cherchez n'existe pas ? Créez en un : <a href="{{ path('client_new') }}">Nouvelle fiche client</a>

@@ -1,0 +1,31 @@
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
+
+{% block content %}
+    <h1>Liste des fiches client</h1>
+
+    <a href="{{ path('client_new') }}">Ajouter un client</a>
+    
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Prénom Nom</th>
+                <th>Mail</th>
+                <th>Création du compte</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for client in clients %}
+            <tr>
+                <td><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.prenom }} {{ client.nom }}</a></td>
+                <td>{{ client.mail }}</td>
+                <td>{{ client.dateNaissance|date('d/m/Y H:i:s') }}</td>
+                <td>
+                    <a href="{{ path('client_show', { 'id': client.id }) }}">Fiche client</a> | 
+                    <a href="{{ path('client_edit', { 'id': client.id }) }}">Modifier</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

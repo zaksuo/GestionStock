@@ -5,11 +5,17 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="date" type="datetime" column="date" nullable="false"/>
-    <field name="client" type="integer" column="client" nullable="true" />
-    <field name="montantFacture" type="float" column="montant_facture"/>
-    <field name="montantRemise" type="float" column="montant_remise"/>
+    <field name="montantFactureHT" type="float" column="montant_facture_ht"/>
+    <field name="montantFactureTTC" type="float" column="montant_facture_ttc"/>
+    <field name="montantRemiseHT" type="float" column="montant_remise_ht"/>
+    <field name="montantRemiseTTC" type="float" column="montant_remise_ttc"/>
     <field name="valide" type="boolean" column="valide"/>
     
+    <many-to-one field="client" target-entity="Client">
+      <join-columns>
+        <join-column name="client" referenced-column-name="id" />
+      </join-columns>
+    </many-to-one>
     <one-to-many field="factArticles" target-entity="FactureArticle" mapped-by="facture"/>
     <one-to-many field="factRemises" target-entity="FactureRemise" mapped-by="remise" />
   </entity>

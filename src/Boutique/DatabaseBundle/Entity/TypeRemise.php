@@ -136,4 +136,32 @@ class TypeRemise
     {
         return $this->description;
     }
+    /**
+     * @var string $object
+     */
+    private $object;
+
+
+    /**
+     * Set object
+     *
+     * @param string $object
+     * @return TypeRemise
+     */
+    public function setObject($object)
+    {
+        $this->object = $object;
+    
+        return $this;
+    }
+
+    /**
+     * Get object
+     *
+     * @return string 
+     */
+    public function getObject()
+    {
+        return $this->object;
+    }
 }

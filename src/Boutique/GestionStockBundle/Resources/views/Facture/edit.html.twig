@@ -6,26 +6,24 @@
 
     <div class="hidden" id="id_facture">{{ facture.id }}</div>
 
-    Rechercher un article : 
-    <form id="search_facture_article_form" action="{{ path('facture_article_search', {'id_facture' : facture.id}) }}" method="post">
-        <input id="search_facture_article_field" type='text' name='search_facture_article' >
-    </form>
+    {% include 'BoutiqueGestionStockBundle:Ajax_Facture:client_search_form.html.twig' with {'facture' : facture} %}
+    {% include 'BoutiqueGestionStockBundle:Ajax_Facture:article_search_form.html.twig' with {'facture' : facture} %}
     
-    <div id="search_results"></div>
     <div id="facture_erreurs"></div>
     
     <div id="facture_article_list">
+        {% include 'BoutiqueGestionStockBundle:Ajax_Client:facture_client_show.html.twig' with {'facture' : facture} %}
         <div class="facture_empty" {% if facture.factArticles|length > 0 %}style="display : none;" {% endif %}>Cette facture ne contient actuellement aucun article. Vous pouvez en ajouter en utilisant le champ de recherche.</div>
         <ul class="facture_content">
-            {% for fact_article in facture.factArticles %}
-                {% include 'BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig' with {'fact_article' : fact_article} %}
-            {% endfor %}
+            {% if facture.factArticles|length > 0 %}
+                {% for fact_article in facture.factArticles %}
+                    {% include 'BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig' with {'fact_article' : fact_article} %}
+                {% endfor %}
+            {% endif %}
         </ul>
 
-        {% include 'BoutiqueGestionStockBundle:Ajax_Facture:facture_total.html.twig' with {'fact_article' : facture} %}
+        {% include 'BoutiqueGestionStockBundle:Ajax_Facture:facture_total.html.twig' with {'facture' : facture} %}
     </div>
 
-    <a href="{{ path('facture') }}">Annuler</a>
-    <button id="facture_validate">Valider la facture</button>
-
+    {% include 'BoutiqueGestionStockBundle:Ajax_Facture:facture_commit_form.html.twig' with {'facture' : facture} %}
 {% endblock %}

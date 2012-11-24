@@ -1,0 +1,8 @@
+<div class="facture_article_search">
+    Rechercher un article : 
+    <form id="search_facture_article_form" action="{{ path('facture_article_search', {'id_facture' : facture.id}) }}" method="post">
+        <input id="search_facture_article_field" type='text' name='search_facture_article' >
+    </form>
+
+    <div id="article_search_results"></div>
+</div>

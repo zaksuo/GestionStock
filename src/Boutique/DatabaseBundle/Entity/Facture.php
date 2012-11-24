@@ -72,7 +72,7 @@ class Facture
     /**
      * Set client
      *
-     * @param integer $client
+     * @param Boutique\DatabaseBundle\Entity\Client $client
      * @return Facture
      */
     public function setClient($client)
@@ -178,8 +178,10 @@ class Facture
     
     
     public function init() {
-        $this->montantFacture = 0;
-        $this->montantRemise = 0;
+        $this->montantFactureHT = 0;
+        $this->montantFactureTTC = 0;
+        $this->montantRemiseHT = 0;
+        $this->montantRemiseTTC = 0;
         $this->date = new \DateTime('now');
         $this->valide = false;
         
@@ -288,5 +290,117 @@ class Facture
     
     public function getPrixTotalTtc() {
         return $this->getPrixTotalHt() + $this->getTvaTotal();
+    }
+    /**
+     * @var float $montantFactureHT
+     */
+    private $montantFactureHT;
+
+    /**
+     * @var float $montantFactureTTC
+     */
+    private $montantFactureTTC;
+
+    /**
+     * @var float $montantRemiseHT
+     */
+    private $montantRemiseHT;
+
+    /**
+     * @var float $montantRemiseTTC
+     */
+    private $montantRemiseTTC;
+
+
+    /**
+     * Set montantFactureHT
+     *
+     * @param float $montantFactureHT
+     * @return Facture
+     */
+    public function setMontantFactureHT($montantFactureHT)
+    {
+        $this->montantFactureHT = $montantFactureHT;
+    
+        return $this;
+    }
+
+    /**
+     * Get montantFactureHT
+     *
+     * @return float 
+     */
+    public function getMontantFactureHT()
+    {
+        return $this->montantFactureHT;
+    }
+
+    /**
+     * Set montantFactureTTC
+     *
+     * @param float $montantFactureTTC
+     * @return Facture
+     */
+    public function setMontantFactureTTC($montantFactureTTC)
+    {
+        $this->montantFactureTTC = $montantFactureTTC;
+    
+        return $this;
+    }
+
+    /**
+     * Get montantFactureTTC
+     *
+     * @return float 
+     */
+    public function getMontantFactureTTC()
+    {
+        return $this->montantFactureTTC;
+    }
+
+    /**
+     * Set montantRemiseHT
+     *
+     * @param float $montantRemiseHT
+     * @return Facture
+     */
+    public function setMontantRemiseHT($montantRemiseHT)
+    {
+        $this->montantRemiseHT = $montantRemiseHT;
+    
+        return $this;
+    }
+
+    /**
+     * Get montantRemiseHT
+     *
+     * @return float 
+     */
+    public function getMontantRemiseHT()
+    {
+        return $this->montantRemiseHT;
+    }
+
+    /**
+     * Set montantRemiseTTC
+     *
+     * @param float $montantRemiseTTC
+     * @return Facture
+     */
+    public function setMontantRemiseTTC($montantRemiseTTC)
+    {
+        $this->montantRemiseTTC = $montantRemiseTTC;
+    
+        return $this;
+    }
+
+    /**
+     * Get montantRemiseTTC
+     *
+     * @return float 
+     */
+    public function getMontantRemiseTTC()
+    {
+        return $this->montantRemiseTTC;
     }
 }

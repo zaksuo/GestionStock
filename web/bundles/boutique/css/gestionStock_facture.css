@@ -1,3 +1,19 @@
+.facture_article_search {
+    width : 80%;
+    margin : 0 auto;
+    border : 1px solid gray;
+    margin-bottom : 15px;
+    padding : 10px;
+}
+
+.facture_client_search {
+    width : 80%;
+    margin : 0 auto;
+    border : 1px solid gray;
+    margin-bottom : 15px;
+    padding : 10px;
+}
+
 #facture_article_list {
     width : 80%;
     margin : 0 auto;

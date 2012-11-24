@@ -11,12 +11,27 @@ $(document).ready(function(){
         if($('#search_facture_article_field').val().length >= 2 ) {
 
             $('#search_facture_article_form').ajaxSubmit({
-                target: '#search_results',
+                target: '#article_search_results',
                 replaceTarget: false,
                 type: 'post'
             });
         }
     });
+    
+    $('#facture_client_search_field').keyup(function() {
+       //alert($('#search_facture_client_field').val());
+       if($('#facture_client_search_field').val().length >= 2 ) {
+           
+           $('#facture_client_search_form').ajaxSubmit({
+               target: '#client_search_results',
+               replaceTarget: false,
+               //clearForm: true,
+               //resetForm: true,
+               type: 'post'
+           });
+           
+       }
+   });
    
     $('.select_facture_article_link').live('click', function(e) {
             e.preventDefault();
@@ -33,7 +48,7 @@ $(document).ready(function(){
             });
 
             if( article_existant ) {
-                $("#facture_erreurs").html("Cet article a dÃ©jÃ Â  Ã©tÃ© ajoutÃ© Ã Â la facture. Augmentez la quantitÃ© pour en ajouter.").fade(30);
+                $("#facture_erreurs").html("Cet article a déjà été ajouté à la facture. Augmentez la quantité pour en ajouter.").fade(30);
             }
             else {
                 $.ajax({
@@ -46,6 +61,21 @@ $(document).ready(function(){
                 });
                 $("#search_results").empty();
             }
+    });
+
+    $('.select_facture_client_link').live('click', function(e) {
+        e.preventDefault();
+
+        var_id_facture = $('#id_facture').text();
+        var url = $(this).attr('href');
+
+        $.ajax({
+            url : url,
+            success: function( data ) {
+                $("#facture_client").html(data);
+            }
+        });
+        $("#client_search_results").empty();
     });
 
     $('.facture_article_quantite_field').live('focusout', function() {
@@ -77,6 +107,8 @@ $(document).ready(function(){
             }
         });
     });
+
+    
 
     function updateRowColors() {
         $(".facture_article_row:odd").css('background', '#bcd5e6');

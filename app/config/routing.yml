@@ -1,8 +1,4 @@
-boutique_database:
-    resource: "@BoutiqueDatabaseBundle/Resources/config/routing.yml"
-    prefix:   /
-
-boutique_gestion_stock:
+outique_gestion_stock:
     resource: "@BoutiqueGestionStockBundle/Resources/config/routing.yml"
     prefix:   /
 

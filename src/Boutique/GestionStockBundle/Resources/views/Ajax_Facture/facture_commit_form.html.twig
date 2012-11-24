@@ -1,0 +1,5 @@
+<a href="{{ path('facture') }}">Annuler</a>
+
+<form action="{{ path('facture_commit', {'id': facture.id}) }}" method="post">
+    <input id="facture_commit" type="submit" value="Valider la facture" />
+</form>

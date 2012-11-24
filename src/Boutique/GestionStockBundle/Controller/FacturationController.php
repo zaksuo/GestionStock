@@ -36,7 +36,7 @@ class FacturationController extends Controller
         $em->persist($facture);
         $em->flush();
         
-        return $this->render('BoutiqueGestionStockBundle:Facture:new.html.twig', array(
+        return $this->render('BoutiqueGestionStockBundle:Facture:edit.html.twig', array(
             'facture' => $facture
         ));
     }
@@ -58,6 +58,7 @@ class FacturationController extends Controller
 
         return $this->render('BoutiqueGestionStockBundle:Facture:edit.html.twig', array(
             'facture' => $facture,
+            'errors' => array()
         ));
     }
     
@@ -88,6 +89,33 @@ class FacturationController extends Controller
         ));
     }
     
+    public function commitFactureAction( $id ) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id);
+        
+        $facture->setMontantFactureHT( $facture->getPrixTotalHt());
+        $facture->setMontantFactureTTC( $facture->getPrixTotalHt() + $facture->getPrixTotalTtc());
+        
+        foreach($facture->getFactArticles() as $fact_article) {
+            $article_stock = $fact_article->getArticle()->getArticleStock();
+            if( $article_stock->getQuantite() - $fact_article->getQuantite() < 0 ) {
+                
+            }
+            else {
+                $article_stock->setQuantite( $article_stock->getQuantite() - $fact_article->getQuantite());
+                $em->persist($article_stock);
+            }
+        }
+        
+        $facture->setValide(true);
+        $em->flush();
+        
+        return $this->render('BoutiqueGestionStockBundle:Facture:show.html.twig', array(
+            'facture' => $facture,
+        ));
+    }
+    
     public function updateFactureTotalAction($id_facture) {
         $em = $this->getDoctrine()->getManager();
         
@@ -111,6 +139,19 @@ class FacturationController extends Controller
         ));
     }
     
+    public function searchClientAction(Request $request, $id_facture) {
+        $em = $this->getDoctrine()->getManager();
+        $search = $request->get('search_facture_client');
+  
+        $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
+        $clients = $em->getRepository('BoutiqueDatabaseBundle:Client')->getClientsForSearch($search);
+        
+        return $this->render('BoutiqueGestionStockBundle:Ajax_Client:client_facturation.html.twig', array(
+            'facture' => $facture,
+            'clients' => $clients
+        ));
+    }
+    
     public function addArticleAction($id_facture, $id_article) {
         $em = $this->getDoctrine()->getManager();
         
@@ -129,6 +170,21 @@ class FacturationController extends Controller
         return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig', array(
             'article' => $article,
             'fact_article' => $fact_article
+        ));
+    }
+    
+    public function addClientAction($id_facture, $id_client) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
+        $client = $em->getRepository('BoutiqueDatabaseBundle:Client')->find($id_client);
+        
+        $facture->setClient($client);
+        $em->persist($facture);
+        $em->flush();
+        
+        return $this->render('BoutiqueGestionStockBundle:Ajax_Client:facture_client_show.html.twig', array(
+            'facture' => $facture
         ));
     }
     

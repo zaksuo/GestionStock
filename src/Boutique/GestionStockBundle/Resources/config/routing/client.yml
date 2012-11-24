@@ -1,0 +1,27 @@
+client:
+  pattern: /
+  defaults: { _controller: BoutiqueGestionStockBundle:Client:index }
+
+client_show:
+  pattern: /{id}/show
+  defaults: { _controller: BoutiqueGestionStockBundle:Client:show }
+
+client_new:
+  pattern: /new
+  defaults: { _controller: BoutiqueGestionStockBundle:Client:new }
+
+client_create:
+  pattern: /create
+  defaults: { _controller: BoutiqueGestionStockBundle:Client:create, _method: post }
+
+client_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: BoutiqueGestionStockBundle:Client:edit }
+
+client_update:
+  pattern: /{id}/update
+  defaults: { _controller: BoutiqueGestionStockBundle:Client:update, _method: post }
+  
+client_delete:
+  pattern: /{id}/delete
+  defaults: { _controller: BoutiqueGestionStockBundle:Client:delete }

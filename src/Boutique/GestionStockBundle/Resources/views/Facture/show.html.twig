@@ -7,7 +7,11 @@
     {% if facture.hasFactArticles %}
         <ul>
             {% for fact_article in facture.factArticles %}
-                <li>{{ fact_article.article.code }} - {{ fact_article.article.libelle }}: {{ fact_article.prixUnitaire }} x {{ fact_article.quantite }}</li>
+                <li>
+                    {{ fact_article.article.code }} - {{ fact_article.article.libelle }}: {{ fact_article.prixUnitaire }} € / {{ fact_article.article.typeVente.unite }}
+                    <br />
+                    x {{ fact_article.quantite }} {{ fact_article.article.typeVente.unite }}(s) : {{ fact_article.getArticlePrixTotal }} €
+                </li>
         {% endfor %}
         </ul>
     {% else %}
