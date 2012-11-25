@@ -36,19 +36,19 @@ class __TwigTemplate_a9863a3fdbdd843da1caa8e69f9a5ebe extends Twig_Template
         // line 9
         echo "        ";
         $this->displayBlock('javascripts_libs', $context, $blocks);
-        // line 14
+        // line 15
         echo "        <link rel=\"icon\" type=\"image/x-icon\" href=\"";
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("favicon.ico"), "html", null, true);
         echo "\" />
     </head>
     <body>
         ";
-        // line 17
+        // line 18
         $this->displayBlock('body', $context, $blocks);
-        // line 20
+        // line 23
         echo "        ";
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 21
+        // line 26
         echo "    </body>
 </html>
 ";
@@ -65,7 +65,7 @@ class __TwigTemplate_a9863a3fdbdd843da1caa8e69f9a5ebe extends Twig_Template
     {
         // line 7
         echo "            <link rel=\"stylesheet\" href=\"";
-        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/boutique/css/main.css"), "html", null, true);
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/boutique/css/gestionStock_main.css"), "html", null, true);
         echo "\" type=\"text/css\" media=\"all\" />
         ";
     }
@@ -85,27 +85,44 @@ class __TwigTemplate_a9863a3fdbdd843da1caa8e69f9a5ebe extends Twig_Template
         // line 12
         echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/boutique/js/libs/jquery.forms.js"), "html", null, true);
         echo "\"></script>
+            <script type=\"text/javascript\" src=\"";
+        // line 13
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/boutique/js/bundles/gestionStock_main.js"), "html", null, true);
+        echo "\"></script>
         ";
     }
 
-    // line 17
+    // line 18
     public function block_body($context, array $blocks = array())
     {
-        // line 18
-        echo "            ";
-        $this->displayBlock('content', $context, $blocks);
         // line 19
-        echo "        ";
+        echo "            <div id=\"banner\">";
+        $this->env->loadTemplate("::_banner.html.twig")->display($context);
+        echo "</div>
+            <div id=\"body_content\">";
+        // line 20
+        $this->displayBlock('content', $context, $blocks);
+        echo "</div>
+            <div id=\"side_links\">";
+        // line 21
+        $this->env->loadTemplate("::_side_links.html.twig")->display($context);
+        echo "</div>
+        ";
     }
 
-    // line 18
+    // line 20
     public function block_content($context, array $blocks = array())
     {
     }
 
-    // line 20
+    // line 23
     public function block_javascripts($context, array $blocks = array())
     {
+        // line 24
+        echo "            <script type=\"text/javascript\" src=\"";
+        echo twig_escape_filter($this->env, $this->env->getExtension('assets')->getAssetUrl("bundles/boutique/js/bundles/main.js"), "html", null, true);
+        echo "\"></script>
+        ";
     }
 
     public function getTemplateName()
@@ -120,6 +137,6 @@ class __TwigTemplate_a9863a3fdbdd843da1caa8e69f9a5ebe extends Twig_Template
 
     public function getDebugInfo()
     {
-        return array (  105 => 20,  100 => 18,  96 => 19,  93 => 18,  90 => 17,  84 => 12,  80 => 11,  75 => 10,  72 => 9,  65 => 7,  62 => 6,  56 => 5,  50 => 21,  47 => 20,  45 => 17,  38 => 14,  35 => 9,  33 => 6,  29 => 5,  23 => 1,);
+        return array (  122 => 24,  119 => 23,  114 => 20,  108 => 21,  104 => 20,  99 => 19,  96 => 18,  90 => 13,  86 => 12,  82 => 11,  77 => 10,  64 => 6,  58 => 5,  47 => 18,  40 => 15,  37 => 9,  35 => 6,  25 => 1,  65 => 14,  61 => 13,  57 => 12,  52 => 26,  49 => 23,  44 => 8,  38 => 5,  33 => 4,  30 => 3,  112 => 51,  102 => 44,  95 => 40,  88 => 36,  81 => 32,  74 => 9,  67 => 7,  60 => 20,  53 => 16,  46 => 12,  36 => 7,  31 => 5,  28 => 3,);
     }
 }
