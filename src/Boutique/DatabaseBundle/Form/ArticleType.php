@@ -12,10 +12,8 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('code', null, array('required' => false, 'label' => 'Code de l\'article'))
-            ->add('codeFournisseur', null, array('required' => true, 'label' => 'Code fournisseur'))
             ->add('libelle', null, array('required' => false, 'label' => 'Nom de l\'article'))
             ->add('description', null, array('required' => false, 'label' => 'Description'))
-            ->add('fournisseur', 'choice', array('required' => true, 'label' => 'Fournisseur'))
             ->add('prixVente', null, array('required' => false, 'label' => 'Prix de vente'))
             ->add('typeArticle', null, array('required' => false, 'label' => 'Catégorie d\'article'))
             ->add('typeVente', null, array('required' => false, 'label' => 'Type de vente'))

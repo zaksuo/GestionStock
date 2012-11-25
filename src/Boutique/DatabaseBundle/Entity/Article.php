@@ -48,10 +48,10 @@ class Article
      * @var Boutique\DatabaseBundle\Entity\Fournisseur
      */
     private $fournisseur;
+    private $codeFournisseur;
     
     private $new_stock;
     private $stocks;
-    private $codeFournisseur;
     
     
     /**
@@ -284,7 +284,6 @@ class Article
     {
         return $this->typeVente;
     }
-    
     
     /**
      * Set fournisseur

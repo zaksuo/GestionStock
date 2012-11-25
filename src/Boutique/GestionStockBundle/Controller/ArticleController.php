@@ -68,7 +68,7 @@ class ArticleController extends Controller
         $code = $entity->generateNextCode($last_code);
         $entity->setCode($code);
         $form   = $this->createForm(new ArticleStockType(), $entity);
-
+        
         return $this->render('BoutiqueGestionStockBundle:Article:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -88,6 +88,13 @@ class ArticleController extends Controller
         $form->bind($request);
         
         $stock = $article->getNewStock();
+        
+        $last_code = $em->getRepository('BoutiqueDatabaseBundle:Article')->getLastCode();
+        if( is_null($last_code) ) {
+            $last_code = 'AAA000';
+        }
+        $code = $article->generateNextCode($last_code);
+        $article->setCode($code);
         
         $article_stock = new ArticleStock();
         $article_stock->setQuantite($stock->getQuantite());

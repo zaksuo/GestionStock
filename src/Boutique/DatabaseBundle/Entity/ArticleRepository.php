@@ -33,11 +33,11 @@ class ArticleRepository extends EntityRepository
     public function getLastCode() {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder()
-                ->select('max(article.id), article.code')
+                ->select('article.code')
                 ->from('BoutiqueDatabaseBundle:Article', 'article')
                 ->orderBy("article.id", "DESC");
-        $data = $qb->getQuery()->getSingleResult();
+        $data = $qb->getQuery()->getArrayResult();
 
-        return $data['code'];
+        return $data[0]['code'];
     }
 }

@@ -5,10 +5,59 @@
     <h1>Ajouter un article</h1>
 
     <form action="{{ path('article_create') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
-        <p>
-            <button type="submit">Créer</button>
-        </p>
+        
+            <table>
+                <tr>
+                    <th>Code article</th>
+                    <td>{{ form_widget(form.code, {'attr' : {'disabled' : 'disabled'}}) }}</td>
+                </tr>
+                <tr>
+                    <th>Nom de l'article</th>
+                    <td>{{ form_widget(form.libelle) }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ form_widget(form.description) }}</td>
+                </tr>
+                <tr>
+                    <th>Prix de vente HT</th>
+                    <td>{{ form_widget(form.prixVente) }}</td>
+                </tr>
+                <tr>
+                    <th>Type TVA</th>
+                    <td>{{ form_widget(form.typeTva) }}</td>
+                </tr>
+                <tr>
+                    <th>Catégorie d'article</th>
+                    <td>{{ form_widget(form.typeArticle) }}</td>
+                </tr>
+                <tr>
+                    <th>Type de vente</th>
+                    <td>{{ form_widget(form.typeVente) }}</td>
+                </tr>
+                <tr>
+                    <th>Code fournisseur</th>
+                    <td>{{ form_widget(form.codeFournisseur) }}</td>
+                </tr>
+                <tr>
+                    <th>Fournisseur</th>
+                    <td>{{ form_widget(form.fournisseur) }}</td>
+                </tr>
+                <tr>
+                    <th>Quantité d'articles</th>
+                    <td>{{ form_widget(form.new_stock.quantite) }}</td>
+                </tr>
+                <tr>
+                    <th>Prix d'achat à l'unité</th>
+                    <td>{{ form_widget(form.new_stock.prixAchat) }}</td>
+                </tr>
+                <tr>
+                    <th>Ces éléments ont-il été achetés en lot pour une vente à l'unité ?</th>
+                    <td>{{ form_widget(form.new_stock.delottage) }} Oui</td>
+                </tr>
+            </table>
+            {{ form_rest(form) }}
+        <button type="submit">Créer</button>
     </form>
 
     <a href="{{ path('article') }}">Annuler</a>
