@@ -38,6 +38,6 @@ class ArticleRepository extends EntityRepository
                 ->orderBy("article.id", "DESC");
         $data = $qb->getQuery()->getArrayResult();
 
-        return $data[0]['code'];
+        return (isset($data[0]))?$data[0]['code']:null;
     }
 }

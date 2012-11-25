@@ -122,7 +122,7 @@ $(document).ready(function(){
         e.preventDefault();
         var form = $('#facture_client_new_form');
         form.ajaxSubmit({
-            target: $('.facture_client'),
+            target: $('#facture_client'),
             replaceTarget: true,
             success: hideClientForm,
             resetForm: true,
