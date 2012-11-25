@@ -44,8 +44,14 @@ class Article
      */
     private $typeTva;
 
+    /**
+     * @var Boutique\DatabaseBundle\Entity\Fournisseur
+     */
+    private $fournisseur;
+    
     private $new_stock;
     private $stocks;
+    private $codeFournisseur;
     
     
     /**
@@ -277,5 +283,106 @@ class Article
     public function getTypeVente()
     {
         return $this->typeVente;
+    }
+    
+    
+    /**
+     * Set fournisseur
+     *
+     * @param Boutique\DatabaseBundle\Entity\Fournisseur $fournisseur
+     * @return Article
+     */
+    public function setFournisseur(\Boutique\DatabaseBundle\Entity\Fournisseur $fournisseur = null)
+    {
+        $this->fournisseur = $fournisseur;
+    
+        return $this;
+    }
+
+    /**
+     * Get fournisseur
+     *
+     * @return Boutique\DatabaseBundle\Entity\Fournisseur 
+     */
+    public function getFournisseur()
+    {
+        return $this->fournisseur;
+    }
+    
+    /**
+     * Set codeFournisseur
+     *
+     * @param $codeFournisseur
+     * @return Article
+     */
+    public function setCodeFournisseur($codeFournisseur = null)
+    {
+        $this->codeFournisseur = $codeFournisseur;
+    
+        return $this;
+    }
+
+    /**
+     * Get codeFournisseur
+     *
+     * @return codeFournisseur 
+     */
+    public function getCodeFournisseur()
+    {
+        return $this->codeFournisseur;
+    }
+    
+    private $alpha_num = array(
+        'A' => 0, 'B' => 1, 'C' => 2, 'D' => 3, 'E' => 4, 'F' => 5, 'G' => 6, 'H' => 7, 'I' => 8, 'J' => 9, 'K' => 10, 'L' => 11, 'M' => 12,
+        'N' => 13, 'O' => 14, 'P' => 15, 'Q' => 16, 'R' => 17, 'S' => 18, 'T' => 19, 'U' => 20, 'V' => 21, 'W' => 22, 'X' => 23, 'Y' => 24, 'Z' => 25
+    );
+    
+    private $num_alpha = array(
+        0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E', 5 => 'F', 6 => 'G', 7 => 'H', 8 => 'I', 9 => 'J', 10 => 'K', 11 => 'L', 12 => 'M', 
+        13 => 'N', 14 => 'O', 15 => 'P', 16 => 'Q', 17 => 'R', 18 => 'S', 19 => 'T', 20 => 'U', 21 => 'V', 22 => 'W', 23 => 'X', 24 => 'Y', 25 => 'Z'
+    );
+    
+    public function generateNextCode($last_code) {
+        $tab_code = str_split($last_code, 1);
+        
+        //var_dump($tab_code[5]); exit;
+
+        if( $tab_code[5] < 9 ) {
+            $tab_code[5] = $tab_code[5] + 1;
+        }
+        else {
+            $tab_code[5] = 0;
+            if( $tab_code[4] < 9 ) {
+                $tab_code[4] = $tab_code[4] + 1;
+            }
+            else {
+                $tab_code[4] = 0;
+                if( $tab_code[3] < 9 ) {
+                    $tab_code[3] = $tab_code[3] + 1;
+                }
+                else {
+                    $tab_code[3] = 1;
+                    if( $this->alpha_num[$tab_code[2]] < 25 ) {
+                        $tab_code[2] = $this->num_alpha[$this->alpha_num[$tab_code[2]] + 1];
+                    }
+                    else {
+                        $tab_code[2] = $this->num_alpha[1];
+                        if( $this->alpha_num[$tab_code[1]] < 25 ) {
+                            $tab_code[1] = $this->num_alpha[$this->alpha_num[$tab_code[1]] + 1];
+                        }
+                        else {
+                            $tab_code[0] = $this->num_alpha[1];
+                            if( $this->alpha_num[$tab_code[0]] < 25 ) {
+                                $tab_code[0] = $this->num_alpha[$this->alpha_num[$tab_code[0]] + 1];
+                            }
+                            else {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return implode($tab_code);
     }
 }

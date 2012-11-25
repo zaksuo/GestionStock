@@ -1,0 +1,16 @@
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
+
+{% block content %}
+    <h1>Modification du fournisseur</h1>
+
+    <form action="{{ path('fournisseur_update', { 'id': fournisseur.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        {{ form_widget(edit_form) }}
+        <button type="submit">Modifier</button>
+    </form>
+
+    <ul class="record_actions">
+        <a href="{{ path('fournisseur') }}">Retour</a>
+        <a href="{{ path('fournisseur_delete', { 'id': fournisseur.id }) }}" >Supprimer</a>
+        </li>
+    </ul>
+{% endblock %}

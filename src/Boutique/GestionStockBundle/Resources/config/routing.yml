@@ -13,3 +13,7 @@ boutique_database_facture:
 boutique_database_client:
     resource: "@BoutiqueGestionStockBundle/Resources/config/routing/client.yml"
     prefix:   /client
+    
+boutique_database_fournisseur:
+    resource: "@BoutiqueGestionStockBundle/Resources/config/routing/fournisseur.yml"
+    prefix:   /fournisseur

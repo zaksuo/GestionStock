@@ -60,6 +60,13 @@ class ArticleController extends Controller
     public function newAction()
     {
         $entity = new Article();
+        $em = $this->getDoctrine()->getManager();
+        $last_code = $em->getRepository('BoutiqueDatabaseBundle:Article')->getLastCode();
+        if( is_null($last_code) ) {
+            $last_code = 'AAA000';
+        }
+        $code = $entity->generateNextCode($last_code);
+        $entity->setCode($code);
         $form   = $this->createForm(new ArticleStockType(), $entity);
 
         return $this->render('BoutiqueGestionStockBundle:Article:new.html.twig', array(

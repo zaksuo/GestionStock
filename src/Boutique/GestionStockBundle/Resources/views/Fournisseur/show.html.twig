@@ -1,0 +1,39 @@
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
+
+{% block content %}
+    <h1>Fournisseur</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Identifiant</th>
+                <td>{{ fournisseur.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ fournisseur.nom }}</td>
+            </tr>
+            <tr>
+                <th>SIREN</th>
+                <td>{{ fournisseur.siren }}</td>
+            </tr>
+            <tr>
+                <th>N° Téléphone</th>
+                <td>{{ fournisseur.telephone }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h1>Liste des articles du fournisseur</h1>
+    {% if fournisseur.articles|length > 0 %}
+        <ul>
+            {% for article in fournisseur.articles %}
+                <li>{{ article.code }} - {{ article.libelle }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    <a href="{{ path('fournisseur') }}">Retour</a>
+    <a href="{{ path('fournisseur_edit', { 'id': fournisseur.id }) }}">Modifier</a>
+    <a href="{{ path('fournisseur_delete', { 'id': fournisseur.id }) }}" method="post">Supprimer</a>
+{% endblock %}

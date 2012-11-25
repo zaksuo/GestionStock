@@ -12,21 +12,32 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleRepository extends EntityRepository
 {	
-	public function getArticlesForSearch( $search, $offset = 0, $limit = 0 ) {
-		$qb = $this->getEntityManager()
-			->createQueryBuilder()
-			->select('article')
-			->from('BoutiqueDatabaseBundle:Article', 'article')
-			->where("article.libelle LIKE '%".$search."%'")
-                        ->orWhere("article.code LIKE '%".$search."%'")
-                        ->orWhere("article.description LIKE '%".$search."%'");
-			//->setFirstResult($offset)
-			//->setMaxResults($limit);
-                
-                //var_dump($qb->getQuery()->getSQL()); exit;
-			
-		$data = $qb->getQuery()->getResult();
-		
-		return $data;
-	}
+    public function getArticlesForSearch( $search, $offset = 0, $limit = 0 ) {
+            $qb = $this->getEntityManager()
+                    ->createQueryBuilder()
+                    ->select('article')
+                    ->from('BoutiqueDatabaseBundle:Article', 'article')
+                    ->where("article.libelle LIKE '%".$search."%'")
+                    ->orWhere("article.code LIKE '%".$search."%'")
+                    ->orWhere("article.description LIKE '%".$search."%'");
+                    //->setFirstResult($offset)
+                    //->setMaxResults($limit);
+
+            //var_dump($qb->getQuery()->getSQL()); exit;
+
+            $data = $qb->getQuery()->getResult();
+
+            return $data;
+    }
+    
+    public function getLastCode() {
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('max(article.id), article.code')
+                ->from('BoutiqueDatabaseBundle:Article', 'article')
+                ->orderBy("article.id", "DESC");
+        $data = $qb->getQuery()->getSingleResult();
+
+        return $data['code'];
+    }
 }

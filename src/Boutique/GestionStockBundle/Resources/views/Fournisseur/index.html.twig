@@ -1,0 +1,30 @@
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
+
+{% block content %}
+    <h1>Liste des fournisseurs</h1>
+
+    <a href="{{ path('fournisseur_new') }}">Nouveau fournisseur</a>
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>SIREN</th>
+                <th>Téléphone</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fournisseur in fournisseurs %}
+            <tr>
+                <td><a href="{{ path('fournisseur_show', { 'id': fournisseur.id }) }}">{{ fournisseur.nom }}</a></td>
+                <td>{{ fournisseur.siren }}</td>
+                <td>{{ fournisseur.telephone }}</td>
+                <td>
+                    <a href="{{ path('fournisseur_show', { 'id': fournisseur.id }) }}">Détail</a>
+                    <a href="{{ path('fournisseur_edit', { 'id': fournisseur.id }) }}">Modifier</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
