@@ -143,6 +143,6 @@ class FactureArticle
     }
     
     public function getTotalArticleTva() {
-        return $this->prixUnitaire * $this->getArticle()->getTypeTva()->getValeur() / 100 * $this->quantite;
+        return round( $this->prixUnitaire * $this->getArticle()->getTypeTva()->getValeur() / 100 * $this->quantite, 2 );
     }
 }

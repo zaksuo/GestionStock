@@ -38,13 +38,12 @@ class FacturationController extends Controller
         $em->persist($facture);
         $em->flush();
         
-        $client = new Client();
-        $client_form = $this->createForm(new ClientType(), $client);
-        
-        return $this->render('BoutiqueGestionStockBundle:Facture:edit.html.twig', array(
-            'facture' => $facture,
-            'client_form' => $client_form->createView()
-        ));
+        return $this->redirect($this->generateUrl('facture_edit', array('id' => $facture->getId())));
+//        
+//        return $this->render('BoutiqueGestionStockBundle:Facture:edit.html.twig', array(
+//            'facture' => $facture,
+//            'client_form' => $client_form->createView()
+//        ));
     }
     
     public function showFactureAction( $id, $pdf = 0 ) {
@@ -140,7 +139,14 @@ class FacturationController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
-       
+        
+        $facture->setMontantFactureHT( $facture->getPrixTotalHT() );
+        $facture->setMontantFactureTTC( $facture->getPrixTotalTTC() );
+        
+        $em->persist($facture);
+        $em->flush();
+        
+        
         return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:facture_total.html.twig', array(
             'facture' => $facture
         ));
@@ -183,8 +189,10 @@ class FacturationController extends Controller
         $fact_article->setArticle($article);
         $fact_article->setPrixUnitaire($article->getPrixVente());
         $fact_article->setQuantite(1);
-        
         $em->persist($fact_article);
+        
+        $em->persist($facture);
+        
         $em->flush();
         
         return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig', array(

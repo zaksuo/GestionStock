@@ -43,7 +43,7 @@
                 <td>
                     <ul id="stock_list">
                     {% for stock in article.stocks %}
-                        <li>{{ stock.dateEntree|date("d/m/Y") }} : Ajout de {{ stock.quantite }} entrées ({{ stock.prixAchat }} €/unité)</li>
+                        <li>{{ stock.dateEntree|date("d/m/Y") }} : {% if stock.quantite > 0 %}Ajout de {{ stock.quantite }} entrées ({{ stock.prixAchat }} €/unité) {% else %}Suppression de {{ stock.quantite }} entrées{% endif %}</li>
                     {% endfor %}
                     </ul>
                 </td>

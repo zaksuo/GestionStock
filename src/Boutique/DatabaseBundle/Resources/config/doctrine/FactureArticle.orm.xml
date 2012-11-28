@@ -4,7 +4,7 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="prixUnitaire" type="integer" column="prix_unitaire" nullable="false"/>
+    <field name="prixUnitaire" type="float" column="prix_unitaire" nullable="false"/>
     <field name="quantite" type="integer" column="quantite" nullable="false" />
     <many-to-one field="article" target-entity="Article">
       <join-columns>

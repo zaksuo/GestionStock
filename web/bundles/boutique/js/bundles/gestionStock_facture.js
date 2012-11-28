@@ -57,6 +57,7 @@ $(document).ready(function(){
                         $('.facture_empty').hide();
                         $("#facture_article_list ul.facture_content").append(data);
                         updateRowColors();
+                        updateFactureTotal();
                     }
                 });
                 $("#search_results").empty();

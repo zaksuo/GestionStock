@@ -1,5 +1,5 @@
 <li class="facture_article_row" id="{{ fact_article.article.id }}">
-    <form action="{{ path('facture_article_update_quantite', {'id_fact_article': fact_article.id}) }}" method="post">
+    <form class="facture_article_quantite" action="{{ path('facture_article_update_quantite', {'id_fact_article': fact_article.id}) }}" method="post">
         <div class="facture_article_info">
             <div class="article_denomination">{{ fact_article.article.code }} - {{ fact_article.article.libelle }}</div>
             <div class="article_prix_unitaire">{{ fact_article.prixUnitaire }} €</div>
