@@ -10,7 +10,7 @@
         <thead>
             <tr>
                 <th class="ui-widget-header">Code</th>
-                <th class="ui-widget-header">Gencode</th>
+                <th class="ui-widget-header">Ref. fournisseur</th>
                 <th class="ui-widget-header">Libellé</th>
                 <th class="ui-widget-header">Prix TTC</th>
                 <th class="ui-widget-header">Stock</th>
@@ -21,7 +21,7 @@
         {% for article in articles %}
             <tr>
                 <td class="ui-widget-content"><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.code }}</a></td>
-                <td class="ui-widget-content">{{ article.gencodeFournisseur }}</td>
+                <td class="ui-widget-content">{{ article.codeFournisseur }}</td>
                 <td class="ui-widget-content">{{ article.libelle }}</td>
                 <td class="ui-widget-content">{{ article.getPrixTTC }} €</td>
                 <td class="ui-widget-content">{{ article.articleStock.quantite }} {{ article.typeVente.unite }}(s)</td>

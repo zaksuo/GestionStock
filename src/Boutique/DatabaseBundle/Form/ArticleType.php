@@ -15,7 +15,6 @@ class ArticleType extends AbstractType
             ->add('libelle', null, array('required' => false, 'label' => 'Nom de l\'article'))
             ->add('fournisseur', null, array('required' => true, 'label' => 'Fournisseur'))
             ->add('codeFournisseur', null, array('required' => true, 'label' => 'Code fournisseur'))
-            ->add('gencodeFournisseur', null, array('required' => true, 'label' => 'Gencode fournisseur'))
             ->add('description', null, array('required' => false, 'label' => 'Description'))
             ->add('prixVente', null, array('required' => false, 'label' => 'Prix de vente'))
             ->add('typeArticle', null, array('required' => false, 'label' => 'Catégorie d\'article'))
