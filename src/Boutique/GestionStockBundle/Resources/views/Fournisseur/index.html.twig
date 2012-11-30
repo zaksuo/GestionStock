@@ -4,24 +4,26 @@
     <h1>Liste des fournisseurs</h1>
 
     <a href="{{ path('fournisseur_new') }}">Nouveau fournisseur</a>
-    <table class="records_list">
+
+    <table class="ui-widget">
         <thead>
             <tr>
-                <th>Nom</th>
-                <th>SIREN</th>
-                <th>Téléphone</th>
-                <th></th>
+                <th class="ui-widget-header">Nom</th>
+                <th class="ui-widget-header">SIREN</th>
+                <th class="ui-widget-header">Téléphone</th>
+                <th class="ui-widget-header">Actions</th>
+                <td></td>
             </tr>
         </thead>
         <tbody>
         {% for fournisseur in fournisseurs %}
             <tr>
-                <td><a href="{{ path('fournisseur_show', { 'id': fournisseur.id }) }}">{{ fournisseur.nom }}</a></td>
-                <td>{{ fournisseur.siren }}</td>
-                <td>{{ fournisseur.telephone }}</td>
-                <td>
-                    <a href="{{ path('fournisseur_show', { 'id': fournisseur.id }) }}">Détail</a>
-                    <a href="{{ path('fournisseur_edit', { 'id': fournisseur.id }) }}">Modifier</a>
+                <td class="ui-widget-content"><a href="{{ path('fournisseur_show', { 'id': fournisseur.id }) }}">{{ fournisseur.nom }}</a></td>
+                <td class="ui-widget-content">{{ fournisseur.siren }}</td>
+                <td class="ui-widget-content">{{ fournisseur.telephone }}</td>
+                <td class="ui-widget-content action_menu">
+                    <a href="{{ path('fournisseur_show', { 'id': fournisseur.id }) }}"><div class="icon_16 icon_16_view" title="Détails du fournisseur"></div></a>
+                    <a href="{{ path('fournisseur_edit', { 'id': fournisseur.id }) }}"><div class="icon_16 icon_16_notepad_edit" title="Modifier les informations du fournisseur"></div></a>
                 </td>
             </tr>
         {% endfor %}

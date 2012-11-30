@@ -1,25 +1,27 @@
 <h3>Clients trouvés</h3>
 
 {% if clients|length > 0 %}
-    <table class="records_list">
+    <table class="ui-widget">
         <thead>
             <tr>
-                <th>Numéro</th>
-                <th>Nom Prénom</th>
-                <th>Date de naissance</th>
-                <th>Mail</th>
-                <th>Actions</th>
+                <th class="ui-widget-header">Numéro</th>
+                <th class="ui-widget-header">Nom Prénom</th>
+                <th class="ui-widget-header">Date de naissance</th>
+                <th class="ui-widget-header">Mail</th>
+                <th class="ui-widget-header">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for client in clients %}
             <tr>
-                <td class="client_id">{{ client.id }}</td>
-                <td class="client_nom">{{ client.nom }} {{ client.prenom }}</td>
-                <td class="client_date_naissance">{{ client.dateNaissance|date('d/m/Y') }}</td>
-                <td class="client_mail">{{ client.mail }}</td>
-                <td id="{{ client.id }}">
-                <a class="select_facture_client_link" href="{{ path('facturation_client_add', {'id_facture': facture.id, 'id_client': client.id}) }}">sélectionner</a>
+                <td class="client_id ui-widget-content">{{ client.id }}</td>
+                <td class="client_nom ui-widget-content">{{ client.nom }} {{ client.prenom }}</td>
+                <td class="client_date_naissance ui-widget-content">{{ client.dateNaissance|date('d/m/Y') }}</td>
+                <td class="client_mail ui-widget-content">{{ client.mail }}</td>
+                <td class="ui-widget-content action_menu"id="{{ client.id }}">
+                    <a class="select_facture_client_link" href="{{ path('facturation_client_add', {'id_facture': facture.id, 'id_client': client.id}) }}">
+                        <div class="icon_16 icon_16_plus" title="Sélectionner ce client"></div>
+                    </a>
                 </td>
             </tr>
         {% endfor %}

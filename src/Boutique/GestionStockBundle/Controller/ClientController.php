@@ -59,7 +59,7 @@ class ClientController extends Controller
 
         return $this->render('BoutiqueGestionStockBundle:Client:new.html.twig', array(
             'client' => $client,
-            'client_form'   => $form->createView(),
+            'form'   => $form->createView(),
         ));
     }
 
@@ -106,7 +106,7 @@ class ClientController extends Controller
 
         return $this->render('BoutiqueGestionStockBundle:Client:edit.html.twig', array(
             'client'      => $client,
-            'edit_form'   => $editForm->createView()
+            'form'   => $editForm->createView()
         ));
     }
 
@@ -136,7 +136,7 @@ class ClientController extends Controller
 
         return $this->render('BoutiqueGestionStockBundle:Client:edit.html.twig', array(
             'client'      => $client,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
         ));
     }
 

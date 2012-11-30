@@ -1,0 +1,18 @@
+<table class="ui-widget">
+    <tbody>
+        <tr>
+            <th class="ui-widget-header width40">Raison sociale</th>
+            <td class="ui-widget-content">{{ form_widget(form.nom) }}</td>
+        </tr>
+        <tr>
+            <th class="ui-widget-header width40">SIREN</th>
+            <td class="ui-widget-content">{{ form_widget(form.siren) }}</td>
+        </tr>
+        <tr>
+            <th class="ui-widget-header width40">Téléphone</th>
+            <td class="ui-widget-content">{{ form_widget(form.telephone) }}</td>
+        </tr>
+    </tbody>
+</table>
+
+{{ form_widget(form) }}

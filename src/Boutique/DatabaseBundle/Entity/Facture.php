@@ -275,7 +275,7 @@ class Facture
             }
         }
         
-        return round( $prix_total_ht, 2 );
+        return number_format(round( $prix_total_ht, 2 ), 2);
     }
     
     public function getTvaTotal() {
@@ -285,12 +285,12 @@ class Facture
                 $tva_total += $article->getArticle()->getTypeTva()->getValeur() * ($article->getQuantite() * $article->getPrixUnitaire()) /100;
             }
         }
-        return round( $tva_total, 2 );
+        return number_format(round( $tva_total, 2 ), 2);
     }
     
     public function getPrixTotalTtc() {
         $prix_total = $this->getPrixTotalHt() + $this->getTvaTotal();
-        return round( $prix_total, 2 );
+        return number_format(round( $prix_total, 2 ), 2);
     }
     /**
      * @var float $montantFactureHT

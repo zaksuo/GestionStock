@@ -77,7 +77,7 @@ class FacturationController extends Controller
         return $this->render('BoutiqueGestionStockBundle:Facture:edit.html.twig', array(
             'facture' => $facture,
             'errors' => array(),
-            'client_form' => $client_form->createView()
+            'form' => $client_form->createView()
         ));
     }
     

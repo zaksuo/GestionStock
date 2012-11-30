@@ -105,7 +105,7 @@ class FournisseurController extends Controller
 
         return $this->render('BoutiqueGestionStockBundle:Fournisseur:edit.html.twig', array(
             'fournisseur'      => $fournisseur,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
         ));
     }
 
@@ -135,7 +135,7 @@ class FournisseurController extends Controller
 
         return $this->render('BoutiqueGestionStockBundle:Fournisseur:edit.html.twig', array(
             'fournisseur'      => $fournisseur,
-            'edit_form'   => $editForm->createView(),
+            'form'   => $editForm->createView(),
         ));
     }
 

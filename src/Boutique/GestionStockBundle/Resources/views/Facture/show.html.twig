@@ -1,53 +1,78 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
+    <div class="bloc_facture">
+        <h1>Facture {{facture.id}}</h1>
 
-    <h1>Facture {{facture.id}}</h1>
+        <div class="bloc_boutique">
+            <h3>La Dame de Quilt</h3>
+            32 Rue de l'Eglise<br />
+            77250 Morêt sur Loing<br /><br />
 
-    {% if facture.client|length > 0 %}
-        <table>
-            <tbody>
-                <tr>
-                    <th>Numéro</th>
-                    <td>{{ facture.client.id }}</td>
-                </tr>
-                <tr>
-                    <th>Client</th>
-                    <td>{{ facture.client.prenom }} {{ facture.client.nom }}</td>
-                </tr>
-                <tr>
-                    <th>E-mail</th>
-                    <td>{{ facture.client.mail }}</td>
-                </tr>
-                <tr>
-                    <th>Adresse</th>
-                    <td>
-                        {{ facture.client.adresseNumero }} {{ facture.client.adresseVoie }}<br />
-                        {% if facture.client.adresseComplement|length > 0 %}{{ facture.client.adresseComplement }}<br />{% endif %}
-                        {{ facture.client.codePostal }}<br />
-                        {{ facture.client.adresseVille }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    {% endif %}
-    
-    <br />
-    
-    {% if facture.hasFactArticles %}
-        <ul>
-            {% for fact_article in facture.factArticles %}
-                <li>
-                    {{ fact_article.article.code }} - {{ fact_article.article.libelle }}: {{ fact_article.prixUnitaire }} € / {{ fact_article.article.typeVente.unite }}
-                    <br />
-                    x {{ fact_article.quantite }} {{ fact_article.article.typeVente.unite }}(s) : {{ fact_article.getArticlePrixTotal }} €
-                </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        Cette facture ne contient aucun article.
-    {% endif %}
+            SIREN : 00000000000<br />
+            Code machine : 000000000<br /><br />
+            
+            tel : 00 00 00 00 00<br />
+            mail : mail@mail.com<br /><br />
+            
+            Horaires : 8h à 13h - 15h à 19h du lundi au samedi
+        </div>
+
+        <div class="bloc_client">
+            {% if facture.client|length > 0 %}
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Numéro</th>
+                            <td>{{ facture.client.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Client</th>
+                            <td>{{ facture.client.prenom }} {{ facture.client.nom }}</td>
+                        </tr>
+                        <tr>
+                            <th>E-mail</th>
+                            <td>{{ facture.client.mail }}</td>
+                        </tr>
+                        <tr>
+                            <th>Adresse</th>
+                            <td>
+                                {{ facture.client.adresseNumero }} {{ facture.client.adresseVoie }}<br />
+                                {% if facture.client.adresseComplement|length > 0 %}{{ facture.client.adresseComplement }}<br />{% endif %}
+                                {{ facture.client.codePostal }}<br />
+                                {{ facture.client.adresseVille }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+
+        <br />
+
+        <div class="bloc_facture_detail">
+            <h2>Détail des articles</h2>
+            {% if facture.hasFactArticles %}
+                <ul class="bloc_facture_article_list">
+                    {% for fact_article in facture.factArticles %}
+                        <li class="bloc_facture_article">
+                            {{ fact_article.article.code }} - {{ fact_article.article.libelle }}: {{ fact_article.prixUnitaire }} € / {{ fact_article.article.typeVente.unite }}
+                            x {{ fact_article.quantite }} {{ fact_article.article.typeVente.unite }}(s) : {{ fact_article.getArticlePrixTotal }} €
+                        </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                Cette facture ne contient aucun article.
+            {% endif %}
+
+            <ul id="bloc_facture_total">
+                <li id="facture_prix_total_ht">Total HT : {{ facture.montantFactureHT }} €</li>
+                <li id="facture_prix_total_tva">Total TVA : {{ facture.getTvaTotal }} €</li>
+                <li id="facture_prix_total_ttc">Total TTC : {{ facture.montantFactureTTC }} €</li>
+            </ul>
+        </div>
+
+        <a target=_blank href="{{ path('facture_show', {'id' : facture.id, 'pdf' : 1}) }}">Imprimer la facture</a>
+    </div>
         
-    <a target=_blank href="{{ path('facture_show', {'id' : facture.id, 'pdf' : 1}) }}">Imprimer la facture</a>
-
 {% endblock %}

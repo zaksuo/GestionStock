@@ -4,11 +4,51 @@
 
     <h1>Modification d'un article</h1>
 
-    <form action="{{ path('article_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-        {{ form_widget(edit_form) }}
-        <p>
-            <button type="submit">Modifier</button>
-        </p>
+    <form action="{{ path('article_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+        <table class="ui-widget">
+            <tr>
+                <th class="ui-widget-header left" width="40%">Code article</th>
+                <td class="ui-widget-content">{{ form_widget(form.code, {'attr' : {'disabled' : 'disabled'}}) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Nom de l'article</th>
+                <td class="ui-widget-content">{{ form_widget(form.libelle) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Description</th>
+                <td class="ui-widget-content">{{ form_widget(form.description) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Fournisseur</th>
+                <td class="ui-widget-content">{{ form_widget(form.fournisseur) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Référence fournisseur</th>
+                <td class="ui-widget-content">{{ form_widget(form.codeFournisseur) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Gencode fournisseur</th>
+                <td class="ui-widget-content">{{ form_widget(form.gencodeFournisseur) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Prix de vente HT</th>
+                <td class="ui-widget-content">{{ form_widget(form.prixVente) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Type TVA</th>
+                <td class="ui-widget-content">{{ form_widget(form.typeTva) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Catégorie d'article</th>
+                <td class="ui-widget-content">{{ form_widget(form.typeArticle) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Type de vente</th>
+                <td class="ui-widget-content">{{ form_widget(form.typeVente) }}</td>
+            </tr>
+        </table>
+        {{ form_rest(form) }}
+        <button type="submit">Modifier</button>
     </form>
 
     <a href="{{ path('article') }}">Annuler</a> |

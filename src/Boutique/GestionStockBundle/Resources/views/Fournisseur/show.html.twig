@@ -3,35 +3,40 @@
 {% block content %}
     <h1>Fournisseur</h1>
 
-    <table class="record_properties">
+    <table class="ui-widget">
         <tbody>
             <tr>
-                <th>Identifiant</th>
-                <td>{{ fournisseur.id }}</td>
+                <th class="ui-widget-header">Identifiant</th>
+                <td class="ui-widget-content">{{ fournisseur.id }}</td>
             </tr>
             <tr>
-                <th>Nom</th>
-                <td>{{ fournisseur.nom }}</td>
+                <th class="ui-widget-header">Nom</th>
+                <td class="ui-widget-content">{{ fournisseur.nom }}</td>
             </tr>
             <tr>
-                <th>SIREN</th>
-                <td>{{ fournisseur.siren }}</td>
+                <th class="ui-widget-header">SIREN</th>
+                <td class="ui-widget-content">{{ fournisseur.siren }}</td>
             </tr>
             <tr>
-                <th>N° Téléphone</th>
-                <td>{{ fournisseur.telephone }}</td>
+                <th class="ui-widget-header">N° Téléphone</th>
+                <td class="ui-widget-content">{{ fournisseur.telephone }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header" colspan=2>Liste des articles du fournisseur</th>
+            </tr>
+            <tr>
+                <td class="ui-widget-content" colspan=2>
+                    {% if fournisseur.articles|length > 0 %}
+                        <ul>
+                            {% for article in fournisseur.articles %}
+                                <li><a href="{{ path('article_show', {'id': article.id}) }}">{{ article.code }} - {{ article.libelle }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </td>
             </tr>
         </tbody>
     </table>
-    
-    <h1>Liste des articles du fournisseur</h1>
-    {% if fournisseur.articles|length > 0 %}
-        <ul>
-            {% for article in fournisseur.articles %}
-                <li>{{ article.code }} - {{ article.libelle }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
     
     <a href="{{ path('fournisseur') }}">Retour</a>
     <a href="{{ path('fournisseur_edit', { 'id': fournisseur.id }) }}">Modifier</a>

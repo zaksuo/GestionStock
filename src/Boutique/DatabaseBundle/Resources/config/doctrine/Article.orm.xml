@@ -8,7 +8,8 @@
     <field name="libelle" type="string" column="libelle" length="50" nullable="false"/>
     <field name="description" type="text" column="description" nullable="true"/>
     <field name="prixVente" type="float" column="prix_vente" nullable="false"/>
-    <field name="codeFournisseur" type="string" column="code_fournisseur" nullable="false"/>
+    <field name="codeFournisseur" type="string" column="code_fournisseur" length="255" nullable="false"/>
+    <field name="gencodeFournisseur" type="string" column="gencode_fournisseur" length="255" nullable="false"/>
     <many-to-one field="fournisseur" target-entity="Fournisseur">
       <join-columns>
         <join-column name="fournisseur" referenced-column-name="id"/>

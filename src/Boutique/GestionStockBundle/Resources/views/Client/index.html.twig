@@ -5,24 +5,25 @@
 
     <a href="{{ path('client_new') }}">Ajouter un client</a>
     
-    <table class="records_list">
+    <table class="ui-widget">
         <thead>
             <tr>
-                <th>Prénom Nom</th>
-                <th>Mail</th>
-                <th>Création du compte</th>
-                <th>Actions</th>
+                <th class="ui-widget-header">Prénom Nom</th>
+                <th class="ui-widget-header">Mail</th>
+                <th class="ui-widget-header">Création du compte</th>
+                <th class="ui-widget-header">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for client in clients %}
             <tr>
-                <td><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.prenom }} {{ client.nom }}</a></td>
-                <td>{{ client.mail }}</td>
-                <td>{{ client.dateNaissance|date('d/m/Y H:i:s') }}</td>
-                <td>
-                    <a href="{{ path('client_show', { 'id': client.id }) }}">Fiche client</a> | 
-                    <a href="{{ path('client_edit', { 'id': client.id }) }}">Modifier</a>
+                <td class="ui-widget-content"><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.prenom }} {{ client.nom }}</a></td>
+                <td class="ui-widget-content">{{ client.mail }}</td>
+                <td class="ui-widget-content">{{ client.dateNaissance|date('d/m/Y H:i:s') }}</td>
+                <td class="ui-widget-content action_menu">
+                    <a href="{{ path('client_show', { 'id': client.id }) }}"><div class="ui-menu-icon icon_16 icon_16_view" title="Voir la fiche client"></div></a>
+                    <a href="{{ path('client_edit', { 'id': client.id }) }}"><div class="ui-menu-icon icon_16 icon_16_notepad_edit" title="Modifier les informations du client"></div></a>
+                    <a href="{{ path('client_edit', { 'id': client.id }) }}"><div class="ui-menu-icon icon_16 icon_16_trash2" title="Supprimer le client"></div></a>
                 </td>
             </tr>
         {% endfor %}

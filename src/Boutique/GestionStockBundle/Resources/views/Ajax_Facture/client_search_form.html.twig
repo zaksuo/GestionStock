@@ -9,8 +9,8 @@
     <br />Le client que vous cherchez n'existe pas ? Créez en un : <a id="facture_client_new" href="#">Nouvelle fiche client</a>
     
     <div id="facture_client_new_container" class="hidden">
-        <form id="facture_client_new_form" action="{{ path('facture_client_new', {'id_facture' : facture.id}) }}" method="post" {{ form_enctype(client_form) }}>
-            {% include 'BoutiqueGestionStockBundle:Client:form.html.twig' with {'client_form' : client_form} %}
+        <form id="facture_client_new_form" action="{{ path('facture_client_new', {'id_facture' : facture.id}) }}" method="post" {{ form_enctype(form) }}>
+            {% include 'BoutiqueGestionStockBundle:Client:form.html.twig' with {'client_form' : form} %}
             <a id="client_new_form_cancel" href="{{ path('client') }}">Annuler</a> | <button id="facture_client_new_submit" type="submit">Enregistrer</button>
         </form>
     </div>

@@ -1,25 +1,27 @@
 <h3>Articles trouvés</h3>
 
 {% if articles|length > 0 %}
-    <table class="records_list">
+    <table class="ui-widget">
         <thead>
             <tr>
-                <th>Code</th>
-                <th>Libellé</th>
-                <th>Prix de vente</th>
-                <th>Quantité</th>
-                <th>Actions</th>
+                <th class="ui-widget-header">Code</th>
+                <th class="ui-widget-header">Libellé</th>
+                <th class="ui-widget-header">Prix de vente</th>
+                <th class="ui-widget-header">Quantité</th>
+                <th class="ui-widget-header">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for article in articles %}
             <tr>
-                <td class="article_code">{{ article.code }}</td>
-                <td class="article_libelle">{{ article.libelle }}</td>
-                <td class="article_prixVente">{{ article.prixVente }}</td>
-                <td class="article_quantite">{{ article.articleStock.quantite }}</td>
-                <td id="{{ article.id }}">
-                    <a class="select_facture_article_link" href="{{ path('facturation_article_add', {'id_facture': facture.id, 'id_article': article.id}) }}">sélectionner</a>
+                <td class="ui-widget-content article_code">{{ article.code }}</td>
+                <td class="ui-widget-content article_libelle">{{ article.libelle }}</td>
+                <td class="ui-widget-content article_prixVente">{{ article.prixVente }}</td>
+                <td class="ui-widget-content article_quantite">{{ article.articleStock.quantite }}</td>
+                <td class="ui-widget-content action_menu" id="{{ article.id }}">
+                    <a class="select_facture_article_link" href="{{ path('facturation_article_add', {'id_facture': facture.id, 'id_article': article.id}) }}">
+                        <div class="icon_16 icon_16_plus" title="Ajouter cet article à la facture"></div>
+                    </a>
                 </td>
             </tr>
         {% endfor %}

@@ -6,57 +6,61 @@
 
     <form action="{{ path('article_create') }}" method="post" {{ form_enctype(form) }}>
         
-            <table>
-                <tr>
-                    <th>Code article</th>
-                    <td>{{ form_widget(form.code, {'attr' : {'disabled' : 'disabled'}}) }}</td>
-                </tr>
-                <tr>
-                    <th>Nom de l'article</th>
-                    <td>{{ form_widget(form.libelle) }}</td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <td>{{ form_widget(form.description) }}</td>
-                </tr>
-                <tr>
-                    <th>Prix de vente HT</th>
-                    <td>{{ form_widget(form.prixVente) }}</td>
-                </tr>
-                <tr>
-                    <th>Type TVA</th>
-                    <td>{{ form_widget(form.typeTva) }}</td>
-                </tr>
-                <tr>
-                    <th>Catégorie d'article</th>
-                    <td>{{ form_widget(form.typeArticle) }}</td>
-                </tr>
-                <tr>
-                    <th>Type de vente</th>
-                    <td>{{ form_widget(form.typeVente) }}</td>
-                </tr>
-                <tr>
-                    <th>Code fournisseur</th>
-                    <td>{{ form_widget(form.codeFournisseur) }}</td>
-                </tr>
-                <tr>
-                    <th>Fournisseur</th>
-                    <td>{{ form_widget(form.fournisseur) }}</td>
-                </tr>
-                <tr>
-                    <th>Quantité d'articles</th>
-                    <td>{{ form_widget(form.new_stock.quantite) }}</td>
-                </tr>
-                <tr>
-                    <th>Prix d'achat à l'unité</th>
-                    <td>{{ form_widget(form.new_stock.prixAchat) }}</td>
-                </tr>
-                <tr>
-                    <th>Ces éléments ont-il été achetés en lot pour une vente à l'unité ?</th>
-                    <td>{{ form_widget(form.new_stock.delottage) }} Oui</td>
-                </tr>
-            </table>
-            {{ form_rest(form) }}
+        <table class="ui-widget">
+            <tr>
+                <th class="ui-widget-header left" width="40%">Code article</th>
+                <td class="ui-widget-content">{{ form_widget(form.code, {'attr' : {'disabled' : 'disabled'}}) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Nom de l'article</th>
+                <td class="ui-widget-content">{{ form_widget(form.libelle) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Description</th>
+                <td class="ui-widget-content">{{ form_widget(form.description) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Fournisseur</th>
+                <td class="ui-widget-content">{{ form_widget(form.fournisseur) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Référence fournisseur</th>
+                <td class="ui-widget-content">{{ form_widget(form.codeFournisseur) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Gencode fournisseur</th>
+                <td class="ui-widget-content">{{ form_widget(form.gencodeFournisseur) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Prix de vente HT</th>
+                <td class="ui-widget-content">{{ form_widget(form.prixVente) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Type TVA</th>
+                <td class="ui-widget-content">{{ form_widget(form.typeTva) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Catégorie d'article</th>
+                <td class="ui-widget-content">{{ form_widget(form.typeArticle) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Type de vente</th>
+                <td class="ui-widget-content">{{ form_widget(form.typeVente) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Quantité d'articles</th>
+                <td class="ui-widget-content">{{ form_widget(form.new_stock.quantite) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Prix d'achat HT à l'unité</th>
+                <td class="ui-widget-content">{{ form_widget(form.new_stock.prixAchat) }}</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header left" width="40%">Ces éléments ont-il été achetés en lot pour une vente à l'unité ?</th>
+                <td class="ui-widget-content">{{ form_widget(form.new_stock.delottage) }} Oui</td>
+            </tr>
+        </table>
+        {{ form_rest(form) }}
         <button type="submit">Créer</button>
     </form>
 

@@ -5,7 +5,7 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="dateEntree" type="datetime" column="date_entree" nullable="false"/>
-    <field name="quantite" type="integer" column="quantite" nullable="false"/>
+    <field name="quantite" type="float" column="quantite" nullable="false"/>
     <field name="prixAchat" type="float" column="prix_achat" nullable="false"/>
     <field name="delottage" type="boolean" column="delottage" nullable="false"/>
     <field name="dateDerniereSortie" type="datetime" column="date_derniere_sortie" nullable="true"/>

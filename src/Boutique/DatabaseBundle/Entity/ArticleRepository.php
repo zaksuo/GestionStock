@@ -19,6 +19,8 @@ class ArticleRepository extends EntityRepository
                     ->from('BoutiqueDatabaseBundle:Article', 'article')
                     ->where("article.libelle LIKE '%".$search."%'")
                     ->orWhere("article.code LIKE '%".$search."%'")
+                    ->orWhere("article.gencodeFournisseur LIKE '%".$search."%'")
+                    ->orWhere("article.codeFournisseur LIKE '%".$search."%'")
                     ->orWhere("article.description LIKE '%".$search."%'");
                     //->setFirstResult($offset)
                     //->setMaxResults($limit);

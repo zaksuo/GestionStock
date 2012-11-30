@@ -6,9 +6,7 @@
         Purpose of the stylesheet follows.
 */
 
-html {
-    background : #CDCDCD;
-}
+html {background : #CDCDCD;font-size : 12px;}
 
 body {
   width : 1080px;
@@ -18,35 +16,43 @@ body {
   margin-bottom : 20px;
 }
 
-root { 
-    display: block;
+h1, h2, h3, h4 {
+    margin-top : 10px;
+    margin-bottom : 0;
+    /*color : #FFEE33;*/
 }
 
-.hidden {
-    display : none;
+/*
+a {
+    color : white;
 }
+*/
+
+root { display: block;}
+
+.hidden {display : none;}
+.left {text-align : left;}
+.center {text-align : center;}
+.right {text-align : right;}
+
+.width40 { width: 40%;}
+.width10 { width: 40%;}
 
 table {
-    border : 1px solid gray;
+    width : 100%;
     border-collapse: collapse;
 }
 
 table th {
-    background-color : gray;
-    color : white;
-    font-weight : bold;
-    padding-left : 10px;
-    padding-right : 10px;
-    border : 1px solid white;
+    padding: 5px;
 }
 
 table td {
-    padding-left : 10px;
-    padding-right : 10px;
-    border : 1px solid gray;
+    padding: 5px;
 }
 
 #banner {
+    /*background : #CC1111;*/
     background : white;
     height : 150px;
     margin-bottom : 5px;
@@ -66,6 +72,7 @@ table td {
     -border-radius: 5px 5px 5px 20px;
     padding : 15px;
     min-height: 800px;
+    /*background : #CC1111;*/
     background : white;
 }
 
@@ -83,6 +90,7 @@ ul {
     -webkit-border-radius: 5px 5px 20px 5px;
     -border-radius: 5px 5px 20px 5px;
     padding : 15px;
+    /*background : #CC1111;*/
     background : white;
 }
 
@@ -93,3 +101,81 @@ ul {
 #stock_list {
     list-style-type: none;
 }
+
+
+
+.action_menu .icon_16{ float : left; margin-right : 5px; }
+
+/* Wrap icons */
+.icon_16 {width: 16px; height: 16px;}
+
+/* Icons 16px */
+.icon_16_address {background-image: url(images/16px/address_16.png);}
+.icon_16_block {background-image: url(images/16px/block_16.png);}
+.icon_16_briefcase {background-image: url(images/16px/briefcase_16.png);}
+.icon_16_bubble {background-image: url(images/16px/bubble_16.png);}
+.icon_16_buy {background-image: url(images/16px/buy_16.png);}
+.icon_16_calendar {background-image: url(images/16px/calendar_16.png);}
+.icon_16_clipboard {background-image: url(images/16px/clipoard_16.png);}
+.icon_16_clock {background-image: url(images/16px/clock_16.png);}
+.icon_16_database_add {background-image: url(images/16px/database_add_16.gif);}
+.icon_16_delete {background-image: url(images/16px/delete_16.png);}
+.icon_16_delete2 {background-image: url(images/16px/delete2_16.gif);}
+.icon_16_diagram {background-image: url(images/16px/diagram_16.png);}
+.icon_16_document {background-image: url(images/16px/document_16.png);}
+.icon_16_down {background-image: url(images/16px/down_16.png);}
+.icon_16_file_delete {background-image: url(images/16px/file_delete_16.gif);}
+.icon_16_flag {background-image: url(images/16px/flag_16.png);}
+.icon_16_folder {background-image: url(images/16px/folder_16.png);}
+.icon_16_heart {background-image: url(images/16px/heart_16.png);}
+.icon_16_help {background-image: url(images/16px/help_16.png);}
+.icon_16_home {background-image: url(images/16px/home_16.png);}
+.icon_16_info {background-image: url(images/16px/info_16.png);}
+.icon_16_key {background-image: url(images/16px/key_16.png);}
+.icon_16_label {background-image: url(images/16px/label_16.png);}
+.icon_16_left {background-image: url(images/16px/left_16.png);}
+.icon_16_letter {background-image: url(images/16px/letter_16.png);}
+.icon_16_lock {background-image: url(images/16px/lock_16.gif);}
+.icon_16_monitor {background-image: url(images/16px/monitor_16.png);}
+.icon_16_notepad_edit {background-image: url(images/16px/notepad_edit_16.gif);}
+.icon_16_phone {background-image: url(images/16px/phone_16.gif);}
+.icon_16_plus {background-image: url(images/16px/plus_16.png);}
+.icon_16_present {background-image: url(images/16px/present_16.png);}
+.icon_16_preview {background-image: url(images/16px/preview_16.gif);}
+.icon_16_print {background-image: url(images/16px/print_16.gif);}
+.icon_16_right {background-image: url(images/16px/right_16.png);}
+.icon_16_save {background-image: url(images/16px/save_16.png);}
+.icon_16_search {background-image: url(images/16px/search_16.png);}
+.icon_16_settings {background-image: url(images/16px/settings_16.gif);}
+.icon_16_shopping_cart {background-image: url(images/16px/shopping_cart_16.gif);}
+.icon_16_statistics {background-image: url(images/16px/statistics_16.png);}
+.icon_16_tick {background-image: url(images/16px/tick_16.png);}
+.icon_16_trash {background-image: url(images/16px/trash_16.png);}
+.icon_16_trash2 {background-image: url(images/16px/trash2_16.gif);}
+.icon_16_trash_delete {background-image: url(images/16px/trash_delete_16.gif);}
+.icon_16_up {background-image: url(images/16px/up_16.png);}
+.icon_16_user {background-image: url(images/16px/user_16.png);}
+.icon_16_view {background-image: url(images/16px/view_16.gif);}
+.icon_16_warning {background-image: url(images/16px/warning_16.png);}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

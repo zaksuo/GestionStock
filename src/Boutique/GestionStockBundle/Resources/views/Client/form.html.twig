@@ -1,1 +1,45 @@
-{{ form_widget(client_form) }}
+<table class="ui-widget">
+    <tr>
+        <th class="ui-widget-header center" colspan=2>Informations générales</th>
+    </tr>
+    <tr>
+        <th class="ui-widget-header left" width="40%">Nom</th>
+        <td class="ui-widget-content">{{ form_widget(form.nom) }}</td>
+    </tr>
+    <tr>
+        <th class="ui-widget-header left" width="40%">Prenom</th>
+        <td class="ui-widget-content">{{ form_widget(form.prenom) }}</td>
+    </tr>
+    <tr>
+        <th class="ui-widget-header left" width="40%">Date de naissance</th>
+        <td class="ui-widget-content">{{ form_widget(form.dateNaissance) }}</td>
+    </tr>
+    <tr>
+        <th class="ui-widget-header left" width="40%">Adresse mail</th>
+        <td class="ui-widget-content">{{ form_widget(form.mail) }}</td>
+    </tr>
+    <tr>
+        <th class="ui-widget-header center" colspan=2>Adresse</th>
+    </tr>
+    <tr>
+        <th class="ui-widget-header left" width="40%">Numéro de voie</th>
+        <td class="ui-widget-content">{{ form_widget(form.adresseNumero) }}</td>
+    </tr>
+    <tr>
+        <th class="ui-widget-header left" width="40%">Nom de la voie</th>
+        <td class="ui-widget-content">{{ form_widget(form.adresseVoie) }}</td>
+    </tr>
+    <tr>
+        <th class="ui-widget-header left" width="40%">Complément</th>
+        <td class="ui-widget-content">{{ form_widget(form.adresseComplement) }}</td>
+    </tr>
+    <tr>
+        <th class="ui-widget-header left" width="40%">Code Postal</th>
+        <td class="ui-widget-content">{{ form_widget(form.codePostal) }}</td>
+    </tr>
+    <tr>
+        <th class="ui-widget-header left" width="40%">Ville</th>
+        <td class="ui-widget-content">{{ form_widget(form.adresseVille) }}</td>
+    </tr>
+</table>
+{{ form_rest(form) }}

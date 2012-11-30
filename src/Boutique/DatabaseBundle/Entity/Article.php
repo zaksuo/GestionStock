@@ -49,7 +49,7 @@ class Article
      */
     private $fournisseur;
     private $codeFournisseur;
-    
+    private $gencodeFournisseur;
     private $new_stock;
     private $stocks;
     
@@ -329,6 +329,33 @@ class Article
     public function getCodeFournisseur()
     {
         return $this->codeFournisseur;
+    }
+    
+    /**
+     * Set codeFournisseur
+     *
+     * @param $codeFournisseur
+     * @return Article
+     */
+    public function setGencodeFournisseur($gencodeFournisseur = null)
+    {
+        $this->gencodeFournisseur = $gencodeFournisseur;
+    
+        return $this;
+    }
+
+    /**
+     * Get codeFournisseur
+     *
+     * @return codeFournisseur 
+     */
+    public function getGencodeFournisseur()
+    {
+        return $this->gencodeFournisseur;
+    }
+    
+    public function getPrixTTC() {
+        return number_format(round($this->prixVente + ($this->prixVente * $this->getTypeTva()->getValeur())/100, 2), 2);
     }
     
     private $alpha_num = array(

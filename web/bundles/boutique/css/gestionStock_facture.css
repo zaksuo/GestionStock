@@ -142,3 +142,38 @@
     margin : 0 auto;
     z-index : 5;
 }
+
+.bloc_facture {
+    padding : 10px;
+    position : relative;
+}
+
+.bloc_facture div{
+    padding : 10px;
+    border : 1px solid gray;
+}
+
+.bloc_client {
+    float : left;
+    width : 368px;
+    height : 250px;
+}
+
+.bloc_boutique {
+    float : left;
+    width : 368px;
+    height : 250px;
+    margin-right : 10px;
+}
+
+.bloc_facture_detail {
+    margin-top : 260px;
+}
+
+.bloc_facture_article_list {
+    
+}
+
+.bloc_facture_article {
+    
+}

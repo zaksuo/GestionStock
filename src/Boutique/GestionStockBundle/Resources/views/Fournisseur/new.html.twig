@@ -4,7 +4,7 @@
     <h1>Ajout d'un nouveau fournisseur</h1>
 
     <form action="{{ path('fournisseur_create') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
+        {% include 'BoutiqueGestionStockBundle:Fournisseur:form.html.twig' with {'form' : form} %}
         <button type="submit">Enregistrer</button>
     </form>
 

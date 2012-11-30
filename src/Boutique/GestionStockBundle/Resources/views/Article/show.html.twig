@@ -4,51 +4,66 @@
 
     <h1>Article</h1>
 
-    <table class="record_properties">
+    <table class="ui-widget">
         <tbody>
             <tr>
-                <th>Code article</th>
-                <td>{{ article.code }}</td>
+                <th class="ui-widget-header width40">Code article</th>
+                <td class="ui-widget-content">{{ article.code }}</td>
             </tr>
             <tr>
-                <th>Code fournisseur</th>
-                <td>{{ article.codeFournisseur }}</td>
+                <th class="ui-widget-header width40">Gencode</th>
+                <td class="ui-widget-content">{{ article.gencodeFournisseur }}</td>
             </tr>
             <tr>
-                <th>Nom de l'article</th>
-                <td>{{ article.libelle }}</td>
+                <th class="ui-widget-header width40">Code fournisseur</th>
+                <td class="ui-widget-content">{{ article.codeFournisseur }}</td>
             </tr>
             <tr>
-                <th>Type de vente</th>
-                <td>{{ article.typeVente.libelle }}</td>
+                <th class="ui-widget-header width40">Nom de l'article</th>
+                <td class="ui-widget-content">{{ article.libelle }}</td>
             </tr>
             <tr>
-                <th>Fournisseur</th>
-                <td>{{ article.fournisseur }}</td>
+                <th class="ui-widget-header width40">Type de vente</th>
+                <td class="ui-widget-content">{{ article.typeVente.libelle }}</td>
             </tr>
             <tr>
-                <th>Description</th>
-                <td>{{ article.description }}</td>
+                <th class="ui-widget-header width40">Fournisseur</th>
+                <td class="ui-widget-content"><a href="{{ path('fournisseur_show', {'id' : article.id}) }}">{{ article.fournisseur }}</a></td>
             </tr>
             <tr>
-                <th>Prix de vente</th>
-                <td>{{ article.prixVente }}</td>
+                <th class="ui-widget-header width40">Description</th>
+                <td class="ui-widget-content">{{ article.description }}</td>
             </tr>
             <tr>
-                <th>Quantité restante</th>
-                <td>{{ article.articleStock.quantite }}</td>
+                <th class="ui-widget-header width40">Prix TTC</th>
+                <td class="ui-widget-content">{{ article.getPrixTTC }} €</td>
             </tr>
             <tr>
-                <th>Entrées de stock</th>
-                <td>
-                    <ul id="stock_list">
+                <th class="ui-widget-header width40">Quantité restante</th>
+                <td class="ui-widget-content">{{ article.articleStock.quantite }} {{article.typeVente.unite}}(s)</td>
+            </tr>
+            <tr>
+                <th class="ui-widget-header center" colspan=2>Entrées de stock</th>
+            </tr>
+            <tr>
+                <td class="ui-widget-content" colspan=2>
+                    {#<ul id="stock_list">
                     {% for stock in article.stocks %}
                         <li>{{ stock.dateEntree|date("d/m/Y") }} : {% if stock.quantite > 0 %}Ajout de {{ stock.quantite }} entrées ({{ stock.prixAchat }} €/unité) {% else %}Suppression de {{ stock.quantite }} entrées{% endif %}</li>
                     {% endfor %}
-                    </ul>
+                    </ul>#}
+                    <table>
+                        {% for stock in article.stocks %}
+                            <tr>
+                                <td>{{ stock.dateEntree|date("d/m/Y") }} : {% if stock.quantite > 0 %}Ajout de {{ stock.quantite }} entrées ({{ stock.prixAchat }} €/unité) {% else %}Suppression de {{ stock.quantite }} entrées{% endif %}</td>
+                                <td class="width10 action_menu">
+                                    <div class="ui-menu-icon icon_16 icon_16_notepad_edit" title="Cette fonctionnalité  n'est pas encore disponible !!!!"></div>
+                                </td>
+                            </tr>    
+                        {% endfor %}
+                    </table>
                 </td>
             </tr>
-
         </tbody>
     </table>
 

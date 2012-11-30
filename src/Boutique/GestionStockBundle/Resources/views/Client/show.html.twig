@@ -3,36 +3,35 @@
 {% block content %}
     <h1>Client</h1>
 
-    <table class="record_properties">
+    <table class="ui-widget">
         <tbody>
             <tr>
-                <th>Numéro client</th>
-                <td>{{ client.id }}</td>
+                <th class="ui-widget-header width40">Numéro client</th>
+                <td class="ui-widget-content">{{ client.id }}</td>
             </tr>
             <tr>
-                <th>Identité</th>
-                <td>{{ client.prenom }} {{ client.nom }}</td>
+                <th class="ui-widget-header width40">Identité</th>
+                <td class="ui-widget-content">{{ client.prenom }} {{ client.nom }}</td>
             </tr>
             <tr>
-                <th>Date de naissance</th>
-                <td>{{ client.dateNaissance|date('d/m/Y') }}</td>
+                <th class="ui-widget-header width40">Date de naissance</th>
+                <td class="ui-widget-content">{{ client.dateNaissance|date('d/m/Y') }}</td>
             </tr>
             <tr>
-                <th>e-mail</th>
-                <td>{{ client.mail }}</td>
+                <th class="ui-widget-header width40">e-mail</th>
+                <td class="ui-widget-content">{{ client.mail }}</td>
             </tr>
             <tr>
-                <th>Adresse</th>
-                <td>
+                <th class="ui-widget-header width40">Adresse</th>
+                <td class="ui-widget-content">
                     {{ client.adresseNumero }} {{ client.adresseVoie }}<br />
                     {% if client.adresseComplement|length > 0 %}{{ client.adresseComplement }}<br />{% endif %}
-                    {{ client.codePostal }}<br />
-                    {{ client.adresseVille }}
+                    {{ client.codePostal }} {{ client.adresseVille }}
                 </td>
             </tr>
             <tr>
-                <th>Date de création de la fiche</th>
-                <td>{{ client.dateCreation|date('d/m/Y à H:i:s') }}</td>
+                <th class="ui-widget-header width40">Date de création de la fiche</th>
+                <td class="ui-widget-content">{{ client.dateCreation|date('d/m/Y à H:i:s') }}</td>
             </tr>
         </tbody>
     </table>

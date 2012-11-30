@@ -137,7 +137,7 @@ class ArticleController extends Controller
 
         return $this->render('BoutiqueGestionStockBundle:Article:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'form'   => $editForm->createView()
         ));
     }
 
@@ -150,15 +150,17 @@ class ArticleController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $article = $em->getRepository('BoutiqueDatabaseBundle:Article')->find($id);
-
+        $code = $article->getCode();
+        
         if (!$article) {
             throw $this->createNotFoundException('Erreur : Cet article n\'existe pas.');
         }
 
         $editForm = $this->createForm(new ArticleType(), $article);
         $editForm->bind($request);
-
+        
         if ($editForm->isValid()) {
+            $article->setCode($code);
             $em->persist($article);
             $em->flush();
             
