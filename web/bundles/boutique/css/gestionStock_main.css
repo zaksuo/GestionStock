@@ -38,6 +38,10 @@ root { display: block;}
 .width40 { width: 40%;}
 .width10 { width: 40%;}
 
+.top10 {
+    margin-top : 10px;
+}
+
 table {
     width : 100%;
     border-collapse: collapse;
@@ -102,12 +106,15 @@ ul {
     list-style-type: none;
 }
 
-
+.ui-widget-header-partiel { border-left: 1px solid #aaaaaa; border-right: 1px solid #aaaaaa; background: #cccccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; color: #222222; font-weight: bold; }
+.ui-widget-separator { background: #cccccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; line-height : 1px; height : 1px; }
 
 .action_menu .icon_16{ float : left; margin-right : 5px; }
 
 /* Wrap icons */
 .icon_16 {width: 16px; height: 16px;}
+.icon_16_before { height: 20px; background-repeat: no-repeat; padding-left : 20px; }
+
 
 /* Icons 16px */
 .icon_16_address {background-image: url(images/16px/address_16.png);}
@@ -118,6 +125,7 @@ ul {
 .icon_16_calendar {background-image: url(images/16px/calendar_16.png);}
 .icon_16_clipboard {background-image: url(images/16px/clipoard_16.png);}
 .icon_16_clock {background-image: url(images/16px/clock_16.png);}
+.icon_16_contact_email {background-image: url(images/16px/contact_email_16.png);}
 .icon_16_database_add {background-image: url(images/16px/database_add_16.gif);}
 .icon_16_delete {background-image: url(images/16px/delete_16.png);}
 .icon_16_delete2 {background-image: url(images/16px/delete2_16.gif);}
@@ -148,6 +156,7 @@ ul {
 .icon_16_search {background-image: url(images/16px/search_16.png);}
 .icon_16_settings {background-image: url(images/16px/settings_16.gif);}
 .icon_16_shopping_cart {background-image: url(images/16px/shopping_cart_16.gif);}
+.icon_16_sharp {background-image: url(images/16px/sharp_16.png);}
 .icon_16_statistics {background-image: url(images/16px/statistics_16.png);}
 .icon_16_tick {background-image: url(images/16px/tick_16.png);}
 .icon_16_trash {background-image: url(images/16px/trash_16.png);}

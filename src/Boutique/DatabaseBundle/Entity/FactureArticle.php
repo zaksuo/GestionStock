@@ -135,14 +135,18 @@ class FactureArticle
     }
     
     public function getArticlePrixTotal() {
-        return $this->quantite * $this->prixUnitaire;
+        return number_format(round($this->quantite * $this->prixUnitaire, 2), 2);
     }
     
     public function getTva() {
-        return $this->prixUnitaire * $this->getArticle()->getTypeTva()->getValeur() / 100;
+        return number_format(round($this->prixUnitaire * $this->getArticle()->getTypeTva()->getValeur() / 100, 2), 2);
     }
     
     public function getTotalArticleTva() {
-        return round( $this->prixUnitaire * $this->getArticle()->getTypeTva()->getValeur() / 100 * $this->quantite, 2 );
+        return number_format(round( $this->prixUnitaire * $this->getArticle()->getTypeTva()->getValeur() / 100 * $this->quantite, 2 ), 2);
+    }
+    
+    public function getPrixUnitaireTTC() {
+        return number_format(round( $this->getPrixUnitaire() + $this->getTva() ,2),2);
     }
 }
