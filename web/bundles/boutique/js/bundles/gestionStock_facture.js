@@ -1,14 +1,8 @@
 $(document).ready(function(){
-    $(".facture_article_row:odd").css('background', '#bcd5e6');
-    
-    $('.facture_article_row').live('mouseover', function(){
-        $(this).find('.facture_article_actions').show();
-    }).live('mouseout', function() {
-        $(this).find('.facture_article_actions').hide();
-    });
-    
-    $('#search_facture_article_field').keyup(function() {
-        if($('#search_facture_article_field').val().length >= 2 ) {
+    $('#search_facture_article_field').keyup(function(e) {
+        if(e.which == 13) alert('Plop');
+        
+        if($('#search_facture_article_field').val().length >= 2) {
 
             $('#search_facture_article_form').ajaxSubmit({
                 target: '#article_search_results',
@@ -19,14 +13,11 @@ $(document).ready(function(){
     });
     
     $('#facture_client_search_field').keyup(function() {
-       //alert($('#search_facture_client_field').val());
        if($('#facture_client_search_field').val().length >= 2 ) {
            
            $('#facture_client_search_form').ajaxSubmit({
                target: '#client_search_results',
                replaceTarget: false,
-               //clearForm: true,
-               //resetForm: true,
                type: 'post'
            });
            
@@ -36,7 +27,7 @@ $(document).ready(function(){
     $('.select_facture_article_link').live('click', function(e) {
             e.preventDefault();
 
-            var article_existant = false;;
+            var article_existant = false;
             var_id_facture = $('#id_facture').text();
             var id_article = $(this).parent().attr('id');
             var url = $(this).attr('href');
@@ -55,8 +46,7 @@ $(document).ready(function(){
                     url : url,
                     success: function( data ) {
                         $('.facture_empty').hide();
-                        $("#facture_article_list ul.facture_content").append(data);
-                        updateRowColors();
+                        $("#facture_article_list .facture_content .separator").before(data);
                         updateFactureTotal();
                     }
                 });
@@ -80,21 +70,19 @@ $(document).ready(function(){
     });
 
     $('.facture_article_quantite_field').live('focusout', function() {
-        var form = $(this).parent().parent().parent();
-        
-        var articleRow = form.parent();
+        var form = $(this).parent();
+        var articleRow = $(this).parent().parent().parent();
         
         form.ajaxSubmit({
             target: articleRow,
             replaceTarget: true,
-            success: updateRowColors,
             type: 'post'
         });
         
         updateFactureTotal();
     });
 
-    $('.facture_article_actions a').live('click', function(e) {
+    $('.fact_action_menu a').live('click', function(e) {
         e.preventDefault();
         article_row = $(this).parent().parent();
         
@@ -104,7 +92,7 @@ $(document).ready(function(){
             url : url,
             success: function() {
                 article_row.remove();
-                updateRowColors();
+                updateFactureTotal();
             }
         });
     });
@@ -132,16 +120,14 @@ $(document).ready(function(){
         });
     })
 
-    function updateRowColors() {
-        $(".facture_article_row:odd").css('background', '#bcd5e6');
-    }
 
     function updateFactureTotal() {
         var url = "updateTotal"
         $.ajax({
             url : url,
             success: function( data ) {
-                $("#facture_total").replaceWith(data);
+                $(".facture_total").remove();
+                $("#facture_article_list .facture_content .separator").after(data);
             }
         });
     }

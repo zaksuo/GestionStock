@@ -3,7 +3,7 @@
 {% block content %}
     <a target=_blank href="{{ path('facture_show', {'id' : facture.id, 'pdf' : 1}) }}">Imprimer la facture</a>
     <div class="bloc_facture_container">
-        <h1>Facture {{facture.id}}</h1>
+        <h1>Facture {{ facture.id }} - {{ facture.date|date('d/m/Y à H:i:s') }}</h1>
 
         <div class="bloc_facture bloc_boutique">
             <h3>La Dame de Quilt</h3>
@@ -53,7 +53,7 @@
                             <td class="ui-widget-content left">{{ fact_article.article.libelle }}</td>
                             <td class="ui-widget-content center">{{ fact_article.quantite }}</td>
                             <td class="ui-widget-content center">{{ fact_article.getPrixUnitaireTTC }} € / {{ fact_article.article.typeVente.unite }}</td>
-                            <td class="ui-widget-content center">{{ fact_article.getArticlePrixTotal }}</td>
+                            <td class="ui-widget-content center">{{ fact_article.getArticlePrixTotal }} €</td>
                             
                         </tr>
                     {% endfor %}

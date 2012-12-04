@@ -1,5 +1,26 @@
+<tr class="facture_total">
+    <td class="ui-widget-content left" colspan=5>Total hors taxes</td>
+    <td class="ui-widget-content right">{{ facture.montantFactureHT }} €</td>
+</tr>
+<tr class="facture_total">
+    <td class="ui-widget-content left" colspan=5>Total TVA</td>
+    <td class="ui-widget-content right">{{ facture.getTvaTotal }} €</td>
+</tr>
+<tr class="facture_total">
+    <td class="ui-widget-content left" colspan=5>Total à payer</td>
+    <td class="ui-widget-content right">{{ facture.montantFactureTTC }} €</td>
+</tr>
+
+
+
+
+
+
+
+{#
 <ul id="facture_total">
     <li id="facture_prix_total_ht">Total HT : {{ facture.montantFactureHT }} €</li>
     <li id="facture_prix_total_tva">Total TVA : {{ facture.getTvaTotal }} €</li>
     <li id="facture_prix_total_ttc">Total TTC : {{ facture.montantFactureTTC }} €</li>
 </ul>
+#}

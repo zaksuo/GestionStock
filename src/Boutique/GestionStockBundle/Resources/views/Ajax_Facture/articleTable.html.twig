@@ -1,0 +1,15 @@
+<tr id="{{ fact_article.article.id }}">
+    <td class="ui-widget-content center">{{ fact_article.article.code }}</td>
+    <td class="ui-widget-content">{{ fact_article.article.libelle }}</td>
+    <td class="ui-widget-content center">{{ fact_article.prixUnitaire }} €</td>
+    <td class="ui-widget-content center">
+        <form class="facture_article_quantite" action="{{ path('facture_article_update_quantite', {'id_fact_article': fact_article.id}) }}" method="post">
+            <input type="text" class="facture_article_quantite_field" name="quantite" value="{{ fact_article.quantite }}" size="5" />
+        </form>
+    </td>
+    <td class="ui-widget-content right">{{ fact_article.getTotalArticleTva }} €</td>
+    <td class="ui-widget-content right">{{ fact_article.getTotalArticleTTC }} €</td>
+    <td class="fact_action_menu">
+        <a href="{{ path('facture_article_remove', {'id_fact_article': fact_article.id}) }}"><div class="icon_16 icon_16_trash2" title="Supprimer cet article"></div></a>
+    </td>
+</tr>

@@ -22,11 +22,17 @@ class FournisseurController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $fournisseurs = $em->getRepository('BoutiqueDatabaseBundle:Fournisseur')->findAll();
+        $dql = "SELECT f FROM BoutiqueDatabaseBundle:Fournisseur f";
+        $query = $em->createQuery($dql);
+        
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            30 /*limit per page*/
+        );
 
-        return $this->render('BoutiqueGestionStockBundle:Fournisseur:index.html.twig', array(
-            'fournisseurs' => $fournisseurs,
-        ));
+        return $this->render('BoutiqueGestionStockBundle:Fournisseur:index.html.twig', compact('pagination'));
     }
 
     /**

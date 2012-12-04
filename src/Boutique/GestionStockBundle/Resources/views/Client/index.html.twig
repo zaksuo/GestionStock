@@ -8,18 +8,18 @@
     <table class="ui-widget">
         <thead>
             <tr>
-                <th class="ui-widget-header">Prénom Nom</th>
-                <th class="ui-widget-header">Mail</th>
-                <th class="ui-widget-header">Création du compte</th>
+                <th class="ui-widget-header {% if pagination.isSorted('c.nom') %}sorted{% endif %}">{{ pagination.sortable('Nom Prénom', 'c.nom')|raw }}</th>
+                <th class="ui-widget-header {% if pagination.isSorted('c.mail') %}sorted{% endif %}">{{ pagination.sortable('Mail', 'c.mail')|raw }}</th>
+                <th class="ui-widget-header {% if pagination.isSorted('c.dateNaissance') %}sorted{% endif %}">{{ pagination.sortable('Date naissance', 'c.dateNaissance')|raw }}</th>
                 <th class="ui-widget-header">Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for client in clients %}
+        {% for client in pagination %}
             <tr>
-                <td class="ui-widget-content"><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.prenom }} {{ client.nom }}</a></td>
-                <td class="ui-widget-content">{{ client.mail }}</td>
-                <td class="ui-widget-content">{{ client.dateNaissance|date('d/m/Y H:i:s') }}</td>
+                <td class="ui-widget-content bold"><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.prenom }} {{ client.nom }}</a></td>
+                <td class="ui-widget-content center">{{ client.mail }}</td>
+                <td class="ui-widget-content center">{{ client.dateNaissance|date('d/m/Y') }}</td>
                 <td class="ui-widget-content action_menu">
                     <a href="{{ path('client_show', { 'id': client.id }) }}"><div class="ui-menu-icon icon_16 icon_16_view" title="Voir la fiche client"></div></a>
                     <a href="{{ path('client_edit', { 'id': client.id }) }}"><div class="ui-menu-icon icon_16 icon_16_notepad_edit" title="Modifier les informations du client"></div></a>

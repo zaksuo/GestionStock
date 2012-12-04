@@ -1,8 +1,17 @@
 <div id="facture_client">
-    Cette facture est destinée à : 
-    {% if facture.client|length > 0 %}
-        {{ facture.client.prenom}} {{ facture.client.nom }}
-    {% else %}
-        Aucun client
-    {% endif %}.
+    <table class="ui-widget">
+        <tr>
+            <th class="ui-widget-header width10">Client</th>
+            <td>
+                {% if facture.client|length > 0 %}
+                    <div class="icon_16_before icon_16_sharp">{{ facture.client.id }}</div>
+                    <div class="icon_16_before icon_16_user">{{ facture.client.prenom }} {{ facture.client.nom }}</div>
+                    <div class="icon_16_before icon_16_contact_email">{{ facture.client.mail }}</div>
+                {% else %}
+                    Aucun client
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <br />
 </div>

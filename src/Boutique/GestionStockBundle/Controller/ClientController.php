@@ -22,11 +22,17 @@ class ClientController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $clients = $em->getRepository('BoutiqueDatabaseBundle:Client')->findAll();
+        $dql = "SELECT c FROM BoutiqueDatabaseBundle:Client c";
+        $query = $em->createQuery($dql);
+        
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            30 /*limit per page*/
+        );
 
-        return $this->render('BoutiqueGestionStockBundle:Client:index.html.twig', array(
-            'clients' => $clients,
-        ));
+        return $this->render('BoutiqueGestionStockBundle:Client:index.html.twig', compact('pagination'));
     }
 
     /**

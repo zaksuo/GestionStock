@@ -143,7 +143,7 @@ class Article
      */
     public function getPrixVente()
     {
-        return $this->prixVente;
+        return number_format($this->prixVente, 2);
     }
 
     /**

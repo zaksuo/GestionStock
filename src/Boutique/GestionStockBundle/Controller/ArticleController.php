@@ -27,11 +27,17 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->findAll();
+        $dql = "SELECT a FROM BoutiqueDatabaseBundle:Article a";
+        $query = $em->createQuery($dql);
+        
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            30 /*limit per page*/
+        );
 
-        return $this->render('BoutiqueGestionStockBundle:Article:index.html.twig', array(
-            'articles' => $articles,
-        ));
+        return $this->render('BoutiqueGestionStockBundle:Article:index.html.twig', compact('pagination'));
     }
 
     /**

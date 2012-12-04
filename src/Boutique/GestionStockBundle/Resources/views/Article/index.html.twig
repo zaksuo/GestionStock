@@ -9,22 +9,24 @@
     <table class="ui-widget">
         <thead>
             <tr>
-                <th class="ui-widget-header">Code</th>
-                <th class="ui-widget-header">Ref. fournisseur</th>
-                <th class="ui-widget-header">Libellé</th>
-                <th class="ui-widget-header">Prix TTC</th>
+                <th class="ui-widget-header {% if pagination.isSorted('a.code') %}sorted{% endif %}">{{ pagination.sortable('Code', 'a.code')|raw }}</th>
+                <th class="ui-widget-header {% if pagination.isSorted('a.codeFournisseur') %}sorted{% endif %}">{{ pagination.sortable('Ref. fournisseur', 'a.codeFournisseur')|raw }}</th>
+                <th class="ui-widget-header {% if pagination.isSorted('a.libelle') %}sorted{% endif %}">{{ pagination.sortable('Libellé', 'a.libelle')|raw }}</th>
+                <th class="ui-widget-header {% if pagination.isSorted('a.prixVente') %}sorted{% endif %}">{{ pagination.sortable('Prix HT', 'a.prixVente')|raw }}</th>
+                <th class="ui-widget-header {% if pagination.isSorted('a.prixVente') %}sorted{% endif %}">{{ pagination.sortable('Prix TTC', 'a.prixVente')|raw }}</th>
                 <th class="ui-widget-header">Stock</th>
                 <th class="ui-widget-header">Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for article in articles %}
+        {% for article in pagination %}
             <tr>
-                <td class="ui-widget-content"><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.code }}</a></td>
+                <td class="ui-widget-content bold center"><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.code }}</a></td>
                 <td class="ui-widget-content">{{ article.codeFournisseur }}</td>
                 <td class="ui-widget-content">{{ article.libelle }}</td>
-                <td class="ui-widget-content">{{ article.getPrixTTC }} €</td>
-                <td class="ui-widget-content">{{ article.articleStock.quantite }} {{ article.typeVente.unite }}(s)</td>
+                <td class="ui-widget-content center">{{ article.prixVente }} €</td>
+                <td class="ui-widget-content center">{{ article.getPrixTTC }} €</td>
+                <td class="ui-widget-content center">{{ article.articleStock.quantite }} {{ article.typeVente.unite }}(s)</td>
                 <td class="ui-widget-content action_menu">
                     <a href="{{ path('article_show', { 'id': article.id }) }}"><div class="ui-menu-icon icon_16 icon_16_view" title="Voir les détails de l'article"></div></a>
                     <a href="{{ path('article_edit', { 'id': article.id }) }}"><div class="ui-menu-icon icon_16 icon_16_notepad_edit" title="Modifier les informations de l'article"></div></a>
@@ -35,6 +37,7 @@
         </tbody>
     </table>
 
+    <div class="navigation">
+        {{ pagination.render()|raw }}
+    </div>
 {% endblock %}
-
-

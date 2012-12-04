@@ -1,5 +1,5 @@
 .facture_article_search {
-    width : 80%;
+    width : 100%;
     margin : 0 auto;
     border : 1px solid gray;
     margin-bottom : 15px;
@@ -7,7 +7,7 @@
 }
 
 .facture_client_search {
-    width : 80%;
+    width : 100%;
     margin : 0 auto;
     border : 1px solid gray;
     margin-bottom : 15px;
@@ -15,10 +15,8 @@
 }
 
 #facture_article_list {
-    width : 80%;
+    width : 100%;
     margin : 0 auto;
-    border : 1px solid gray;
-    padding : 10px;
 }
 
 #facture_article_list .facture_empty {
@@ -144,18 +142,9 @@
 }
 
 .bloc_facture_container { padding : 10px; position : relative; }
-
 .bloc_facture { padding : 0 10px 10px 10px; border : 1px solid gray; }
-.bloc_facture.bloc_client { padding-top : 10px; float : left; width : 368px; height : 150px; }
-.bloc_facture.bloc_boutique { float : left; width : 368px; height : 160px; margin-right : 10px; }
-.bloc_facture.bloc_detail { margin-top : 170px; }
-
-.bloc_facture_article_list {
-    list-style-type: none;
-    margin-top : 10px;
-}
-
-.bloc_facture_article {
-    line-height : 20px;
-    padding-left : 20px;
-}
+.bloc_facture.bloc_client { float : left; width : 368px; height : 170px; }
+.bloc_facture.bloc_boutique { float : left; width : 368px; height : 170px; margin-right : 10px; }
+.bloc_facture.bloc_detail { margin-top : 175px; }
+.bloc_facture_article_list { list-style-type: none; margin-top : 10px; }
+.bloc_facture_article { line-height : 20px; padding-left : 20px; }

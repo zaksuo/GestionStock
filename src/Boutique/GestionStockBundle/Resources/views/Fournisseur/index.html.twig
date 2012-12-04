@@ -8,15 +8,15 @@
     <table class="ui-widget">
         <thead>
             <tr>
-                <th class="ui-widget-header">Nom</th>
-                <th class="ui-widget-header">SIREN</th>
-                <th class="ui-widget-header">Téléphone</th>
+                <th class="ui-widget-header {% if pagination.isSorted('f.nom') %}sorted{% endif %}">{{ pagination.sortable('Raison sociale', 'f.nom')|raw }}</th>
+                <th class="ui-widget-header {% if pagination.isSorted('f.siren') %}sorted{% endif %}">{{ pagination.sortable('SIREN', 'f.siren')|raw }}</th>
+                <th class="ui-widget-header {% if pagination.isSorted('f.telephone') %}sorted{% endif %}">{{ pagination.sortable('Téléphone', 'f.telephone')|raw }}</th>
                 <th class="ui-widget-header">Actions</th>
                 <td></td>
             </tr>
         </thead>
         <tbody>
-        {% for fournisseur in fournisseurs %}
+        {% for fournisseur in pagination %}
             <tr>
                 <td class="ui-widget-content"><a href="{{ path('fournisseur_show', { 'id': fournisseur.id }) }}">{{ fournisseur.nom }}</a></td>
                 <td class="ui-widget-content">{{ fournisseur.siren }}</td>

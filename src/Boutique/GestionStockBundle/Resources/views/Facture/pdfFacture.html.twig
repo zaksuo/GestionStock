@@ -1,0 +1,115 @@
+<h2 class="center">Facture {{ facture.id }} - {{ facture.date|date('d/m/Y à H:i:s') }}</h2>
+<div class="bloc_facture_container">
+    <div class="bloc_facture bloc_boutique">
+        <h3>La Dame de Quilt</h3>
+
+        SIRET : 789 145 265<br /><br />
+
+        <div class="icon_16_before icon_16_letter">
+            32 Rue de l'Eglise<br />
+            77250 Morêt sur Loing
+        </div><br />
+
+        <div class="icon_16_before icon_16_phone">N/A</div>
+        <div class="icon_16_before icon_16_contact_email">dame.de.quilt@gmail.com</div><br />
+
+        <div class="icon_16_before icon_16_clock">8h à 13h - 15h à 19h du lundi au samedi</div>
+    </div>
+
+    <div class="bloc_facture bloc_client">
+        <h3></h3>
+        {% if facture.client|length > 0 %}
+                <div class="icon_16_before icon_16_sharp">{{ facture.client.id }}</div>
+                <div class="icon_16_before icon_16_user">{{ facture.client.prenom }} {{ facture.client.nom }}</div>
+                <div class="icon_16_before icon_16_contact_email">{{ facture.client.mail }}</div>
+
+                <div class="icon_16_before icon_16_letter">
+                {{ facture.client.adresseNumero }} {{ facture.client.adresseVoie }}<br />
+                {% if facture.client.adresseComplement|length > 0 %}{{ facture.client.adresseComplement }}<br />{% endif %}
+                {{ facture.client.codePostal }} {{ facture.client.adresseVille }}
+                </div>
+        {% endif %}
+    </div>
+
+    <br />
+
+    <div class="bloc_facture bloc_detail">
+        <table class="ui-widget top10">
+            <tr>
+                <th class="ui-widget-header-partiel center">Code Article</th>
+                <th class="ui-widget-header-partiel center">Nom de l'article</th>
+                <th class="ui-widget-header-partiel center">Quantité</th>
+                <th class="ui-widget-header-partiel center">Prix</th>
+                <th class="ui-widget-header-partiel center">Montant TTC</th>
+            </tr>
+            {% if facture.hasFactArticles %}
+                {% for fact_article in facture.factArticles %}
+                    <tr>
+                        <td class="ui-widget-content center">{{ fact_article.article.code }}</td>
+                        <td class="ui-widget-content left">{{ fact_article.article.libelle }}</td>
+                        <td class="ui-widget-content center">{{ fact_article.quantite }}</td>
+                        <td class="ui-widget-content center">{{ fact_article.getPrixUnitaireTTC }} € / {{ fact_article.article.typeVente.unite }}</td>
+                        <td class="ui-widget-content center">{{ fact_article.getArticlePrixTotal }} €</td>
+
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td class="ui-widget-separator" colspan=5></td>
+                </tr>
+                <tr>
+                    <td class="ui-widget-content left" colspan=4>Total HT</td>
+                    <td class="ui-widget-content center">{{ facture.montantFactureHT }} €</td>
+                </tr>
+                <tr>
+                    <td class="ui-widget-content left" colspan=4>Total TVA</td>
+                    <td class="ui-widget-content center">{{ facture.getTvaTotal }} €</td>
+                </tr>
+                <tr>
+                    <td class="ui-widget-content left" colspan=4>Total TTC</td>
+                    <td class="ui-widget-content center">{{ facture.montantFactureTTC }} €</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td>Cette facture ne contient aucun article.</td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>
+
+<style type="text/css">
+    table { width : 100%; border-collapse: collapse; }
+    
+    .bloc_facture_container { padding : 10px; position : relative; margin : -15px; font-size : 12px; }
+    .bloc_facture { padding : 0 10px 10px 10px; border : 1px solid gray; }
+    .bloc_facture.bloc_client { float : left; width : 318px; height : 160px; padding-top : 10px;}
+    .bloc_facture.bloc_boutique { float : left; width : 319px; height : 170px; margin-right : 10px; }
+    .bloc_facture.bloc_detail { margin-top : 175px; }
+    .bloc_facture_article_list { list-style-type: none; margin-top : 10px; }
+    .bloc_facture_article { line-height : 20px; padding-left : 20px; }
+
+    .ui-widget-header-partiel { border-left: 1px solid #aaaaaa; border-right: 1px solid #aaaaaa; background: #cccccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; color: #222222; font-weight: bold; }
+    .ui-widget-separator { background: #cccccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; line-height : 1px; height : 1px; }
+
+    .left { text-align: left; }
+    .center { text-align: center; }
+    .top10 { margin-top : 10px; }
+    .ui-widget { font-family: Verdana,Arial,sans-serif; font-size: 1.1em; }
+    .ui-widget-content { border: 1px solid #aaaaaa; background: #ffffff url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x; color: #222222; }
+    
+    /* Wrap icons */
+    .icon_16 {width: 16px; height: 16px;}
+    .icon_16_before { height: 20px; background-repeat: no-repeat; padding-left : 20px; }
+
+    /* Icons 16px */
+    .icon_16_address {background-image: url('css/images/16px/address_16.png');}
+    .icon_16_clock {background-image: url('css/images/16px/clock_16.png');}
+    .icon_16_contact_email {background-image: url('css/images/16px/contact_email_16.png');}
+    .icon_16_letter {background-image: url('bundles/boutique/css/images/16px/letter_16.png');}
+    .icon_16_notepad_edit {background-image: url('bundles/boutique/css/images/16px/notepad_edit_16.gif');}
+    .icon_16_phone {background-image: url('bundles/boutique/css/images/16px/phone_16.gif');}
+    .icon_16_print {background-image: url('bundles/boutique/css/images/16px/print_16.gif');}
+    .icon_16_sharp {background-image: url('bundles/boutique/css/images/16px/sharp_16.png');}
+    .icon_16_statistics {background-image: url('bundles/boutique/css/images/16px/statistics_16.png');}
+    .icon_16_user {background-image: url('bundles/boutique/css/images/16px/user_16.png');}
+</style>
