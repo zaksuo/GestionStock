@@ -1,0 +1,80 @@
+<?php
+
+namespace Boutique\DatabaseBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Fournisseur
+ */
+class Fournisseur
+{
+    /**
+     * @var string
+     */
+    private $nom;
+
+    /**
+     * @var integer
+     */
+    private $id;
+    private $articles;
+
+    public function __toString() {
+        return $this->idArticle;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return Fournisseur
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    /**
+     * Get articles
+     *
+     * @return string 
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function setArticles($articles)
+    {
+        return $this->articles = $articles;
+    }
+    
+}
