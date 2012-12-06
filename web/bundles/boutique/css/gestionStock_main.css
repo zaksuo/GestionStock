@@ -33,6 +33,7 @@ root { display: block;}
 .width10 { width: 40%;}
 
 .top10 { margin-top : 10px; }
+.bottom10 { margin-bottom : 10px; }
 
 .bold { font-weight : bold; }
 
@@ -44,6 +45,8 @@ root { display: block;}
 table { width : 100%; border-collapse: collapse; }
 table th { padding: 5px; }
 table td { padding: 5px; }
+
+.ajax_form { padding : 20px; background-color : #EEEEEE; border : 1px solid gray; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; position : absolute; margin : 0 auto; z-index : 5; }
 
 #banner {
     /*background : #CC1111;*/
@@ -98,9 +101,11 @@ ul {
 
 .ui-widget-header.sorted a{ color : #CD0A0A; }
 .ui-widget-header-partiel { border-left: 1px solid #aaaaaa; border-right: 1px solid #aaaaaa; background: #cccccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; color: #222222; font-weight: bold; }
-.ui-widget-separator { background: #cccccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; line-height : 1px; height : 1px; }
+.ui-widget-separator { background: #cccccc url(images/ui-bg_highlight-soft_75_cccccc_1x100.png) 50% 50% repeat-x; line-height : 1px; height : 1px;  }
 
 .action_menu .icon_16{ float : left; margin-right : 5px; }
+.action_link{ position : relative; font-weight : bold; text-decoration : none; font-size : 14px; }
+.action_link .icon_16{ float : left; margin-right : 5px; }
 
 /* Wrap icons */
 .icon_16 {width: 16px; height: 16px;}

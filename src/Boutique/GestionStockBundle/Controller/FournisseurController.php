@@ -48,9 +48,20 @@ class FournisseurController extends Controller
         if (!$fournisseur) {
             throw $this->createNotFoundException('Impossible de trouver le fournisseur sélectionné.');
         }
+        
+        $dql = "SELECT a FROM BoutiqueDatabaseBundle:Article a WHERE a.fournisseur = '".$fournisseur->getId()."'";
+        $query = $em->createQuery($dql);
+        
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            30 /*limit per page*/
+        );
 
         return $this->render('BoutiqueGestionStockBundle:Fournisseur:show.html.twig', array(
-            'fournisseur'      => $fournisseur
+            'fournisseur'      => $fournisseur,
+            'pagination'        => $pagination
         ));
     }
 

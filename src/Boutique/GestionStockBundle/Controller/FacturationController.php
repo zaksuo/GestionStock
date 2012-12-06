@@ -69,7 +69,7 @@ class FacturationController extends Controller
         $client = new Client();
         $client_form = $this->createForm(new ClientType(), $client);
                 
-        return $this->render('BoutiqueGestionStockBundle:Facture:editTable.html.twig', array(
+        return $this->render('BoutiqueGestionStockBundle:Facture:edit.html.twig', array(
             'facture' => $facture,
             'errors' => array(),
             'form' => $client_form->createView()
@@ -190,7 +190,7 @@ class FacturationController extends Controller
         
         $em->flush();
         
-        return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:articleTable.html.twig', array(
+        return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig', array(
             'article' => $article,
             'fact_article' => $fact_article
         ));
@@ -250,7 +250,7 @@ class FacturationController extends Controller
         $em->persist($fact_article);
         $em->flush();
         
-        return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:articleTable.html.twig', array(
+        return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig', array(
             'fact_article' => $fact_article
         ));
     }

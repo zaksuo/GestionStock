@@ -1,5 +1,5 @@
 .facture_article_search {
-    width : 100%;
+    width : 97%;
     margin : 0 auto;
     border : 1px solid gray;
     margin-bottom : 15px;
@@ -7,16 +7,11 @@
 }
 
 .facture_client_search {
-    width : 100%;
+    width : 97%;
     margin : 0 auto;
     border : 1px solid gray;
     margin-bottom : 15px;
     padding : 10px;
-}
-
-#facture_article_list {
-    width : 100%;
-    margin : 0 auto;
 }
 
 #facture_article_list .facture_empty {
@@ -24,121 +19,6 @@
     text-align: center;
     font-weight : bold;
     margin-top : 80px;
-}
-
-#facture_article_list ul {
-    list-style-type: none;
-    border : 0;
-}
-
-#facture_article_list .facture_article_info, #facture_article_list .facture_article_tva {
-    position : relative;
-    height : 23px;
-}
-
-#facture_article_list .facture_article_info {
-
-}
-
-#facture_article_list .facture_article_info div {
-    float : left;
-}
-
-#facture_article_list .facture_article_tva div {
-    float : left;
-}
-
-#facture_article_list .facture_article_tva {
-    color : gray;
-    font-size : 0.8em;
-    text-align : right;
-}
-
-.facture_article_tva .tva_info {
-    width : 540px;
-    text-align : left;
-}
-
-.facture_article_tva .article_tva {
-    width : 100px;
-    text-align : right;
-}
-
-#facture_article_list div.article_denomination {
-    padding-top : 3px;
-    width : 390px;
-}
-
-#facture_article_list div.article_prix_unitaire {
-    padding-top : 3px;
-    width : 60px;
-    text-align: right;
-}
-
-#facture_article_list div.multiplicateur {
-    padding-top : 3px;
-    width : 20px;
-    text-align: center;
-}
-
-#facture_article_list div.facture_article_quantite_form {
-    width : 70px;
-    text-align: center;
-}
-
-#facture_article_list div.facture_article_quantite_form input {
-    text-align: right;
-}
-
-#facture_article_list div.prix_total_ht {
-    padding-top : 3px;
-    width : 100px;
-    color : green;  
-    text-align : right;
-    border :1px solid green;
-}
-
-#facture_erreurs {
-    font-weight: bold;
-    color : red;
-}
-
-#facture_total {
-    list-style-type: none;
-    width : 100%;
-    text-align : right;
-    background : greenyellow;
-}
-
-#facture_article_list div.facture_article_actions {
-    line-height : 35px;
-    height : 35px;
-    border-left : 1px solid gray;
-    border-right : 1px solid gray;
-    border-bottom : 1px solid gray;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    background-color : #cdcdcd;
-    display : none;
-    z-index : 40;
-}
-
-#facture_article_list div.facture_article_actions img {
-    margin-top : 7px;
-}
-
-#facture_client_new_form {
-    width : 400px;
-    height : 300px;
-    background-color : #CDCDCD;
-    border : 1px solid gray;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    position : absolute;
-    margin : 0 auto;
-    z-index : 5;
 }
 
 .bloc_facture_container { padding : 10px; position : relative; }

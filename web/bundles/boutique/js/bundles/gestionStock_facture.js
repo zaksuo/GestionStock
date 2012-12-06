@@ -1,26 +1,25 @@
 $(document).ready(function(){
-    $('#search_facture_article_field').keyup(function(e) {
-        if(e.which == 13) alert('Plop');
-        
-        if($('#search_facture_article_field').val().length >= 2) {
-
+    $('#search_facture_article_field').live('keypress', function(e) {
+        if(e.which == 13 || $('#search_facture_article_field').val().length >= 2) {
+            $('#search_facture_article_field').val( $('#search_facture_article_field').val() + String.fromCharCode(e.which) );
             $('#search_facture_article_form').ajaxSubmit({
                 target: '#article_search_results',
                 replaceTarget: false,
                 type: 'post'
             });
+            return false;
         }
     });
     
-    $('#facture_client_search_field').keyup(function() {
-       if($('#facture_client_search_field').val().length >= 2 ) {
-           
+    $('#facture_client_search_field').live('keypress', function(e) {
+       if(e.which == 13 || $('#facture_client_search_field').val().length >= 2 ) {
+           $('#facture_client_search_field').val( $('#facture_client_search_field').val() + String.fromCharCode(e.which) );
            $('#facture_client_search_form').ajaxSubmit({
                target: '#client_search_results',
                replaceTarget: false,
                type: 'post'
            });
-           
+           return false;
        }
    });
    
@@ -68,7 +67,23 @@ $(document).ready(function(){
         });
         $("#client_search_results").empty();
     });
+    
+    $('.facture_article_quantite_field').live('keypress', function(e) {
+        if(e.which == 13) {
+            var form = $(this).parent();
+            var articleRow = $(this).parent().parent().parent();
 
+            form.ajaxSubmit({
+                target: articleRow,
+                replaceTarget: true,
+                type: 'post'
+            });
+
+            updateFactureTotal();
+            return false;
+        }
+    });
+    
     $('.facture_article_quantite_field').live('focusout', function() {
         var form = $(this).parent();
         var articleRow = $(this).parent().parent().parent();
