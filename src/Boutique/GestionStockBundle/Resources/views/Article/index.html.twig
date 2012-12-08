@@ -6,6 +6,12 @@
 
     <a href="{{ path('article_new') }}" class="ui-menu"><span class="icon_16 icon_16_plus"></span>Ajouter un article</a>
     
+    <br /><br />
+    
+    <div class="navigation">
+        {{ pagination.render()|raw }}
+    </div>
+    
     <table class="ui-widget">
         <thead>
             <tr>

@@ -289,9 +289,12 @@ class Facture
     }
     
     public function getPrixTotalTtc() {
+        echo $this->getPrixTotalHt()." - ".$this->getTvaTotal();
+        
         $prix_total = $this->getPrixTotalHt() + $this->getTvaTotal();
         return number_format(round( $prix_total, 2 ), 2);
     }
+    
     /**
      * @var float $montantFactureHT
      */

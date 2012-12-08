@@ -12,7 +12,7 @@
             
             <div class="icon_16_before icon_16_letter">
                 32 Rue de l'Eglise<br />
-                77250 Morêt sur Loing
+                77250 Moret sur Loing
             </div><br />
             
             <div class="icon_16_before icon_16_phone">N/A</div>
@@ -53,7 +53,7 @@
                             <td class="ui-widget-content left">{{ fact_article.article.libelle }}</td>
                             <td class="ui-widget-content center">{{ fact_article.quantite }}</td>
                             <td class="ui-widget-content center">{{ fact_article.getPrixUnitaireTTC }} € / {{ fact_article.article.typeVente.unite }}</td>
-                            <td class="ui-widget-content center">{{ fact_article.getArticlePrixTotal }} €</td>
+                            <td class="ui-widget-content center">{{ fact_article.getTotalArticleTTC }} €</td>
                             
                         </tr>
                     {% endfor %}

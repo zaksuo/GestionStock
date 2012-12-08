@@ -109,7 +109,7 @@ class FacturationController extends Controller
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id);
         
         $facture->setMontantFactureHT( $facture->getPrixTotalHt());
-        $facture->setMontantFactureTTC( $facture->getPrixTotalHt() + $facture->getPrixTotalTtc());
+        $facture->setMontantFactureTTC( $facture->getPrixTotalTtc());
         
         foreach($facture->getFactArticles() as $fact_article) {
             $article_stock = $fact_article->getArticle()->getArticleStock();
@@ -134,13 +134,6 @@ class FacturationController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
-        
-        $facture->setMontantFactureHT( $facture->getPrixTotalHT() );
-        $facture->setMontantFactureTTC( $facture->getPrixTotalTTC() );
-        
-        $em->persist($facture);
-        $em->flush();
-        
         
         return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:facture_total.html.twig', array(
             'facture' => $facture
@@ -187,8 +180,9 @@ class FacturationController extends Controller
         $em->persist($fact_article);
         
         $em->persist($facture);
-        
         $em->flush();
+        
+        $this->updateTotalFacture($id_facture);
         
         return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig', array(
             'article' => $article,
@@ -250,6 +244,8 @@ class FacturationController extends Controller
         $em->persist($fact_article);
         $em->flush();
         
+        $this->updateTotalFacture($fact_article->getFacture()->getId());
+        
         return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig', array(
             'fact_article' => $fact_article
         ));
@@ -264,5 +260,17 @@ class FacturationController extends Controller
         $em->flush();
         
         return new Response('', 200, array('Content-Type' => 'text/html'));
+    }
+    
+    public function updateTotalFacture($id_facture) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
+        
+        $facture->setMontantFactureHT( $facture->getPrixTotalHT() );
+        $facture->setMontantFactureTTC( $facture->getPrixTotalTTC() );
+        
+        $em->persist($facture);
+        $em->flush();
     }
 }

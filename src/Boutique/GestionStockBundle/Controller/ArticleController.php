@@ -185,6 +185,11 @@ class ArticleController extends Controller
      */
     public function deleteAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $article = $em->getRepository('BoutiqueDatabaseBundle:Article')->find($id);
+        
+        //if( )
         return $this->redirect($this->generateUrl('article'));
     }
     
