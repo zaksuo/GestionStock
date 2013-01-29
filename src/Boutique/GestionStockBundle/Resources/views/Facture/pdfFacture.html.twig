@@ -48,8 +48,8 @@
                         <td class="ui-widget-content center">{{ fact_article.article.code }}</td>
                         <td class="ui-widget-content left">{{ fact_article.article.libelle }}</td>
                         <td class="ui-widget-content center">{{ fact_article.quantite }}</td>
-                        <td class="ui-widget-content center">{{ fact_article.getPrixUnitaireTTC }} € / {{ fact_article.article.typeVente.unite }}</td>
-                        <td class="ui-widget-content center">{{ fact_article.getArticlePrixTotal }} €</td>
+                        <td class="ui-widget-content center">{{ fact_article.getPrixUnitaire }} € / {{ fact_article.article.typeVente.unite }}</td>
+                        <td class="ui-widget-content center">{{ fact_article.getTotalPrixArticleTTC }} €</td>
 
                     </tr>
                 {% endfor %}

@@ -85,7 +85,7 @@ class FactureArticle
      */
     public function getPrixUnitaire()
     {
-        return $this->prixUnitaire;
+        return number_format($this->prixUnitaire, 2);
     }
 
     /**
@@ -133,4 +133,24 @@ class FactureArticle
     {
         return $this->article;
     }
-}
+    
+    public function getArticlePrixTotal() {
+        return number_format(round($this->quantite * $this->prixUnitaire, 2), 2);
+    }
+    
+    public function getTva() {
+        return number_format(round($this->prixUnitaire * $this->getArticle()->getTypeTva()->getValeur() / 100, 2), 2);
+    }
+    
+    public function getTotalArticleTva() {
+        return number_format(round( $this->prixUnitaire * $this->getArticle()->getTypeTva()->getValeur() / 100 * $this->quantite, 2 ), 2);
+    }
+    
+    public function getPrixUnitaireTTC() {
+        return number_format(round( $this->getPrixUnitaire() + $this->getTva() ,2),2);
+    }
+    
+    public function getTotalArticleTTC() {
+        return number_format(round( $this->getPrixUnitaireTTC() * $this->quantite ,2),2);
+    }
+} 

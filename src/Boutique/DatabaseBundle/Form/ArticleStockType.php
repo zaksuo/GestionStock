@@ -14,12 +14,12 @@ class ArticleStockType extends AbstractType
             ->add('code', null, array('required' => false, 'label' => 'Code de l\'article'))
             ->add('fournisseur', null, array('required' => true, 'label' => 'Fournisseur'))
             ->add('codeFournisseur', null, array('required' => true, 'label' => 'Code fournisseur'))
-            ->add('libelle', null, array('required' => false, 'label' => 'Nom de l\'article'))
+            ->add('libelle', null, array('required' => true, 'label' => 'Nom de l\'article'))
             ->add('description', null, array('required' => false, 'label' => 'Description'))
-            ->add('prixVente', null, array('required' => false, 'label' => 'Prix de vente'))
-            ->add('typeArticle', null, array('required' => false, 'label' => 'Catégorie d\'article'))
-            ->add('typeVente', null, array('required' => false, 'label' => 'Type de vente'))
-            ->add('typeTva', null, array('required' => false, 'label' => 'T.V.A.'))
+            ->add('prixVente', null, array('required' => true, 'label' => 'Prix de vente'))
+            ->add('typeArticle', null, array('required' => true, 'label' => 'Catégorie d\'article'))
+            ->add('typeVente', null, array('required' => true, 'label' => 'Type de vente'))
+            ->add('typeTva', null, array('required' => true, 'label' => 'T.V.A.'))
             ->add('new_stock', new StockType(), array('label' => ''));
         ;
     }

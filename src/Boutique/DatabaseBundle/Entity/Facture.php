@@ -10,19 +10,14 @@ use Doctrine\ORM\Mapping as ORM;
 class Facture
 {
     /**
-     * @var \DateTime $date
+     * @var \DateTime $dateCreation
      */
-    private $date;
+    private $dateCreation;
 
     /**
      * @var integer $client
      */
     private $client;
-
-    /**
-     * @var float $montant
-     */
-    private $montantFacture;
 
     /**
      * @var float $montantRemise
@@ -35,7 +30,34 @@ class Facture
     private $id;
     
     private $factArticles;
+    
     private $factRemises;
+        
+    /**
+     * @var float $montantFactureHT
+     */
+    private $montantFactureHT;
+
+    /**
+     * @var float $montantFactureTTC
+     */
+    private $montantFactureTTC;
+
+    /**
+     * @var float $montantRemiseHT
+     */
+    private $montantRemiseHT;
+
+    /**
+     * @var float $montantRemiseTTC
+     */
+    private $montantRemiseTTC;
+    
+    /**
+    * @var \DateTime $dateValidation
+    */
+    private $dateValidation;
+    
     
     /**
      * Constructor
@@ -52,9 +74,9 @@ class Facture
      * @param \DateTime $date
      * @return Facture
      */
-    public function setDate($date)
+    public function setDateCreation($dateCreation)
     {
-        $this->date = $date;
+        $this->dateCreation = $dateCreation;
     
         return $this;
     }
@@ -64,9 +86,9 @@ class Facture
      *
      * @return \DateTime 
      */
-    public function getDate()
+    public function getDateCreation()
     {
-        return $this->date;
+        return $this->dateCreation;
     }
 
     /**
@@ -176,16 +198,27 @@ class Facture
         return $this->valide;
     }
     
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Facture
+     */
+    public function setDateValidation($dateValidation)
+    {
+        $this->dateValidation = $dateValidation;
     
-    public function init() {
-        $this->montantFactureHT = 0;
-        $this->montantFactureTTC = 0;
-        $this->montantRemiseHT = 0;
-        $this->montantRemiseTTC = 0;
-        $this->date = new \DateTime('now');
-        $this->valide = false;
-        
         return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDateValidation()
+    {
+        return $this->dateValidation;
     }
     
     /**
@@ -253,68 +286,6 @@ class Facture
     {
         return $this->factRemises;
     }
-    
-    public function hasFactArticles() {
-        if( count($this->factArticles) > 0 )
-            return true;
-        return false;
-    }
-    
-    public function hasFactRemises() {
-        if( count($this->factRemises) > 0 )
-            return true;
-        return false;
-    }
-    
-    public function getPrixTotalHt() {
-        $prix_total_ht = 0;
-        
-        if( count( $this->getFactArticles() ) > 0 ) {
-            foreach($this->factArticles as $article) {
-                $prix_total_ht += $article->getQuantite() * $article->getPrixUnitaire();
-            }
-        }
-        
-        return number_format(round( $prix_total_ht, 2 ), 2);
-    }
-    
-    public function getTvaTotal() {
-        $tva_total = 0;
-        if( count( $this->getFactArticles() ) > 0 ) {
-            foreach($this->factArticles as $article) {
-                $tva_total += $article->getArticle()->getTypeTva()->getValeur() * ($article->getQuantite() * $article->getPrixUnitaire()) /100;
-            }
-        }
-        return number_format(round( $tva_total, 2 ), 2);
-    }
-    
-    public function getPrixTotalTtc() {
-        echo $this->getPrixTotalHt()." - ".$this->getTvaTotal();
-        
-        $prix_total = $this->getPrixTotalHt() + $this->getTvaTotal();
-        return number_format(round( $prix_total, 2 ), 2);
-    }
-    
-    /**
-     * @var float $montantFactureHT
-     */
-    private $montantFactureHT;
-
-    /**
-     * @var float $montantFactureTTC
-     */
-    private $montantFactureTTC;
-
-    /**
-     * @var float $montantRemiseHT
-     */
-    private $montantRemiseHT;
-
-    /**
-     * @var float $montantRemiseTTC
-     */
-    private $montantRemiseTTC;
-
 
     /**
      * Set montantFactureHT
@@ -336,7 +307,7 @@ class Facture
      */
     public function getMontantFactureHT()
     {
-        return $this->montantFactureHT;
+        return number_format($this->montantFactureHT, 2);
     }
 
     /**
@@ -359,7 +330,7 @@ class Facture
      */
     public function getMontantFactureTTC()
     {
-        return $this->montantFactureTTC;
+        return number_format($this->montantFactureTTC, 2);
     }
 
     /**
@@ -382,7 +353,7 @@ class Facture
      */
     public function getMontantRemiseHT()
     {
-        return $this->montantRemiseHT;
+        return number_format($this->montantRemiseHT, 2);
     }
 
     /**
@@ -405,6 +376,57 @@ class Facture
      */
     public function getMontantRemiseTTC()
     {
-        return $this->montantRemiseTTC;
+        return number_format($this->montantRemiseTTC, 2);
+    }
+    
+    public function init() {
+        $this->montantFactureHT = 0;
+        $this->montantFactureTTC = 0;
+        $this->montantRemiseHT = 0;
+        $this->montantRemiseTTC = 0;
+        $this->date = new \DateTime('now');
+        $this->valide = false;
+        
+        return $this;
+    }
+    
+    
+    public function hasFactArticles() {
+        if( count($this->factArticles) > 0 )
+            return true;
+        return false;
+    }
+    
+    public function hasFactRemises() {
+        if( count($this->factRemises) > 0 )
+            return true;
+        return false;
+    }
+    
+    public function getPrixTotalHt() {
+        $prix_total_ht = 0;
+        
+        if( count( $this->getFactArticles() ) > 0 ) {
+            foreach($this->factArticles as $article) {
+                $prix_total_ht += $article->getQuantite() * ( $article->getPrixUnitaire() - $article->getTvaUnitaire() );
+            }
+        }
+        
+        return number_format(round( $prix_total_ht, 2 ), 2);
+    }
+    
+    public function getTvaTotal() {
+        $tva_total = 0;
+        if( count( $this->getFactArticles() ) > 0 ) {
+            foreach($this->factArticles as $article) {
+                $tva_total += ($article->getQuantite() * $article->getTvaUnitaire());
+            }
+        }
+        return number_format(round( $tva_total, 2 ), 2);
+    }
+    
+    public function getPrixTotalTtc() {
+        $prix_total = $this->getPrixTotalHt() + $this->getTvaTotal();
+        return number_format(round( $prix_total, 2 ), 2);
     }
 }

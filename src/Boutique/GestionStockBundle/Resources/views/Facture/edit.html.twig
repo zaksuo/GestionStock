@@ -2,46 +2,53 @@
 
 {% block content %}
 
-    <h1>Modification de la facture n°{{ facture.id }}</h1>
+    <h3>Modification de la facture n°{{ facture.id }}</h3>
 
     <div class="hidden" id="id_facture">{{ facture.id }}</div>
 
     {% include 'BoutiqueGestionStockBundle:Ajax_Facture:client_search_form.html.twig' with {'facture' : facture} %}
     {% include 'BoutiqueGestionStockBundle:Ajax_Facture:article_search_form.html.twig' with {'facture' : facture} %}
     
-    <div id="facture_erreurs"></div>
+    <div id="facture_erreurs" class="modal hide fade modal-danger"  tabindex="-1" aria-labelledby="modal-error" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="modal-error">Erreur</h3>
+        </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>
+        </div>
+    </div>
     
-    <div id="facture_article_list">
-        {% include 'BoutiqueGestionStockBundle:Ajax_Client:facture_client_show.html.twig' with {'facture' : facture} %}
+    {% include 'BoutiqueGestionStockBundle:Ajax_Client:facture_client_show.html.twig' with {'facture' : facture} %}
         
-        <table class="ui-widget facture_content">
+    <table class="table table-striped table-bordered facture-form">
+        <thead>
             <tr>
-                <th class="ui-widget-header">Code</th>
-                <th class="ui-widget-header">Libellé</th>
-                <th class="ui-widget-header">Prix HT</th>
-                <th class="ui-widget-header">Quantité</th>
-                <th class="ui-widget-header">TVA</th>
-                <th class="ui-widget-header">Montant TTC</th>
-                <td></td>
+                <th>Code</th>
+                <th>Libellé</th>
+                <th>Quantité</th>
+                <th>Prix HT</th>
+                <th>TVA</th>
+                <th>Montant TTC</th>
+                <th></th>
             </tr>
+        </thead>
+        <tbody>
             {% if facture.factArticles|length > 0 %}
                 {% for fact_article in facture.factArticles %}
                     {% include 'BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig' with {'fact_article' : fact_article} %}
                 {% endfor %}
-                
-                <tr class="separator">
-                    <td class="ui-widget-separator" colspan=6></td>
-                    <td></td>
-                </tr>
             {% else %}
                 <tr>
-                    <td colspan=6 class="ui-widget-content facture_empty" {% if facture.factArticles|length > 0 %}style="display : none;" {% endif %}>Cette facture ne contient actuellement aucun article. Vous pouvez en ajouter en utilisant le champ de recherche.</td>
+                    <td colspan=7 class="facture_empty" {% if facture.factArticles|length > 0 %}style="display : none;" {% endif %}>Cette facture ne contient actuellement aucun article. Vous pouvez en ajouter en utilisant le champ de recherche.</td>
                 </tr>
             {% endif %}
-
+        </tbody>
+        <tfoot>
             {% include 'BoutiqueGestionStockBundle:Ajax_Facture:facture_total.html.twig' with {'facture' : facture} %}
-       </table>
-    </div>
+        </tfoot>
+    </table>
 
     {% include 'BoutiqueGestionStockBundle:Ajax_Facture:facture_commit_form.html.twig' with {'facture' : facture} %}
 {% endblock %}

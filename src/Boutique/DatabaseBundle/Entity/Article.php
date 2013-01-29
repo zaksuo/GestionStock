@@ -53,7 +53,6 @@ class Article
     private $new_stock;
     private $stocks;
     
-    
     /**
      * Set code
      *
@@ -131,7 +130,7 @@ class Article
      */
     public function setPrixVente($prixVente)
     {
-        $this->prixVente = $prixVente;
+        $this->prixVente = round(($prixVente), 2);
     
         return $this;
     }
@@ -354,8 +353,9 @@ class Article
         return $this->gencodeFournisseur;
     }
     
-    public function getPrixTTC() {
-        return number_format(round($this->prixVente + ($this->prixVente * $this->getTypeTva()->getValeur())/100, 2), 2);
+    public function getPrixHT() {
+        $ratio = ( 1 + $this->getTypeTva()->getValeur() /100 ) ;
+        return number_format(round( ($this->prixVente / $ratio) , 2), 2);
     }
     
     private $alpha_num = array(

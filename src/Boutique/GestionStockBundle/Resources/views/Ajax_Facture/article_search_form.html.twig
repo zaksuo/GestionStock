@@ -1,7 +1,15 @@
-<div class="facture_article_search">
-    Rechercher un article : 
-    <form id="search_facture_article_form" action="{{ path('facture_article_search', {'id_facture' : facture.id}) }}" method="post">
-        <input id="search_facture_article_field" type='text' name='search_facture_article' >
+<div class="well">
+    <form class="form-horizontal" id="search_facture_article_form" action="{{ path('facture_article_search', {'id_facture' : facture.id}) }}" method="post">
+        <div class="control-group">
+            <label class="control-label" for="search_facture_article_field">Rechercher un article </label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-search"></i></span>
+                    <input id="search_facture_article_field" name='search_facture_article' type="text" class="" placeholder="Rechercher un article">
+                    <button type="submit" class="btn">Rechercher</button>
+                </div>
+            </div>
+        </div>
     </form>
 
     <div id="article_search_results"></div>

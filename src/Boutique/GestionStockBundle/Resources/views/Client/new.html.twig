@@ -1,7 +1,7 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-    <h1>Nouvelle fiche client</h1>
+    <h3>Nouvelle fiche client</h3>
     <form action="{{ path('client_create') }}" method="post" {{ form_enctype(form) }}>
         {% include 'BoutiqueGestionStockBundle:Client:form.html.twig' with {'form' : form} %}
         <a href="{{ path('client') }}">Annuler</a> | <button type="submit">Enregistrer</button>

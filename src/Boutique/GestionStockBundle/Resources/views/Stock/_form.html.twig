@@ -3,17 +3,31 @@
     {% block content %}
         <h1>Ajouter une entrée de stock à l'article "{{ article.code }} - {{ article.libelle }}"</h1>
 
-        <form action="{{ path('stock_create') }}" method="post" {{ form_enctype(form) }}>
+        <form class="form-horizontal well" action="{{ path('stock_create') }}" method="post" {{ form_enctype(form) }}>
             <input type="hidden" name="boutique_databasebundle_stocktype[idArticle]" id="boutique_databasebundle_stocktype_idArticle" value="{{ article.id }}"/>
 
             {{ form_errors(form) }}
-            <p>{{ form_label(form.quantite) }} : {{ form_widget(form.quantite) }}</p>
-            <p>{{ form_label(form.prixAchat) }} : {{ form_widget(form.prixAchat) }}</p>
-            <p>{{ form_label(form.delottage) }} : {{ form_widget(form.delottage) }}</p>
+            
+            <div class="control-group">
+                <label class="control-label">{{ form_label(form.quantite) }}</label>
+                {{ form_widget(form.quantite, { 'attr' : {'class' : 'input-small'}}) }}
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{ form_label(form.prixAchat) }}</label>
+                {{ form_widget(form.prixAchat, { 'attr' : {'class' : 'input-small'}}) }}
+            </div>
+            <div class="control-group">
+                <label class="control-label">{{ form_label(form.delottage) }}</label>
+                {{ form_widget(form.delottage, { 'attr' : {'class' : 'input-small'}}) }} Oui
+            </div>
+            
             {{ form_rest(form) }}
 
-            <p><button type="submit">Ajouter</button></p>
+            <div class="right">
+                <a class="btn btn-danger" href="{{ path('article_show', {'id': article.id }) }}">Annuler</a>
+                <button class="btn btn-success" type="submit">Ajouter</button>
+            </div>
         </form>
 
-        <a href="{{ path('article') }}">Annuler</a>
+        
 {% endblock %}

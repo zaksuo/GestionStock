@@ -22,6 +22,10 @@ facture_commit:
   pattern: /{id}/commit
   defaults: { _controller: BoutiqueGestionStockBundle:Facturation:commitFacture }
 
+facture_rollback:
+  pattern: /{id}/rollback
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:rollbackFacture }
+
 facture_article_search:
   pattern: /{id_facture}/articleSearch
   defaults: { _controller: BoutiqueGestionStockBundle:Facturation:searchArticle }

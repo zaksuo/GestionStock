@@ -1,7 +1,15 @@
-<div class="facture_client_search">
-    Rechercher un client : 
-    <form id="facture_client_search_form" action="{{ path('facture_client_search', {'id_facture' : facture.id}) }}" method="post">
-        <input id="facture_client_search_field" type='text' name='search_facture_client' >
+<div class="well">
+    <form class="form-horizontal" id="facture_client_search_form" action="{{ path('facture_client_search', {'id_facture' : facture.id}) }}" method="post">
+        <div class="control-group">
+            <label class="control-label" for="facture_client_search_field">Rechercher un client </label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-search"></i></span>
+                    <input id="facture_client_search_field" name='search_facture_client' type="text" class="" placeholder="Recherche un client">
+                    <button type="submit" class="btn">Rechercher</button>
+                </div>
+            </div>
+        </div>
     </form>
 
     <div id="client_search_results"></div>

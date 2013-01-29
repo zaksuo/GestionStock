@@ -20,6 +20,27 @@ class FactureArticle
     private $id;
 
     /**
+    * @var float $prixUnitaire
+    */
+    private $prixUnitaire;
+
+    /**
+    * @var float $tvaUnitaire
+    */
+    private $tvaUnitaire;
+        
+    /**
+     * @var Boutique\DatabaseBundle\Entity\Facture
+     */
+    private $facture;
+
+    /**
+     * @var Boutique\DatabaseBundle\Entity\Article
+     */
+    private $article;
+    
+    
+    /**
      * Set quantite
      *
      * @param integer $quantite
@@ -51,19 +72,6 @@ class FactureArticle
     {
         return $this->id;
     }
-
-    private $prixUnitaire;
-
-    /**
-     * @var Boutique\DatabaseBundle\Entity\Facture
-     */
-    private $facture;
-
-    /**
-     * @var Boutique\DatabaseBundle\Entity\Article
-     */
-    private $article;
-
 
     /**
      * Set prixUnitaire
@@ -134,23 +142,48 @@ class FactureArticle
         return $this->article;
     }
     
-    public function getArticlePrixTotal() {
+    /**
+     * Set tvaUnitaire
+     *
+     * @param float $tvaUnitaire
+     * @return FactureArticle
+     */
+    public function setTvaUnitaire($tvaUnitaire)
+    {
+        $this->tvaUnitaire = $tvaUnitaire;
+    
+        return $this;
+    }
+
+    /**
+     * Get tvaUnitaire
+     *
+     * @return float 
+     */
+    public function getTvaUnitaire()
+    {
+        return $this->tvaUnitaire;
+    }
+    
+    
+    public function getTotalPrixArticleTTC() {
         return number_format(round($this->quantite * $this->prixUnitaire, 2), 2);
     }
     
-    public function getTva() {
-        return number_format(round($this->prixUnitaire * $this->getArticle()->getTypeTva()->getValeur() / 100, 2), 2);
+    public function getTotalPrixArticleHT() {
+        return number_format(round($this->quantite * ( $this->prixUnitaire - $this->tvaUnitaire ), 2), 2);
     }
     
-    public function getTotalArticleTva() {
-        return number_format(round( $this->prixUnitaire * $this->getArticle()->getTypeTva()->getValeur() / 100 * $this->quantite, 2 ), 2);
+    public function getPrixArticleHT() {
+        return number_format(round( $this->prixUnitaire - $this->tvaUnitaire, 2), 2);
     }
     
-    public function getPrixUnitaireTTC() {
-        return number_format(round( $this->getPrixUnitaire() + $this->getTva() ,2),2);
+    public function getTvaArticle() {
+        return number_format(round($this->tvaUnitaire, 2), 2);
     }
     
-    public function getTotalArticleTTC() {
-        return number_format(round( $this->getPrixUnitaireTTC() * $this->quantite ,2),2);
+    public function getTotalTvaArticle() {
+        return number_format(round( $this->tvaUnitaire * $this->quantite, 2 ), 2);
     }
-} 
+    
+}

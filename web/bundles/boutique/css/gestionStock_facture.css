@@ -1,24 +1,11 @@
-.facture_article_search {
-    width : 97%;
-    margin : 0 auto;
-    border : 1px solid gray;
-    margin-bottom : 15px;
-    padding : 10px;
-}
+.facture-form td { line-height : 30px; }
+.facture-form tfoot tr.success td { background-color: #dff0d8; }
+.facture-quantite-form { margin : 0 auto; }
+.facture-quantite-form input { margin : 0 auto; }
 
-.facture_client_search {
-    width : 97%;
-    margin : 0 auto;
-    border : 1px solid gray;
-    margin-bottom : 15px;
-    padding : 10px;
-}
-
-#facture_article_list .facture_empty {
-    height : 150px;
-    text-align: center;
+.facture_empty {
+    height : 100px;
     font-weight : bold;
-    margin-top : 80px;
 }
 
 .bloc_facture_container { padding : 10px; position : relative; }

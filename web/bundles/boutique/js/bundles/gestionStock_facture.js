@@ -23,7 +23,7 @@ $(document).ready(function(){
        }
    });
    
-    $('.select_facture_article_link').live('click', function(e) {
+    $('.add-article-btn').live('click', function(e) {
             e.preventDefault();
 
             var article_existant = false;
@@ -31,25 +31,27 @@ $(document).ready(function(){
             var id_article = $(this).parent().attr('id');
             var url = $(this).attr('href');
 
-            $("#facture_article_list tr").each( function() {
+            $(".facture-form tbody tr").each( function() {
                 if( $(this).attr('id') == id_article ) {
                     article_existant = true;
                 }
             });
 
             if( article_existant ) {
-                $("#facture_erreurs").html("Cet article a déjà été ajouté à la facture. Augmentez la quantité pour en ajouter.").fade(30);
+                $("#facture_erreurs .modal-body").html("<p>Cet article a déjà été ajouté à la facture. Augmentez la quantité pour en ajouter.</p>");
+                $("#facture_erreurs").modal("toggle");
             }
+            
             else {
                 $.ajax({
                     url : url,
                     success: function( data ) {
                         $('.facture_empty').hide();
-                        $("#facture_article_list .facture_content .separator").before(data);
+                        $(".facture-form tbody").append(data);
                         updateFactureTotal();
                     }
                 });
-                $("#search_results").empty();
+                $("#article_search_results").empty();
             }
     });
 
@@ -76,10 +78,11 @@ $(document).ready(function(){
             form.ajaxSubmit({
                 target: articleRow,
                 replaceTarget: true,
-                type: 'post'
+                type: 'post',
+            success : updateFactureTotal
             });
 
-            updateFactureTotal();
+            //updateFactureTotal();
             return false;
         }
     });
@@ -91,10 +94,11 @@ $(document).ready(function(){
         form.ajaxSubmit({
             target: articleRow,
             replaceTarget: true,
-            type: 'post'
+            type: 'post',
+            success : updateFactureTotal
         });
         
-        updateFactureTotal();
+        //updateFactureTotal();
     });
 
     $('.fact_action_menu a').live('click', function(e) {
@@ -141,8 +145,7 @@ $(document).ready(function(){
         $.ajax({
             url : url,
             success: function( data ) {
-                $(".facture_total").remove();
-                $("#facture_article_list .facture_content .separator").after(data);
+                $(".facture-form tfoot").html(data);
             }
         });
     }

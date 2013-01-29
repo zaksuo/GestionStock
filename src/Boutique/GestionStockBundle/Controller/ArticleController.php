@@ -65,18 +65,18 @@ class ArticleController extends Controller
      */
     public function newAction()
     {
-        $entity = new Article();
+        $article = new Article();
         $em = $this->getDoctrine()->getManager();
         $last_code = $em->getRepository('BoutiqueDatabaseBundle:Article')->getLastCode();
         if( is_null($last_code) ) {
             $last_code = 'AAA000';
         }
-        $code = $entity->generateNextCode($last_code);
-        $entity->setCode($code);
-        $form   = $this->createForm(new ArticleStockType(), $entity);
+        $code = $article->generateNextCode($last_code);
+        $article->setCode($code);
+        $form   = $this->createForm(new ArticleStockType(), $article);
         
         return $this->render('BoutiqueGestionStockBundle:Article:new.html.twig', array(
-            'entity' => $entity,
+            'article' => $article,
             'form'   => $form->createView(),
         ));
     }
@@ -133,16 +133,16 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('BoutiqueDatabaseBundle:Article')->find($id);
+        $article = $em->getRepository('BoutiqueDatabaseBundle:Article')->find($id);
 
-        if (!$entity) {
+        if (!$article) {
             throw $this->createNotFoundException('Erreur : Cet article n\'existe pas.');
         }
 
-        $editForm = $this->createForm(new ArticleType(), $entity);
+        $editForm = $this->createForm(new ArticleType(), $article);
 
         return $this->render('BoutiqueGestionStockBundle:Article:edit.html.twig', array(
-            'entity'      => $entity,
+            'article'      => $article,
             'form'   => $editForm->createView()
         ));
     }

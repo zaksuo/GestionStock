@@ -1,0 +1,5 @@
+ALTER TABLE  `facture` CHANGE  `date`  `date_creation` DATETIME NOT NULL;
+ALTER TABLE  `facture` ADD  `date_validation` DATETIME NULL AFTER  `valide`;
+ALTER TABLE  `facture_article` ADD  `tva_unitaire` FLOAT 0 AFTER  `prix_unitaire`;
+update facture_article set prix_unitaire = ROUND( prix_unitaire * (1 + (19.6 / 100) ), 2 );
+update facture_article set tva_unitaire = ROUND( prix_unitaire * 19.6 / 100, 2 );

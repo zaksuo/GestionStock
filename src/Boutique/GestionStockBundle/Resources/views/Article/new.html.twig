@@ -2,64 +2,77 @@
 
 {% block content %}
 
-    <h1>Ajouter un article</h1>
+    <h3>Ajouter un article</h3>
 
-    <form action="{{ path('article_create') }}" method="post" {{ form_enctype(form) }}>
-        
-        <table class="ui-widget">
-            <tr>
-                <th class="ui-widget-header left" width="40%">Code article</th>
-                <td class="ui-widget-content">{{ form_widget(form.code, {'attr' : {'disabled' : 'disabled'}}) }}</td>
-            </tr>
-            <tr>
-                <th class="ui-widget-header left" width="40%">Nom de l'article</th>
-                <td class="ui-widget-content">{{ form_widget(form.libelle) }}</td>
-            </tr>
-            <tr>
-                <th class="ui-widget-header left" width="40%">Description</th>
-                <td class="ui-widget-content">{{ form_widget(form.description) }}</td>
-            </tr>
-            <tr>
-                <th class="ui-widget-header left" width="40%">Fournisseur</th>
-                <td class="ui-widget-content">{{ form_widget(form.fournisseur) }}</td>
-            </tr>
-            <tr>
-                <th class="ui-widget-header left" width="40%">Référence fournisseur</th>
-                <td class="ui-widget-content">{{ form_widget(form.codeFournisseur) }}</td>
-            </tr>
-            <tr>
-                <th class="ui-widget-header left" width="40%">Prix de vente HT</th>
-                <td class="ui-widget-content">{{ form_widget(form.prixVente) }}</td>
-            </tr>
-            <tr>
-                <th class="ui-widget-header left" width="40%">Type TVA</th>
-                <td class="ui-widget-content">{{ form_widget(form.typeTva) }}</td>
-            </tr>
-            <tr>
-                <th class="ui-widget-header left" width="40%">Catégorie d'article</th>
-                <td class="ui-widget-content">{{ form_widget(form.typeArticle) }}</td>
-            </tr>
-            <tr>
-                <th class="ui-widget-header left" width="40%">Type de vente</th>
-                <td class="ui-widget-content">{{ form_widget(form.typeVente) }}</td>
-            </tr>
-            <tr>
-                <th class="ui-widget-header left" width="40%">Quantité d'articles</th>
-                <td class="ui-widget-content">{{ form_widget(form.new_stock.quantite) }}</td>
-            </tr>
-            <tr>
-                <th class="ui-widget-header left" width="40%">Prix d'achat HT à l'unité</th>
-                <td class="ui-widget-content">{{ form_widget(form.new_stock.prixAchat) }}</td>
-            </tr>
-            <tr>
-                <th class="ui-widget-header left" width="40%">Ces éléments ont-il été achetés en lot pour une vente à l'unité ?</th>
-                <td class="ui-widget-content">{{ form_widget(form.new_stock.delottage) }} Oui</td>
-            </tr>
-        </table>
-        {{ form_rest(form) }}
-        <button type="submit">Créer</button>
-    </form>
+    <div class="">
+        <form class="form-horizontal well" action="{{ path('article_create') }}" method="post" {{ form_enctype(form) }}>
+            <div class="control-group">
+                <label class="control-label">Code article</label>
+                {{ form_widget(form.code, { 'attr' : {'class' : 'input-small uneditable-input', 'disabled' : 'disabled'}}) }}
+            </div>
 
-    <a href="{{ path('article') }}">Annuler</a>
+            <div class="control-group">
+                <label class="control-label">Nom de l'article</label>
+                {{ form_widget(form.libelle, { 'attr' : {'class' : 'input-xlarge'}}) }}
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Description</label>
+                {{ form_widget(form.description, { 'attr' : {'class' : 'input-xlarge'}}) }}
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Fournisseur</label>
+                {{ form_widget(form.fournisseur, { 'attr' : {'class' : 'input-xlarge'}}) }}
+            </div>    
+
+            <div class="control-group">
+                <label class="control-label">Référence fournisseur</label>
+                {{ form_widget(form.codeFournisseur, { 'attr' : {'class' : 'input-xlarge'}}) }}
+            </div> 
+
+            <div class="control-group">
+                <label class="control-label">Prix de vente TTC</label>
+                {{ form_widget(form.prixVente, { 'attr' : {'class' : 'input-xlarge'}}) }}
+            </div> 
+
+            <div class="control-group">
+                <label class="control-label">Type TVA</label>
+                {{ form_widget(form.typeTva, { 'attr' : {'class' : 'input-medium'}}) }}
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Catégorie d'article</label>
+                {{ form_widget(form.typeArticle, { 'attr' : {'class' : 'input-xlarge'}}) }}
+            </div>    
+
+            <div class="control-group">
+                <label class="control-label">Type de vente</label>
+                {{ form_widget(form.typeVente, { 'attr' : {'class' : 'input-xlarge'}}) }}
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Quantité d'articles</label>
+                {{ form_widget(form.new_stock.quantite, { 'attr' : {'class' : 'input-xlarge'}}) }}
+            </div>     
+
+            <div class="control-group">
+                <label class="control-label">Prix d'achat HT à  l'unité</label>
+                {{ form_widget(form.new_stock.prixAchat, { 'attr' : {'class' : 'input-xlarge'}}) }}
+            </div>    
+
+            <div class="control-group">
+                <label class="control-label">Ces éléments ont-il été achetés en lot pour une vente à  l'unité ?</label>
+                {{ form_widget(form.new_stock.delottage, { 'attr' : {'class' : 'input-xlarge'}}) }} Oui
+            </div>  
+
+            {{ form_rest(form) }}
+            <div class="right form-actions">
+                <a class="btn btn-danger" href="{{ path('article') }}">Annuler</a>
+                <button class="btn btn-success" type="submit">Créer l'article</button>
+            </div>
+        </form>
+    </div>
+    
 
 {% endblock %}

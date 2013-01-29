@@ -22,11 +22,19 @@ class FacturationController extends Controller
     public function indexFactureAction() {
         $em = $this->getDoctrine()->getManager();
         
-        $factures = $em->getRepository('BoutiqueDatabaseBundle:Facture')->findAll(array('orderBy' => 'date'));
+        $dql = "SELECT f AS facture, 
+                (SELECT count(fa.id) FROM BoutiqueDatabaseBundle:FactureArticle fa WHERE fa.facture = f.id) AS articles
+            FROM BoutiqueDatabaseBundle:Facture f ORDER BY f.id DESC";
+        $query = $em->createQuery($dql);
         
-        return $this->render('BoutiqueGestionStockBundle:Facture:index.html.twig', array(
-            'factures' => $factures,
-        ));
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            30 /*limit per page*/
+        );
+        
+        return $this->render('BoutiqueGestionStockBundle:Facture:index.html.twig', compact('pagination'));
     }
     
     public function newFactureAction() {
@@ -49,6 +57,7 @@ class FacturationController extends Controller
         if( $pdf ) {
             $html = $this->renderView('BoutiqueGestionStockBundle:Facture:pdfFacture.html.twig', array('facture' => $facture));
             $pdfGenerator = $this->get('spraed.pdf.generator');
+            
             
             return new Response($pdfGenerator->generatePDF($html),
                 200,
@@ -122,12 +131,32 @@ class FacturationController extends Controller
             }
         }
         
-        $facture->setValide(true);
+        $facture->setValide( true );
+        $facture->setDateValidation(new \DateTime('now'));
+        $em->persist($facture);
         $em->flush();
         
         return $this->render('BoutiqueGestionStockBundle:Facture:show.html.twig', array(
             'facture' => $facture,
         ));
+    }
+    
+    public function rollbackFactureAction( $id ) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id);
+        
+        foreach($facture->getFactArticles() as $fact_article) {
+            $article_stock = $fact_article->getArticle()->getArticleStock();
+            $article_stock->setQuantite( $article_stock->getQuantite() + $fact_article->getQuantite() );
+            $em->persist($article_stock);
+        }
+        $facture->setValide( false );
+        $facture->setDateValidation(null);
+        $em->persist($facture);
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('facture_edit', array('id' => $facture->getId())));
     }
     
     public function updateFactureTotalAction($id_facture) {
@@ -172,10 +201,13 @@ class FacturationController extends Controller
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
         $article = $em->getRepository('BoutiqueDatabaseBundle:Article')->find($id_article);
         
+        $ratio = ( 1 + $article->getTypeTva()->getValeur() / 100 );
+        
         $fact_article = new FactureArticle();
         $fact_article->setFacture($facture);
         $fact_article->setArticle($article);
-        $fact_article->setPrixUnitaire($article->getPrixVente());
+        $fact_article->setPrixUnitaire($article->getPrixVente()); // correspond au prix de vente TTC
+        $fact_article->setTvaUnitaire( round($article->getPrixVente() / $ratio, 2) );
         $fact_article->setQuantite(1);
         $em->persist($fact_article);
         

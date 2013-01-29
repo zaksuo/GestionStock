@@ -5,6 +5,7 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="prixUnitaire" type="float" column="prix_unitaire" nullable="false"/>
+    <field name="tvaUnitaire" type="float" column="tva_unitaire" nullable="false"/>
     <field name="quantite" type="float" column="quantite" nullable="false" />
     <many-to-one field="article" target-entity="Article">
       <join-columns>

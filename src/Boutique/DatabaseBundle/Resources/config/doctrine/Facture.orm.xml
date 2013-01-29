@@ -4,13 +4,13 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="date" type="datetime" column="date" nullable="false"/>
+    <field name="dateCreation" type="datetime" column="date_creation" nullable="false"/>
     <field name="montantFactureHT" type="float" column="montant_facture_ht"/>
     <field name="montantFactureTTC" type="float" column="montant_facture_ttc"/>
     <field name="montantRemiseHT" type="float" column="montant_remise_ht"/>
     <field name="montantRemiseTTC" type="float" column="montant_remise_ttc"/>
     <field name="valide" type="boolean" column="valide"/>
-    
+    <field name="dateValidation" type="datetime" column="date_validation" nullable="false"/>
     <many-to-one field="client" target-entity="Client">
       <join-columns>
         <join-column name="client" referenced-column-name="id" />
