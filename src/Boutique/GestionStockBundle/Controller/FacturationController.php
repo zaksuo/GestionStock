@@ -49,20 +49,33 @@ class FacturationController extends Controller
         return $this->redirect($this->generateUrl('facture_edit', array('id' => $facture->getId())));
     }
     
-    public function showFactureAction( $id, $pdf = 0 ) {
+    public function showFactureAction( $id, $type = null ) {
         $em = $this->getDoctrine()->getManager();
         
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id);
         
-        if( $pdf ) {
-            $html = $this->renderView('BoutiqueGestionStockBundle:Facture:pdfFacture.html.twig', array('facture' => $facture));
-            $pdfGenerator = $this->get('spraed.pdf.generator');
-            
-            
-            return new Response($pdfGenerator->generatePDF($html),
-                200,
-                array('Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename="facture'.$id.'.pdf"' )
-            );
+        switch( $type ) {
+            case 'pdf':
+                $html = $this->renderView('BoutiqueGestionStockBundle:Facture:pdfFacture.html.twig', array('facture' => $facture));
+                $pdfGenerator = $this->get('spraed.pdf.generator');
+
+                return new Response($pdfGenerator->generatePDF($html),
+                    200,
+                    array('Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename="facture'.$id.'.pdf"' )
+                );
+            break;
+        
+            case 'ticket':
+                return $this->render('BoutiqueGestionStockBundle:Facture:ticket.html.twig', array(
+                    'ticket' => $facture->generateTicket(),
+                ));
+            break;
+        
+            default:
+                return $this->render('BoutiqueGestionStockBundle:Facture:show.html.twig', array(
+                    'facture' => $facture,
+                ));
+            break;
         }
             
         return $this->render('BoutiqueGestionStockBundle:Facture:show.html.twig', array(

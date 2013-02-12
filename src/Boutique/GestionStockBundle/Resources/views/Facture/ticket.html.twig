@@ -1,0 +1,24 @@
+<script type="text/javascript" src="{{ asset('bundles/boutique/js/libs/jquery-1.8.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/boutique/jZebra/js/html2canvas.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/boutique/jZebra/js/jquery.plugin.html2canvas.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/boutique/js/bundles/gestionStock_tickets.js') }}"></script>
+
+
+<applet name="jzebra" code="jzebra.PrintApplet.class" archive="{{ asset('bundles/boutique/jZebra/jzebra.jar') }}" width="50px" height="50px">
+    <param name="printer" value="zebra">
+</applet>
+
+
+<pre>
+    {{ ticket }}
+</pre>
+
+<script type="text/javascript">
+        //test();
+    findPrinter();
+    print( '{{ ticket|escape('js') }}' );
+    cutPaper();
+</script>
+
+
+

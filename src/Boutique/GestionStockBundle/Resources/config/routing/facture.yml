@@ -3,8 +3,8 @@ facture:
   defaults: { _controller: BoutiqueGestionStockBundle:Facturation:indexFacture }
 
 facture_show:
-  pattern: /{id}/show/{pdf}
-  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:showFacture, pdf : 0 }
+  pattern: /{id}/show/{type}
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:showFacture, type : null }
   
 facture_new:
   pattern: /new

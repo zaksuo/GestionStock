@@ -1,3 +1,7 @@
+admin_home:
+    pattern: /
+    defaults: { _controller: BoutiqueGestionStockBundle:Home:index }
+
 boutique_database_article:
     resource: "@BoutiqueGestionStockBundle/Resources/config/routing/article.yml"
     prefix:   /article

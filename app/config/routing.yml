@@ -1,6 +1,10 @@
-outique_gestion_stock:
-    resource: "@BoutiqueGestionStockBundle/Resources/config/routing.yml"
+site_presentation:
+    resource: "@SitePresentationBundle/Resources/config/routing.yml"
     prefix:   /
+
+boutique_gestion_stock:
+    resource: "@BoutiqueGestionStockBundle/Resources/config/routing.yml"
+    prefix:   /admin
 
 
 # Internal routing configuration to handle ESI

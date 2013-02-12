@@ -78,8 +78,8 @@
     <div class="right">
         {% if facture.valide %}
             <a class="btn btn-warning" href="{{ path('facture_rollback', {'id' : facture.id}) }}">Annuler validation</a>
-            <a class="btn btn-success" target=_blank href="{{ path('facture_show', {'id' : facture.id, 'pdf' : 1}) }}">Imprimer Facture</a>
-            <a class="btn btn-success" target=_blank href="{{ path('facture_show', {'id' : facture.id, 'pdf' : 1}) }}">Imprimer Ticket</a>
+            <a class="btn btn-success" target=_blank href="{{ path('facture_show', {'id' : facture.id, 'type' : 'pdf'}) }}">Imprimer Facture</a>
+            <a class="btn btn-success" target=_blank href="{{ path('facture_show', {'id' : facture.id, 'type' : 'ticket'}) }}">Imprimer Ticket</a>
         {% else %}
             <a class="btn btn-warning" href="{{ path('facture_edit', {'id' : facture.id}) }}">Modifier la facture</a>
             <a class="btn btn-success" href="{{ path('facture_commit', {'id': facture.id}) }}">Valider la facture</a>
