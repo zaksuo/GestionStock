@@ -118,11 +118,7 @@ class FacturationController extends Controller
         $em->remove($facture);
         $em->flush();
         
-        $factures = $em->getRepository('BoutiqueDatabaseBundle:Facture')->findAll(array('orderBy' => 'date'));
-        
-        return $this->render('BoutiqueGestionStockBundle:Facture:index.html.twig', array(
-            'factures' => $factures,
-        ));
+        return $this->redirect($this->generateUrl('facture'));
     }
     
     public function commitFactureAction( $id ) {
@@ -187,7 +183,7 @@ class FacturationController extends Controller
         $search = $request->get('search_facture_article');
   
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
-        $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch($search);
+        $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch($search, 0, 15);
         
         return $this->render('BoutiqueGestionStockBundle:Ajax_Article:article_facturation.html.twig', array(
             'facture' => $facture,
@@ -200,7 +196,7 @@ class FacturationController extends Controller
         $search = $request->get('search_facture_client');
   
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
-        $clients = $em->getRepository('BoutiqueDatabaseBundle:Client')->getClientsForSearch($search);
+        $clients = $em->getRepository('BoutiqueDatabaseBundle:Client')->getClientsForSearch($search, 0, 15);
         
         return $this->render('BoutiqueGestionStockBundle:Ajax_Client:client_facturation.html.twig', array(
             'facture' => $facture,
@@ -214,13 +210,13 @@ class FacturationController extends Controller
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
         $article = $em->getRepository('BoutiqueDatabaseBundle:Article')->find($id_article);
         
-        $ratio = ( 1 + $article->getTypeTva()->getValeur() / 100 );
+        $ratio = ( $article->getTypeTva()->getValeur() / 100 );
         
         $fact_article = new FactureArticle();
         $fact_article->setFacture($facture);
         $fact_article->setArticle($article);
         $fact_article->setPrixUnitaire($article->getPrixVente()); // correspond au prix de vente TTC
-        $fact_article->setTvaUnitaire( round($article->getPrixVente() / $ratio, 2) );
+        $fact_article->setTvaUnitaire( round($article->getPrixVente() * $ratio, 2) );
         $fact_article->setQuantite(1);
         $em->persist($fact_article);
         
@@ -300,11 +296,14 @@ class FacturationController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $fact_article = $em->getRepository('BoutiqueDatabaseBundle:FactureArticle')->find($id_fact_article);
+        $facture = $fact_article->getFacture();
         
         $em->remove($fact_article);
         $em->flush();
         
-        return new Response('', 200, array('Content-Type' => 'text/html'));
+        $this->updateTotalFacture($facture->getId());
+        
+        return $this->redirect($this->generateUrl('facture_edit', array('id' => $facture->getId())));
     }
     
     public function updateTotalFacture($id_facture) {

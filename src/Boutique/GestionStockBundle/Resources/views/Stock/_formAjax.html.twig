@@ -1,4 +1,4 @@
-<h1>Ajouter une entrée de stock à l'article "{{ article.code }} - {{ article.libelle }}"</h1>
+<h3>Ajouter une entrée de stock à l'article "{{ article.code }} - {{ article.libelle }}"</h3>
     
 <form action="{{ path('stock_create') }}" method="post" {{ form_enctype(form) }}>
     <input type="hidden" name="boutique_databasebundle_stocktype[idArticle]" id="boutique_databasebundle_stocktype_idArticle" value="{{ article.id }}"/>

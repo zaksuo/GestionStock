@@ -2,15 +2,45 @@
 
 {% block content %}
 
-    <h1>Ajouter une entrée de stock à un article</h1>
+    <h3>Ajouter une entrée de stock à un article</h3>
 
-    Rechercher un article : 
-    <form id="search_article_form" action="{{ path('article_search') }}" method="post">
-        <input id="search_article_field" type='text' name='search_article' >
-    </form>
+    <div class="bordered">
+        <fieldset>
+        <legend>Etape 1 - Rechercher un article</legend>
 
-    <div id="search_results"></div>
+            {% if article is defined %}
+                Article sélectionné : <b>{{ article }}</b>
+            {% else %}
+                <form id="search_article_form" action="{{ path('article_search') }}" method="post">
+                    <div class="input-prepend">
+                        <span class="add-on"><i class="icon-search"></i></span>
+                        <input type="text" name="search_article" id="search_article" placeholder="Rechercher un article">
+                        <button class="btn" id="btn-search" type="submit">Rechercher</button>
+                    </div>
+                </form>
+            {% endif %}
+
+            <div id="search_results"></div>
+        </fieldset>
+    </div>
     
-    <div id="restock_form"><a href="{{ path('article') }}">Annuler</a></div>
-
+    {% if article is defined %}
+        <div class="bordered">
+            <fieldset>
+                <legend>Etape 2 - Saisir les informations de stock pour "{{ article }}"</legend>
+                    <form class="form-horizontal " action="{{ path('stock_create', {'id_article': article.id}) }}" method="post" {{ form_enctype(form) }}>
+                        {% include 'BoutiqueGestionStockBundle:Stock:_form.html.twig' with {'article': article, 'form': form, 'edit': edit} %}
+                        <div class="right">
+                            <a class="btn" href="{{ path('article_show', {'id': article.id }) }}">Annuler</a>
+                            <button class="btn btn-success" type="submit">Enregistrer</button>
+                        </div>
+                    </form>
+            </fieldset>
+        </div>
+    {% else %}
+        <div class="right">
+            <a class="btn" href="{{ path('article') }}">Annuler</a>
+        </div>
+    {% endif %}    
+     
 {% endblock %}

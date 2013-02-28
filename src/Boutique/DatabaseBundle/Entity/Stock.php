@@ -161,6 +161,17 @@ class Stock
     }
 
     /**
+     * Set id
+     *
+     * @param integer $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this->id;
+    }
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -191,5 +202,61 @@ class Stock
     public function getIdArticle()
     {
         return $this->idArticle;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $dateModif;
+
+    /**
+     * @var string
+     */
+    private $commentaire;
+
+
+    /**
+     * Set dateModif
+     *
+     * @param \DateTime $dateModif
+     * @return Stock
+     */
+    public function setDateModif($dateModif)
+    {
+        $this->dateModif = $dateModif;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateModif
+     *
+     * @return \DateTime 
+     */
+    public function getDateModif()
+    {
+        return $this->dateModif;
+    }
+
+    /**
+     * Set commentaire
+     *
+     * @param string $commentaire
+     * @return Stock
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
+    
+        return $this;
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return string 
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
     }
 }

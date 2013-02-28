@@ -1,11 +1,14 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-    <h1>Modification de fiche client</h1>
+    <h3>Modification de fiche client</h3>
 
     <form action="{{ path('client_update', { 'id': client.id }) }}" method="post" {{ form_enctype(form) }}>
         {% include 'BoutiqueGestionStockBundle:Client:form.html.twig' with {'form' : form} %}
-        <a href="{{ path('client') }}">Annuler</a> | <button type="submit">Enregistrer</button>
+        <div class="right">
+            <a class="btn" href="{{ path('client') }}">Annuler</a>
+            <button class="btn btn-success" type="submit">Enregistrer</button>
+        </div>
     </form>
 
     {#<a href="{{ path('client_delete', { 'id': client.id }) }}" >Supprimer</a>#}

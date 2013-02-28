@@ -1,36 +1,37 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-    <h1>Liste des fiches client</h1>
+    <h3>Liste des fiches client</h3>
 
-    <a href="{{ path('client_new') }}">Ajouter un client</a>
+    <a href="{{ path('client_new') }}" class="btn btn-success"><span class="icon_16 icon_16_plus"></span>Ajouter un client</a>
+    <br /><br />
     
-    <table class="ui-widget">
+    <div class="right">{{ knp_pagination_render(pagination) }}</div>
+    
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th class="ui-widget-header {% if pagination.isSorted('c.nom') %}sorted{% endif %}">{{ pagination.sortable('Nom Prénom', 'c.nom')|raw }}</th>
-                <th class="ui-widget-header {% if pagination.isSorted('c.mail') %}sorted{% endif %}">{{ pagination.sortable('Mail', 'c.mail')|raw }}</th>
-                <th class="ui-widget-header {% if pagination.isSorted('c.dateNaissance') %}sorted{% endif %}">{{ pagination.sortable('Date naissance', 'c.dateNaissance')|raw }}</th>
-                <th class="ui-widget-header">Actions</th>
+                <th class="{% if pagination.isSorted('c.nom') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Nom Prénom', 'c.nom')|raw }}</th>
+                <th class="{% if pagination.isSorted('c.mail') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Mail', 'c.mail')|raw }}</th>
+                <th class="{% if pagination.isSorted('c.dateNaissance') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Date naissance', 'c.dateNaissance')|raw }}</th>
+                <th class="">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for client in pagination %}
             <tr>
-                <td class="ui-widget-content bold"><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.prenom }} {{ client.nom }}</a></td>
-                <td class="ui-widget-content center">{{ client.mail }}</td>
-                <td class="ui-widget-content center">{{ client.dateNaissance|date('d/m/Y') }}</td>
-                <td class="ui-widget-content action_menu">
-                    <a href="{{ path('client_show', { 'id': client.id }) }}"><div class="ui-menu-icon icon_16 icon_16_view" title="Voir la fiche client"></div></a>
-                    <a href="{{ path('client_edit', { 'id': client.id }) }}"><div class="ui-menu-icon icon_16 icon_16_notepad_edit" title="Modifier les informations du client"></div></a>
-                    <a href="{{ path('client_edit', { 'id': client.id }) }}"><div class="ui-menu-icon icon_16 icon_16_trash2" title="Supprimer le client"></div></a>
+                <td class="bold"><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.prenom }} {{ client.nom }}</a></td>
+                <td class="center">{{ client.mail }}</td>
+                <td class="center">{{ client.dateNaissance|date('d/m/Y') }}</td>
+                <td class="action_menu width15">
+                    <a href="{{ path('client_show', { 'id': client.id }) }}"><div class="btn btn-small" title="Consulter la fiche client"><span class="icon_16 icon_16_view"></span></div></a>
+                    <a href="{{ path('client_edit', { 'id': client.id }) }}"><div class="btn btn-small" title="Modifier les informations du client"><span class="icon_16 icon_16_notepad_edit"></span></div></a>
+                    <a href="{{ path('client_delete', { 'id': client.id }) }}"><div class="btn btn-small" title="Supprimer cette fiche client"><span class="icon_16 icon_16_file_delete"></span></div></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
     
-    <div class="navigation">
-        {{ pagination.render()|raw }}
-    </div>
+    <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
 {% endblock %}

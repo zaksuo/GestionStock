@@ -1,6 +1,10 @@
 admin_home:
     pattern: /
     defaults: { _controller: BoutiqueGestionStockBundle:Home:index }
+    
+general_search:
+    pattern: /search
+    defaults: { _controller: BoutiqueGestionStockBundle:Home:rechercheGenerale, _method: post }
 
 boutique_database_article:
     resource: "@BoutiqueGestionStockBundle/Resources/config/routing/article.yml"

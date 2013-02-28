@@ -116,16 +116,16 @@ $(document).ready(function(){
         });
     });
 
-    $('#facture_client_new').live('click', function(e) {
-       e.preventDefault();
-       $('#facture_client_new_container').show();
-    });
-
-    $('#client_new_form_cancel').live('click', function(e) {
-        e.preventDefault();
-       $('#facture_client_new_container').hide();
-    });
-    
+//    $('#facture_client_new').live('click', function(e) {
+//       e.preventDefault();
+//       $('#facture_client_new_container').removeClass('hidden');
+//    });
+//
+//    $('#client_new_form_cancel').live('click', function(e) {
+//        e.preventDefault();
+//       $('#facture_client_new_container').addClass('hidden');
+//    });
+//    
     $('#facture_client_new_submit').live('click', function(e) {
         e.preventDefault();
         var form = $('#facture_client_new_form');

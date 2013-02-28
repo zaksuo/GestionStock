@@ -1,0 +1,101 @@
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <h3>Articles correspondants à '{{ search }}'</h3>
+
+    <table class="table table-striped table-bordered">
+
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Ref. fournisseur</th>
+                <th>Libellé</th>
+                <th>Prix HT</th>
+                <th>Prix TTC</th>
+                <th class="">Stock</th>
+                <th class="">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if articles|length > 0 %}
+                {% for article in articles %}
+                    <tr>
+                        <td class="bold center"><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.code }}</a></td>
+                        <td class="">{{ article.codeFournisseur }}</td>
+                        <td class="">{{ article.libelle }}</td>
+                        <td class="center">{{ article.getPrixHT }} €</td>
+                        <td class="center">{{ article.prixVente }} €</td>
+                        <td class="center">{{ article.articleStock.quantite }} {{ article.typeVente.unite }}(s)</td>
+                        <td class="action_menu width15">
+                            <a href="{{ path('article_show', { 'id': article.id }) }}"><div class="btn btn-small" title="Voir les détails de l'article"><span class="ui-menu-icon icon_16 icon_16_view"></span></div></a>
+                            <a href="{{ path('article_edit', { 'id': article.id }) }}"><div class="btn btn-small" title="Modifier les informations de l'article"><span class="ui-menu-icon icon_16 icon_16_notepad_edit"></span></div></a>
+                            <a href="{{ path('stock_add', { 'id_article': article.id }) }}"><div class="btn btn-small" title="Ajouter du stock pour cet article"><span class="ui-menu-icon icon_16 icon_16_database_add"></span></div></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr><td colspan=7 class="center">Aucun article trouvé correspondant à '{{ search }}'</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <h3>Fiches client correspondant à '{{ search }}'</h3>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Nom Prénom</th>
+                <th>Mail</th>
+                <th>Date naissance</th>
+                <th class="">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if clients|length > 0 %}
+                {% for client in clients %}
+                    <tr>
+                        <td class="bold"><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.prenom }} {{ client.nom }}</a></td>
+                        <td class="center">{{ client.mail }}</td>
+                        <td class="center">{{ client.dateNaissance|date('d/m/Y') }}</td>
+                        <td class="action_menu width15">
+                            <a href="{{ path('client_show', { 'id': client.id }) }}"><div class="btn btn-small" title="Consulter la fiche client"><span class="icon_16 icon_16_view"></span></div></a>
+                            <a href="{{ path('client_edit', { 'id': client.id }) }}"><div class="btn btn-small" title="Modifier les informations du client"><span class="icon_16 icon_16_notepad_edit"></span></div></a>
+                            <a href="{{ path('client_delete', { 'id': client.id }) }}"><div class="btn btn-small" title="Supprimer cette fiche client"><span class="icon_16 icon_16_file_delete"></span></div></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr><td colspan=4 class="center">Aucune fiche client trouvée correspondant à '{{ search }}'</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <h3>Fournisseurs correspondants à '{{ search }}'</h3>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="">Raison sociale</th>
+                <th class="">SIREN</th>
+                <th class="">Téléphone</th>
+                <th class="">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if fournisseurs|length > 0 %}
+                {% for fournisseur in fournisseurs %}
+                    <tr>
+                        <td class="bold"><a href="{{ path('fournisseur_show', { 'id': fournisseur.id }) }}">{{ fournisseur.nom }}</a></td>
+                        <td class="center">{{ fournisseur.siren }}</td>
+                        <td class="center">{{ fournisseur.telephone }}</td>
+                        <td class="action_menu width15">
+                            <a href="{{ path('fournisseur_show', { 'id': fournisseur.id }) }}"><div class="btn btn-small" title="Consulter la fiche fournisseur"><span class="icon_16 icon_16_view"></span></div></a>
+                            <a href="{{ path('fournisseur_edit', { 'id': fournisseur.id }) }}"><div class="btn btn-small" title="Modifier les informations du fournisseur"><span class="icon_16 icon_16_notepad_edit"></span></div></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr><td colspan=4 class="center">Aucun fournisseur trouvé correspondant à '{{ search }}'</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+ {% endblock %}

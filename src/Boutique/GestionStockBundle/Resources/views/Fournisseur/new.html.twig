@@ -1,12 +1,14 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-    <h1>Ajout d'un nouveau fournisseur</h1>
+    <h3>Ajout d'un nouveau fournisseur</h3>
 
     <form action="{{ path('fournisseur_create') }}" method="post" {{ form_enctype(form) }}>
         {% include 'BoutiqueGestionStockBundle:Fournisseur:form.html.twig' with {'form' : form} %}
-        <button type="submit">Enregistrer</button>
+        <div class="right">
+            <a class="btn" href="{{ path('fournisseur') }}">Retour</a>
+            <button class="btn btn-success" type="submit">Modifier</button>
+        </div>
     </form>
 
-    <a href="{{ path('fournisseur') }}">Retour</a>
 {% endblock %}

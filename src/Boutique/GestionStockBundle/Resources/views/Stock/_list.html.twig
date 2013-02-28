@@ -1,0 +1,9 @@
+ {% for stock in stocks %}
+    <tr>
+        <td>{{ stock.dateEntree|date("d/m/Y") }} : {% if stock.quantite > 0 %}Ajout de {{ stock.quantite }} articles ({{ stock.prixAchat }} €/unité) {% else %}Suppression de {{ stock.quantite }} articles{% endif %}</td>
+        <td class="action_menu right">
+            <a href="{{ path('stock_edit', {'id_article': article.id, 'id_stock': stock.id}) }}"><div class="btn btn-small" title="Modifier cette entrée de stock"><span class="icon_16 icon_16_notepad_edit"></span></div></a>
+            <a id="delete_stock" href="{{ path('stock_delete', {'id_article': article.id, 'id_stock': stock.id}) }}"><div class="btn btn-small" title="Supprimer cette entrée de stock"><span class="icon_16 icon_16_trash_delete"></span></div></a>
+        </td>
+    </tr>    
+{% endfor %}

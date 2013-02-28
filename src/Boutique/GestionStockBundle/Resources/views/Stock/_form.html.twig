@@ -1,33 +1,29 @@
-{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
-    {% block content %}
-        <h1>Ajouter une entrée de stock à l'article "{{ article.code }} - {{ article.libelle }}"</h1>
-
-        <form class="form-horizontal well" action="{{ path('stock_create') }}" method="post" {{ form_enctype(form) }}>
-            <input type="hidden" name="boutique_databasebundle_stocktype[idArticle]" id="boutique_databasebundle_stocktype_idArticle" value="{{ article.id }}"/>
-
+    {% if form.get('errors') is not empty %}
+        <div class="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
             {{ form_errors(form) }}
-            
-            <div class="control-group">
-                <label class="control-label">{{ form_label(form.quantite) }}</label>
-                {{ form_widget(form.quantite, { 'attr' : {'class' : 'input-small'}}) }}
-            </div>
-            <div class="control-group">
-                <label class="control-label">{{ form_label(form.prixAchat) }}</label>
-                {{ form_widget(form.prixAchat, { 'attr' : {'class' : 'input-small'}}) }}
-            </div>
-            <div class="control-group">
-                <label class="control-label">{{ form_label(form.delottage) }}</label>
-                {{ form_widget(form.delottage, { 'attr' : {'class' : 'input-small'}}) }} Oui
-            </div>
-            
-            {{ form_rest(form) }}
-
-            <div class="right">
-                <a class="btn btn-danger" href="{{ path('article_show', {'id': article.id }) }}">Annuler</a>
-                <button class="btn btn-success" type="submit">Ajouter</button>
-            </div>
-        </form>
-
-        
-{% endblock %}
+        </div>
+    {% endif %}
+    
+    <table class="table table-bordered">
+        <tr class="">
+            <td class="width30">{{ form_label(form.quantite) }}</td>
+            <td>{{ form_widget(form.quantite, { 'attr' : {'class' : 'input-small'}}) }}</td>
+        </tr>
+        <tr class="">
+            <td class="width30">{{ form_label(form.prixAchat) }}</td>
+            <td>{{ form_widget(form.prixAchat, { 'attr' : {'class' : 'input-small'}}) }}</td>
+        </tr>
+        <tr class="">
+            <td class="width30">{{ form_label(form.delottage) }}</td>
+            <td>{{ form_widget(form.delottage, { 'attr' : {'class' : 'input-small'}}) }} Oui</td>
+        </tr>
+        {% if edit %}
+            <tr class="">
+                <td class="width30">{{ form_label(form.commentaire) }}</td>
+                <td>{{ form_widget(form.commentaire) }}</td>
+            </tr>
+        {% endif %}
+        {{ form_rest(form) }}
+    </table>

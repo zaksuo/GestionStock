@@ -8,6 +8,8 @@
     <field name="quantite" type="float" column="quantite" nullable="false"/>
     <field name="prixAchat" type="float" column="prix_achat" nullable="false"/>
     <field name="delottage" type="boolean" column="delottage" nullable="false"/>
+    <field name="dateModif" type="datetime" column="date_modif" nullable="true"/>
+    <field name="commentaire" type="text" column="commentaire" nullable="true"/>
     <field name="dateDerniereSortie" type="datetime" column="date_derniere_sortie" nullable="true"/>
     <many-to-one field="idArticle" target-entity="Article">
       <join-columns>

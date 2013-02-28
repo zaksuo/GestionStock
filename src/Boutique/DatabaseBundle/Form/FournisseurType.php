@@ -11,9 +11,9 @@ class FournisseurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('siren')
-            ->add('telephone')
+            ->add('nom', 'text', array('required' => true, 'label' => 'Raison sociale'))
+            ->add('siren', 'text', array('required' => true, 'label' => 'N° SIREN'))
+            ->add('telephone', 'text', array('required' => false, 'label' => 'Numéro de téléphone'))
         ;
     }
 

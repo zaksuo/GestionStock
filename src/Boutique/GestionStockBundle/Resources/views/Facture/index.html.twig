@@ -3,19 +3,22 @@
 {% block content %}
     <h3> Liste des factures</h3>
 
+    <a href="{{ path('facture_new') }}" class="btn btn-success"><span class="icon_16 icon_16_plus"></span>Nouvelle facture</a>
+    
+    <br /><br />
+    
     {% if pagination|length > 0 %}
         {{ pagination|length }} factures :
-
-        <div class="right">{{ pagination.render()|raw }}</div>
-        
+        <div class="right">{{ knp_pagination_render(pagination) }}</div>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th class="{% if pagination.isSorted('f.id') %}sorted{% endif %}">{{ pagination.sortable('Numéro', 'f.id')|raw }}</th>
-                    <th class="{% if pagination.isSorted('f.dateCreation') %}sorted{% endif %}">{{ pagination.sortable('Date création', 'f.dateCreation')|raw }}</th>
-                    <th class="{% if pagination.isSorted('f.dateValidation') %}sorted{% endif %}">{{ pagination.sortable('Date finalisation', 'f.dateValidation')|raw }}</th>
-                    <th class="{% if pagination.isSorted('articles') %}sorted{% endif %}">{{ pagination.sortable('Articles', 'articles')|raw }}</th>
-                    <th class="{% if pagination.isSorted('f.montantFactureTTC') %}sorted{% endif %}">{{ pagination.sortable('Montant', 'f.montantFactureTTC')|raw }}</th>
+                    <th class="{% if pagination.isSorted('f.id') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Numéro', 'f.id')|raw }}</th>
+                    <th class="{% if pagination.isSorted('f.dateCreation') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Date création', 'f.dateCreation')|raw }}</th>
+                    <th class="{% if pagination.isSorted('f.dateValidation') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Date finalisation', 'f.dateValidation')|raw }}</th>
+                    <th class="{% if pagination.isSorted('f.client') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Client', 'f.client')|raw }}</th>
+                    <th class="{% if pagination.isSorted('articles') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Articles', 'articles')|raw }}</th>
+                    <th class="{% if pagination.isSorted('f.montantFactureTTC') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Montant', 'f.montantFactureTTC')|raw }}</th>
                     <th>Actions</th>
                 </tr>
             <thead>
@@ -27,9 +30,10 @@
                         <td><a href="{% if facture.valide %}{{ path('facture_show', {'id': facture.id}) }}{% else %}{{ path('facture_edit', {'id': facture.id}) }}{% endif %}">facture n°{{ facture.id }}</a></td>
                         <td>{{ facture.dateCreation|date('d/m/Y à  H:i')}}</td>
                         <td>{% if facture.dateValidation %}{{ facture.dateValidation|date('d/m/Y à  H:i')}}{% else %}-{% endif %}</td>
+                        <td>{% if facture.client|length > 0 %} {{ facture.client.prenom }} {{ facture.client.nom }} {% else %} - {% endif %}</td>
                         <td>{{ count }} articles</td>
                         <td>{{ facture.montantFactureTTC }} €</td>
-                        <td class="action_menu">
+                        <td class="action_menu width15">
                             <a href="{{ path('facture_show', { 'id': facture.id }) }}"><div class="btn btn-small" title="Consulter la facture"><span class="icon_16 icon_16_view"></span></div></a>
                             {% if not facture.valide %}
                                 <a href="{{ path('facture_edit', { 'id': facture.id }) }}"><div class="btn btn-small" title="Modifier le contenu de cette facture"><span class="icon_16 icon_16_notepad_edit"></span></div></a>
@@ -43,7 +47,7 @@
             </tbody>
         </table>
         
-        <div class="right">{{ pagination.render()|raw }}</div>
+        <div class="right">{{ knp_pagination_render(pagination) }}</div>
     {% else %}
         Aucune facture trouvée.
     {% endif %}

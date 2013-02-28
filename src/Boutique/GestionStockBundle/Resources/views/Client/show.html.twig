@@ -3,42 +3,70 @@
 {% block content %}
     <h1>Client</h1>
 
-    <table class="ui-widget">
+    <table class="table table-bordered">
         <tbody>
             <tr>
-                <th class="ui-widget-header width40">Numéro client</th>
-                <td class="ui-widget-content">{{ client.id }}</td>
+                <th class="width30">Numéro client</th>
+                <td class="">{{ client.id }}</td>
             </tr>
             <tr>
-                <th class="ui-widget-header width40">Identité</th>
-                <td class="ui-widget-content">{{ client.prenom }} {{ client.nom }}</td>
+                <th class="width30">Identité</th>
+                <td class="">{{ client.prenom }} {{ client.nom }}</td>
             </tr>
             <tr>
-                <th class="ui-widget-header width40">Date de naissance</th>
-                <td class="ui-widget-content">{{ client.dateNaissance|date('d/m/Y') }}</td>
+                <th class="width30">Date de naissance</th>
+                <td class="">{{ client.dateNaissance|date('d/m/Y') }}</td>
             </tr>
             <tr>
-                <th class="ui-widget-header width40">e-mail</th>
-                <td class="ui-widget-content">{{ client.mail }}</td>
+                <th class="width30">e-mail</th>
+                <td class="">{{ client.mail }}</td>
             </tr>
             <tr>
-                <th class="ui-widget-header width40">Adresse</th>
-                <td class="ui-widget-content">
+                <th class="width30">Adresse</th>
+                <td class="">
                     {{ client.adresseNumero }} {{ client.adresseVoie }}<br />
                     {% if client.adresseComplement|length > 0 %}{{ client.adresseComplement }}<br />{% endif %}
                     {{ client.codePostal }} {{ client.adresseVille }}
                 </td>
             </tr>
             <tr>
-                <th class="ui-widget-header width40">Date de création de la fiche</th>
-                <td class="ui-widget-content">{{ client.dateCreation|date('d/m/Y à H:i:s') }}</td>
+                <th class="width30">Date de création de la fiche</th>
+                <td class="">{{ client.dateCreation|date('d/m/Y à H:i:s') }}</td>
             </tr>
         </tbody>
     </table>
 
-    <ul class="record_actions">
-        <a href="{{ path('client') }}">Retour</a> |
-        <a href="{{ path('client_edit', { 'id': client.id }) }}">Modifier</a> | 
-        <a href="#">Supprimer</a>
-    </ul>
+    <div class="right">
+        <a class="btn btn-danger" href="{{ path('client') }}">Retour</a>
+        <a class="btn btn-warning" href="{{ path('client_edit', { 'id': client.id }) }}">Modifier</a>
+        <a class="btn btn-success" href="#">Supprimer</a>
+    </div>
+    
+    <h3>Liste des achats du client</h3>
+    
+    <div class="right">{{ knp_pagination_render(pagination) }}</div>
+    
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th class="{% if pagination.isSorted('f.id') %}sorted{% endif %} center">{{ knp_pagination_sortable(pagination, 'Numéro', 'f.id') }}</th>
+            <th class="{% if pagination.isSorted('f.dateCreation') %}sorted{% endif %} center">{{ knp_pagination_sortable(pagination, 'Date création facture', 'f.dateCreation') }}</th>
+            <th class="{% if pagination.isSorted('f.montantFactureTTC') %}sorted{% endif %} center">{{ knp_pagination_sortable(pagination, 'Montant TTC', 'f.montantFactureTTC') }}</th>
+            <th class="center">Facture validée</th>
+            <th class="center">Actions</th>
+        </tr>
+        
+        {% if pagination|length > 0 %}
+            {% for facture in pagination %}
+                <tr>
+                    <td>Facture n°{{ facture.id }}</td>
+                    <td>{{ facture.dateCreation|date('d/m/y H:i:s') }}</td>
+                    <td>{{ facture.montantFactureTTC }} €</td>
+                    <td>{% if facture.valide %}<div class="icon_24 icon_24_ok"></div>{% else %}<div class="icon_24 icon_24_nok"></div>{% endif %}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr><td colspan=5>Ce client n'a fait aucun achat</td></tr>
+        {% endif %}
+    </table>
 {% endblock %}

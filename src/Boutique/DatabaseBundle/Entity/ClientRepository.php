@@ -12,21 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class ClientRepository extends EntityRepository
 {	
-	public function getClientsForSearch( $search, $offset = 0, $limit = 0 ) {
-		$qb = $this->getEntityManager()
-			->createQueryBuilder()
-			->select('client')
-			->from('BoutiqueDatabaseBundle:Client', 'client')
-			->where("client.nom LIKE '%".$search."%'")
-                        ->orWhere("client.prenom LIKE '%".$search."%'")
-                        ->orWhere("client.mail LIKE '%".$search."%'");
-			//->setFirstResult($offset)
-			//->setMaxResults($limit);
-                
-                //var_dump($qb->getQuery()->getSQL()); exit;
-			
-		$data = $qb->getQuery()->getResult();
-		
-		return $data;
-	}
+    public function getClientsForSearch( $search, $offset = 0, $limit = 0 ) {
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('client')
+                ->from('BoutiqueDatabaseBundle:Client', 'client')
+                ->where("client.nom LIKE '%".$search."%'")
+                ->orWhere("client.prenom LIKE '%".$search."%'")
+                ->orWhere("client.mail LIKE '%".$search."%'")
+                ->setFirstResult($offset)
+                ->setMaxResults($limit);
+
+        //var_dump($qb->getQuery()->getSQL()); exit;
+
+        $data = $qb->getQuery()->getResult();
+
+        return $data;
+    }
 }

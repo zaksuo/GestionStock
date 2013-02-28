@@ -48,9 +48,20 @@ class ClientController extends Controller
         if (!$client) {
             throw $this->createNotFoundException('Impossible de trouver la fiche client sélectionnée.');
         }
+        
+        $dql = "SELECT f FROM BoutiqueDatabaseBundle:Facture f WHERE f.client = '".$client->getId()."'";
+        $query = $em->createQuery($dql);
+        
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $this->get('request')->query->get('page', 1)/*page number*/,
+            30 /*limit per page*/
+        );
 
         return $this->render('BoutiqueGestionStockBundle:Client:show.html.twig', array(
-            'client'      => $client
+            'client'      => $client,
+            'pagination'  => $pagination
         ));
     }
 

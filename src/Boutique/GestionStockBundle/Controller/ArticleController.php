@@ -195,11 +195,13 @@ class ArticleController extends Controller
     
     public function searchAction(Request $request) {
         $search = $request->get('search_article');
-  
+         $em = $this->getDoctrine()->getManager();
+         
         if( !is_null($search) ) {
-            $em = $this->getDoctrine()->getManager();
-            
-            $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch($search);
+            $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch($search, 0, 15);
+        }
+        else {
+            $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch('', 0, 15);
         }
         
         return $this->render('BoutiqueGestionStockBundle:Ajax_Article:article_restock.html.twig', array(

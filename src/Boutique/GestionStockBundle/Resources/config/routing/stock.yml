@@ -1,11 +1,23 @@
 stock_new:
-  pattern: /new_stock
-  defaults: { _controller: BoutiqueGestionStockBundle:Stock:newStock }
+  pattern: /new_stock/{id_article}
+  defaults: { _controller: BoutiqueGestionStockBundle:Stock:newStock, id_article: null }
   
 stock_add:
-  pattern: /{id_article}/add_stock/{ajax}
-  defaults: { _controller: BoutiqueGestionStockBundle:Stock:addStock, _method: post, ajax : false }
+  pattern: /{id_article}/add_stock
+  defaults: { _controller: BoutiqueGestionStockBundle:Stock:addStock, _method: post }
+  
+stock_edit:
+  pattern: /{id_article}/edit_stock/{id_stock}
+  defaults: { _controller: BoutiqueGestionStockBundle:Stock:editStock }
   
 stock_create:
-  pattern: create_stock
+  pattern: /{id_article}/create_stock
   defaults: { _controller: BoutiqueGestionStockBundle:Stock:createStock, _method: post }
+
+stock_save:
+  pattern: /{id_article}/save_stock/{id_stock}
+  defaults: { _controller: BoutiqueGestionStockBundle:Stock:saveStock }
+  
+stock_delete:
+  pattern: /{id_article}/delete_stock/{id_stock}
+  defaults: { _controller: BoutiqueGestionStockBundle:Stock:deleteStock }

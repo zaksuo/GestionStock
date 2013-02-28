@@ -12,3 +12,9 @@ parameters:
     locale: en
     secret: f581d2a3a5531beb2f8220b64c59dd655500bc79
     database_path: null
+    
+knp_paginator:
+    page_range: 10
+    template:        
+        pagination: BoutiqueGestionStockBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template

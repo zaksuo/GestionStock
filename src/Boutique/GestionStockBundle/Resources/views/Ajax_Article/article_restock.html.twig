@@ -1,26 +1,28 @@
 <h3>Articles trouvés</h3>
 
 {% if articles|length > 0 %}
-    <table class="ui-widget">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th class="ui-widget-header">Code</th>
-                <th class="ui-widget-header">Libellé</th>
-                <th class="ui-widget-header">Prix de vente</th>
-                <th class="ui-widget-header">Quantité</th>
-                <th class="ui-widget-header">Actions</th>
+                <th class="">Code</th>
+                <th class="">Libellé</th>
+                <th class="">Prix HT</th>
+                <th class="">Prix TTC</th>
+                <th class="">Quantité</th>
+                <th class="">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for article in articles %}
             <tr>
-                <td class="ui-widget-content article_code">{{ article.code }}</td>
-                <td class="ui-widget-content article_libelle">{{ article.libelle }}</td>
-                <td class="ui-widget-content article_prixVente">{{ article.prixVente }}</td>
-                <td class="ui-widget-content article_quantite">{{ article.articleStock.quantite }}</td>
-                <td class="ui-widget-content action_menu" id="{{ article.id }}">
-                    <a class="select_restock_link" href="{{ path('stock_add', {'id_article': article.id, 'ajax': true}) }}">
-                        <div class="icon_16 icon_16_plus" title="Sélectionner cet article"></div>
+                <td class="article_code">{{ article.code }}</td>
+                <td class="article_libelle">{{ article.libelle }}</td>
+                <td class="center">{{ article.getPrixHT }} €</td>
+                <td class="center">{{ article.prixVente }} €</td>
+                <td class="center">{{ article.articleStock.quantite }} {{ article.typeVente.unite }}(s)</td>
+                <td class="action_menu width15" id="{{ article.id }}">
+                    <a class="select_restock_link" href="{{ path('stock_new', {'id_article': article.id}) }}">
+                        <div class="btn btn-small"><span class="icon_16 icon_16_plus" title="Sélectionner cet article"></span></div>
                     </a>
                 </td>
             </tr>

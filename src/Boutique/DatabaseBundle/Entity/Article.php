@@ -53,6 +53,10 @@ class Article
     private $new_stock;
     private $stocks;
     
+    public function __toString() {
+        return $this->code . " - " . $this->libelle;
+    }
+    
     /**
      * Set code
      *

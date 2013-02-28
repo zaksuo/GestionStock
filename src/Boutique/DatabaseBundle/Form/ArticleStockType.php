@@ -11,12 +11,12 @@ class ArticleStockType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('code', null, array('required' => false, 'label' => 'Code de l\'article'))
+            ->add('code', 'text', array('required' => false, 'label' => 'Code de l\'article'))
             ->add('fournisseur', null, array('required' => true, 'label' => 'Fournisseur'))
-            ->add('codeFournisseur', null, array('required' => true, 'label' => 'Code fournisseur'))
-            ->add('libelle', null, array('required' => true, 'label' => 'Nom de l\'article'))
-            ->add('description', null, array('required' => false, 'label' => 'Description'))
-            ->add('prixVente', null, array('required' => true, 'label' => 'Prix de vente'))
+            ->add('codeFournisseur', 'text', array('required' => true, 'label' => 'Code fournisseur'))
+            ->add('libelle', 'text', array('required' => true, 'label' => 'Nom de l\'article'))
+            ->add('description', 'textarea', array('required' => false, 'label' => 'Description'))
+            ->add('prixVente', 'text', array('required' => true, 'label' => 'Prix de vente'))
             ->add('typeArticle', null, array('required' => true, 'label' => 'Catégorie d\'article'))
             ->add('typeVente', null, array('required' => true, 'label' => 'Type de vente'))
             ->add('typeTva', null, array('required' => true, 'label' => 'T.V.A.'))

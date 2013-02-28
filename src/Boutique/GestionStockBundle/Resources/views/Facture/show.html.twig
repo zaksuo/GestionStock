@@ -1,79 +1,76 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-    <div class="bloc_facture_container">
-        <h3>Facture {{ facture.id }} - Crée le {{ facture.dateCreation|date('d/m/Y à H:i:s') }} {% if facture.valide %}- Validée le {{ facture.dateValidation|date('d/m/Y à H:i:s') }} {% endif %}</h3>
+        <div class="">
+            <h3>Facture {{ facture.id }} - Crée le {{ facture.dateCreation|date('d/m/Y à H:i:s') }} {% if facture.valide %}- Validée le {{ facture.dateValidation|date('d/m/Y à H:i:s') }} {% endif %}</h3>
 
-        <div class="bloc_facture bloc_boutique">
-            <h4>La Dame de Quilt</h4>
+            <div class="span6 well">
+                <h4>La Dame de Quilt</h4>
+                SIRET : 789 145 265<br />
 
-            SIRET : 789 145 265<br />
-            
-            <div class="icon_16_before icon_16_letter">
-                32 Rue de l'Eglise<br />
-                77250 Moret sur Loing
-            </div><br />
-            
-            <div class="icon_16_before icon_16_phone">N/A</div>
-            <div class="icon_16_before icon_16_contact_email">dame.de.quilt@gmail.com</div><br />
-            
-            <div class="icon_16_before icon_16_clock">8h à 13h - 15h à 19h du lundi au samedi</div>
+                <div class="icon_16_before icon_16_letter">
+                    32 Rue de l'Eglise<br />
+                    77250 Moret sur Loing
+                </div><br />
+
+                <div class="icon_16_before icon_16_phone">N/A</div>
+                <div class="icon_16_before icon_16_contact_email">dame.de.quilt@gmail.com</div><br />
+
+                <div class="icon_16_before icon_16_clock">8h à 13h - 15h à 19h du lundi au samedi</div>
+            </div>
+
+            <div class="span6 well">
+                {% if facture.client|length > 0 %}
+                    <div class="icon_16_before icon_16_sharp">{{ facture.client.id }}</div>
+                    <div class="icon_16_before icon_16_user">{{ facture.client.prenom }} {{ facture.client.nom }}</div>
+                    <div class="icon_16_before icon_16_contact_email">{{ facture.client.mail }}</div>
+
+                    <div class="icon_16_before icon_16_letter">
+                        {{ facture.client.adresseNumero }} {{ facture.client.adresseVoie }}<br />
+                        {% if facture.client.adresseComplement|length > 0 %}{{ facture.client.adresseComplement }}<br />{% endif %}
+                        {{ facture.client.codePostal }} {{ facture.client.adresseVille }}
+                    </div>
+                {% endif %}
+            </div>
         </div>
 
-        <div class="bloc_facture bloc_client">
-            {% if facture.client|length > 0 %}
-                 <div class="icon_16_before icon_16_sharp">{{ facture.client.id }}</div>
-                 <div class="icon_16_before icon_16_user">{{ facture.client.prenom }} {{ facture.client.nom }}</div>
-                 <div class="icon_16_before icon_16_contact_email">{{ facture.client.mail }}</div>
-                 
-                 <div class="icon_16_before icon_16_letter">
-                    {{ facture.client.adresseNumero }} {{ facture.client.adresseVoie }}<br />
-                    {% if facture.client.adresseComplement|length > 0 %}{{ facture.client.adresseComplement }}<br />{% endif %}
-                    {{ facture.client.codePostal }} {{ facture.client.adresseVille }}
-                 </div>
-            {% endif %}
-        </div>
-
-        <br />
-
-        <table class="table table-striped table-bordered top10">
-            <tr>
-                <th>Code Article</th>
-                <th>Nom de l'article</th>
-                <th>Quantité</th>
-                <th>Prix</th>
-                <th>Montant TTC</th>
-            </tr>
-            {% if facture.hasFactArticles %}
-                {% for fact_article in facture.factArticles %}
-                    <tr>
-                        <td class="center">{{ fact_article.article.code }}</td>
-                        <td class="left">{{ fact_article.article.libelle }}</td>
-                        <td class="center">{{ fact_article.quantite }}</td>
-                        <td class="center">{{ fact_article.getPrixUnitaire }} € / {{ fact_article.article.typeVente.unite }}</td>
-                        <td class="center">{{ fact_article.getTotalPrixArticleTTC }} €</td>
-                    </tr>
-                {% endfor %}
-
-                <tr class="success">
-                    <td class="left" colspan=4>Total HT</td>
-                    <td class="center">{{ facture.montantFactureHT }} €</td>
-                </tr>
-                <tr class="success">
-                    <td class="left" colspan=4>Total TVA</td>
-                    <td class="center">{{ facture.getTvaTotal }} €</td>
-                </tr>
-                <tr class="success">
-                    <td class="left" colspan=4>Total à payer</td>
-                    <td class="center">{{ facture.montantFactureTTC }} €</td>
-                </tr>
-            {% else %}
+    <table class="table table-striped table-bordered top10">
+        <tr>
+            <th>Code Article</th>
+            <th>Nom de l'article</th>
+            <th>Quantité</th>
+            <th>Prix</th>
+            <th>Montant TTC</th>
+        </tr>
+        {% if facture.hasFactArticles %}
+            {% for fact_article in facture.factArticles %}
                 <tr>
-                    <td>Cette facture ne contient aucun article.</td>
+                    <td class="center">{{ fact_article.article.code }}</td>
+                    <td class="left">{{ fact_article.article.libelle }}</td>
+                    <td class="center">{{ fact_article.quantite }}</td>
+                    <td class="center">{{ fact_article.getPrixUnitaire }} € / {{ fact_article.article.typeVente.unite }}</td>
+                    <td class="center">{{ fact_article.getTotalPrixArticleTTC }} €</td>
                 </tr>
-            {% endif %}
-        </table>
-    </div>
+            {% endfor %}
+
+            <tr class="success">
+                <td class="left" colspan=4>Total HT</td>
+                <td class="center">{{ facture.montantFactureHT }} €</td>
+            </tr>
+            <tr class="success">
+                <td class="left" colspan=4>Total TVA</td>
+                <td class="center">{{ facture.getTvaTotal }} €</td>
+            </tr>
+            <tr class="success">
+                <td class="left" colspan=4>Total à payer</td>
+                <td class="center">{{ facture.montantFactureTTC }} €</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td>Cette facture ne contient aucun article.</td>
+            </tr>
+        {% endif %}
+    </table>
     
     <div class="right">
         {% if facture.valide %}

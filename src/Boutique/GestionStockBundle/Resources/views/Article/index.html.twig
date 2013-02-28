@@ -1,22 +1,20 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-
     <h3>Liste des articles</h3>
 
     <a href="{{ path('article_new') }}" class="btn btn-success"><span class="icon_16 icon_16_plus"></span>Ajouter un article</a>
-        
-    <div class="right">{{ pagination.render()|raw }}</div>
+    <div class="right">{{ knp_pagination_render(pagination) }}</div>
     
     <table class="table table-striped table-bordered">
         
         <thead>
             <tr>
-                <th class="{% if pagination.isSorted('a.code') %}sorted{% endif %}">{{ pagination.sortable('Code', 'a.code')|raw }}</th>
-                <th class="{% if pagination.isSorted('a.codeFournisseur') %}sorted{% endif %}">{{ pagination.sortable('Ref. fournisseur', 'a.codeFournisseur')|raw }}</th>
-                <th class="{% if pagination.isSorted('a.libelle') %}sorted{% endif %}">{{ pagination.sortable('Libellé', 'a.libelle')|raw }}</th>
-                <th class="{% if pagination.isSorted('a.prixVente') %}sorted{% endif %}">{{ pagination.sortable('Prix HT', 'a.prixVente')|raw }}</th>
-                <th class="{% if pagination.isSorted('a.prixVente') %}sorted{% endif %}">{{ pagination.sortable('Prix TTC', 'a.prixVente')|raw }}</th>
+                <th class="{% if pagination.isSorted('a.code') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Code', 'a.code') }}</th>
+                <th class="{% if pagination.isSorted('a.codeFournisseur') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Ref. fournisseur', 'a.codeFournisseur') }}</th>
+                <th class="{% if pagination.isSorted('a.libelle') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Libellé', 'a.libelle') }}</th>
+                <th class="{% if pagination.isSorted('a.prixVente') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Prix HT', 'a.prixVente') }}</th>
+                <th class="{% if pagination.isSorted('a.prixVente') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Prix TTC', 'a.prixVente') }}</th>
                 <th class="">Stock</th>
                 <th class="">Actions</th>
             </tr>
@@ -30,14 +28,14 @@
                 <td class="center">{{ article.getPrixHT }} €</td>
                 <td class="center">{{ article.prixVente }} €</td>
                 <td class="center">{{ article.articleStock.quantite }} {{ article.typeVente.unite }}(s)</td>
-                <td class="action_menu">
+                <td class="action_menu width15">
                     <a href="{{ path('article_show', { 'id': article.id }) }}"><div class="btn btn-small" title="Voir les détails de l'article"><span class="ui-menu-icon icon_16 icon_16_view"></span></div></a>
                     <a href="{{ path('article_edit', { 'id': article.id }) }}"><div class="btn btn-small" title="Modifier les informations de l'article"><span class="ui-menu-icon icon_16 icon_16_notepad_edit"></span></div></a>
-                    <a href="{{ path('stock_add', { 'id_article': article.id }) }}"><div class="btn btn-small" title="Ajouter du stock pour cet article"><span class="ui-menu-icon icon_16 icon_16_database_add"></span></div></a>
+                    <a href="{{ path('stock_new', { 'id_article': article.id }) }}"><div class="btn btn-small" title="Ajouter du stock pour cet article"><span class="ui-menu-icon icon_16 icon_16_database_add"></span></div></a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-    <div class="right">{{ pagination.render()|raw }}</div>
+    <div class="right">{{ knp_pagination_render(pagination) }}</div>
 {% endblock %}

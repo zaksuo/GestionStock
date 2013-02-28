@@ -13,22 +13,22 @@ use Doctrine\ORM\EntityRepository;
 class ArticleRepository extends EntityRepository
 {	
     public function getArticlesForSearch( $search, $offset = 0, $limit = 0 ) {
-            $qb = $this->getEntityManager()
-                    ->createQueryBuilder()
-                    ->select('article')
-                    ->from('BoutiqueDatabaseBundle:Article', 'article')
-                    ->where("article.libelle LIKE '%".$search."%'")
-                    ->orWhere("article.code LIKE '%".$search."%'")
-                    //->orWhere("article.codeFournisseur LIKE '%".$search."%'")
-                    ->orWhere("article.description LIKE '%".$search."%'");
-                    //->setFirstResult($offset)
-                    //->setMaxResults($limit);
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('article')
+                ->from('BoutiqueDatabaseBundle:Article', 'article')
+                ->where("article.libelle LIKE '%".$search."%'")
+                ->orWhere("article.code LIKE '%".$search."%'")
+                //->orWhere("article.codeFournisseur LIKE '%".$search."%'")
+                ->orWhere("article.description LIKE '%".$search."%'")
+                ->setFirstResult($offset)
+                ->setMaxResults($limit);
 
-            //var_dump($qb->getQuery()->getSQL()); exit;
+        //var_dump($qb->getQuery()->getSQL()); exit;
 
-            $data = $qb->getQuery()->getResult();
+        $data = $qb->getQuery()->getResult();
 
-            return $data;
+        return $data;
     }
     
     public function getLastCode() {

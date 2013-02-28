@@ -4,6 +4,10 @@
     <h3>Nouvelle fiche client</h3>
     <form action="{{ path('client_create') }}" method="post" {{ form_enctype(form) }}>
         {% include 'BoutiqueGestionStockBundle:Client:form.html.twig' with {'form' : form} %}
-        <a href="{{ path('client') }}">Annuler</a> | <button type="submit">Enregistrer</button>
+        
+        <div class="right">
+            <a class="btn" href="{{ path('client') }}">Annuler</a>
+            <button class="btn btn-success" type="submit">Enregistrer</button>
+        </div>
     </form>
 {% endblock %}
