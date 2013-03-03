@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h3>Article</h3>
+    <h3 class="icon_32_before icon_32_next">Article</h3>
 
     <table class="table table-bordered">
         <tbody>
@@ -29,6 +29,10 @@
             <tr>
                 <th class="width30">Description</th>
                 <td class="">{% if article.description|length > 0 %}{{ article.description }}{% else %}-{% endif %}</td>
+            </tr>
+            <tr>
+                <th class="width30">Prix moyen d'achat</th>
+                <td class="">{{ article.getPrixAchatMoyenHT }} € ({{ article.getPrixAchatMoyenTTC }} € TTC)</td>
             </tr>
             <tr>
                 <th class="width30">Prix TTC</th>

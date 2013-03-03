@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h3>Modification de l'article "{{ article.code }} - {{ article.libelle }}"</h3>
+    <h3 class="icon_32_before icon_32_next">Modification de l'article "{{ article.code }} - {{ article.libelle }}"</h3>
 
     <form class="form-horizontal" action="{{ path('article_update', { 'id': article.id }) }}" method="post" {{ form_enctype(form) }}>
         <div class="control-group">

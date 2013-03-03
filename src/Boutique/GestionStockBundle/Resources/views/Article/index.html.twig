@@ -1,7 +1,7 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-    <h3>Liste des articles</h3>
+    <h3 class="icon_32_before icon_32_next">Liste des articles</h3>
 
     <a href="{{ path('article_new') }}" class="btn btn-success"><span class="icon_16 icon_16_plus"></span>Ajouter un article</a>
     <div class="right">{{ knp_pagination_render(pagination) }}</div>

@@ -49,7 +49,6 @@ class Article
      */
     private $fournisseur;
     private $codeFournisseur;
-    private $gencodeFournisseur;
     private $new_stock;
     private $stocks;
     
@@ -334,27 +333,21 @@ class Article
         return $this->codeFournisseur;
     }
     
-    /**
-     * Set codeFournisseur
-     *
-     * @param $codeFournisseur
-     * @return Article
-     */
-    public function setGencodeFournisseur($gencodeFournisseur = null)
-    {
-        $this->gencodeFournisseur = $gencodeFournisseur;
-    
-        return $this;
+    public function getPrixAchatMoyenHT() {
+        $prixHT = 0;
+        $qte = 0;
+        foreach( $this->getStocks() as $stock ) {
+            $qte += $stock->getQuantite();
+            $prixHT += $stock->getPrixAchat() * $stock->getQuantite();
+        }
+        
+        return number_format(round($prixHT / $qte, 2), 2);
     }
-
-    /**
-     * Get codeFournisseur
-     *
-     * @return codeFournisseur 
-     */
-    public function getGencodeFournisseur()
-    {
-        return $this->gencodeFournisseur;
+    
+    public function getPrixAchatMoyenTTC() {
+        $prixHT = $this->getPrixAchatMoyenHT();
+        $prixTTC = $prixHT * ( 1 + $this->typeTva->getValeur() / 100 );
+        return number_format(round($prixTTC, 2), 2);
     }
     
     public function getPrixHT() {

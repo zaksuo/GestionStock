@@ -31,7 +31,6 @@ function uni(i) {
 function findPrinter() {
     var applet = document.jzebra;
     if (applet != null) {
-        // Searches for locally installed printer with "zebra" in the name
         applet.findPrinter("Metapace T-3");
     }
 
@@ -45,49 +44,73 @@ function monitorFinding() {
             window.setTimeout('monitorFinding()', 100);
         } else {
             var printer = applet.getPrinter();
-            alert(printer == null ? "Imprimante non détectée" : "Imprimante \"" + printer + "\" détectée");
+            //alert(printer == null ? "Imprimante non détectée" : "Imprimante \"" + printer + "\" détectée");
         }
     } else {
         alert("Applet non chargé");
     }
 }
 
+function monitorAppending() {
+    var applet = document.jzebra;
+    if (applet != null) {
+        if (!applet.isDoneAppending()) {
+            window.setTimeout('monitorAppending()', 100);
+        } else {
+            applet.print(); // Don't print until all of the data has been appended
+            monitorPrinting();
+        }
+    } else {
+        alert("Applet not loaded!");
+    }
+}
+
+function monitorPrinting() {
+    var applet = document.jzebra;
+    if (applet != null) {
+        if (!applet.isDonePrinting()) {
+            window.setTimeout('monitorPrinting()', 100);
+        } else {
+            var e = applet.getException();
+            if( e != null ) {
+                alert("Exception occured: " + e.getLocalizedMessage());
+            }
+        }
+    } else {
+        alert("Applet not loaded!");
+    }
+}
+
 function print( ticket ) {
-    alert(ticket);
     var applet = document.jzebra;
     if (applet != null) {
         // Send characters/raw commands to applet using "append"
         // Hint:  Carriage Return = \r, New Line = \n, Escape Double Quotes= \"
         // 42 caractères par ligne font A et 56 font B
-        
-        // Initialisation de l'imprimante ESC @
-        applet.append("\x1B\x40");
-        //applet.append(ESC+AROBASE); 
          
         // Sélection de du characterset francais ESC R 1
-        applet.append(ESC+R+"1");
-        
-//        applet.append("******************************************\n");
-//        applet.append("*            La Dame de Quilt            *\n");
-//        applet.append("*           32 rue de l'église           *\n");
-//        applet.append("*          77250 Morêt sur Loing         *\n");
-//        applet.append("******************************************\n");
+        //applet.append(ESC+R+"1");
+        applet.setEncoding("850");
         applet.append(ticket);
         applet.setEndOfDocument("P1\n");
-        applet.append("\x1d\x56\x42\x00");
-        //applet.append("\x1d\x56\x42\x00");
-//        applet.append("A590,1600,2,3,1,1,N,\"jZebra " + applet.getVersion() + " sample.html\"\n");
-//        applet.append("A590,1570,2,3,1,1,N,\"Testing the print() function\"\n");
-
-        // Send characters/raw commands to printer
-        applet.print();
+        if( applet.isDoneAppending() ) {
+             applet.append(CUT);
+            applet.append(CUT);
+            applet.setEndOfDocument("P1\n");
+            applet.print();
+        }
     }
-
-    monitorPrinting();
 }
 
 function cutPaper() {
-    document.jzebra.append(CUT); // cut paper
+    var applet = document.jzebra;
+    
+    if (applet != null) {
+        applet.append('\n\n\n\n\n');
+        applet.append(CUT);
+        applet.setEndOfDocument("P1\n");
+        applet.print();
+    }
 }
 
 function test() {

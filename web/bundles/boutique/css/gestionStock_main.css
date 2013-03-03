@@ -37,6 +37,8 @@ body{ width : 80%; padding-left : 10%; }
 .width15 { width: 15%;}
 .width10 { width: 10%;}
 
+h3 { border-bottom : 1px dashed #CDCDCD; }
+
 .top10 { margin-top : 10px; }
 .bottom10 { margin-bottom : 10px; }
 
@@ -84,8 +86,10 @@ table td { padding: 5px; background : white; }
 /* Wrap icons */
 .icon_16 {width: 16px; height: 16px;}
 .icon_24 {width: 24px; height: 24px;}
-.icon_16_before { height: 20px; background-repeat: no-repeat; padding-left : 20px; }
-
+.icon_32 {width: 24px; height: 24px;}
+.icon_16_before { height: 16px; background-repeat: no-repeat; padding-left : 20px; line-height : 16px; }
+.icon_24_before { height: 24px; background-repeat: no-repeat; padding-left : 32px; line-height : 24px; }
+.icon_32_before { height: 32px; background-repeat: no-repeat; padding-left : 36px; line-height : 32px; }
 
 /* Icons 16px */
 .icon_16_address {background-image: url(images/16px/address_16.png);}
@@ -142,6 +146,8 @@ table td { padding: 5px; background : white; }
 .icon_24_ok {background-image: url(images/24px/ok_24.png);}
 .icon_24_nok {background-image: url(images/24px/nok_24.png);}
 
+.icon_32_next {background-image: url(images/32px/next_32.png);}
+.icon_32_prev {background-image: url(images/32px/prev_32.png);}
 
 
 

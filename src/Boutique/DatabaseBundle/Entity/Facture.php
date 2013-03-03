@@ -432,45 +432,56 @@ class Facture
     
     public function generateTicket() {
         $ticketTxt = "";
-
-        $sep_line = $this->getSepLine( "-", 42 ) . "\n";
+        
         $ticketTxt .= $this->generateTicketHeader("-");
         $ticketTxt .= $this->generateTicketArticles();
         $ticketTxt .= "   " . $this->getSepLine( '=', 36 ) . "   \n";
-        $ticketTxt .= $this->generateTicketTotal();
+        $ticketTxt .= $this->generateTicketTotal()."\n";
+        $ticketTxt .= $this->generateTicketFooter("-");
 
         return $ticketTxt;
-        
-//        echo "<pre>";
-//        var_dump($ticketTxt);
-//        echo "</pre>";
     }
     
     private function generateTicketHeader( $horiz_char ) {
         $vert_char = '|';
-        $header = "\n";
+        $header = '';
         $line1 = "La Dame de Quilt";
         $line2 = "32 Rue de l'Eglise";
         $line3 = "77250 - Moret sur Loing";
-        $line4 = "Tel : 01 01 01 01 01";
+        $line4 = "SIRET : 789 145 265 000 11";
+        $line5 = "Tel : 01 60 72 73 84";
         
         $sep_line = $this->getSepLine( $horiz_char, 42 );
-        $header .= $sep_line . "\n";
+        $header .= substr($sep_line, 0, 40) . "\n";
         $header .= $vert_char . " " . $this->completeLine( $line1, 41 ) . $vert_char . "\n";
         $header .= $vert_char . " " . $this->completeLine( $line2, 41 ) . $vert_char . "\n";
         $header .= $vert_char . " " . $this->completeLine( $line3, 41 ) . $vert_char . "\n";
         $header .= $vert_char . " " . $this->completeLine( $line4, 41 ) . $vert_char . "\n";
+        $header .= $vert_char . " " . $this->completeLine( $line5, 41 ) . $vert_char . "\n";
         $header .= $sep_line . "\n\n";
 
         return $header;
     }
     
+    private function generateTicketFooter( $horiz_char ) {
+        $footer = '';
+        $sep_line = $this->getSepLine( $horiz_char, 42 );
+        $line1 = "Merci, et à bientôt !";
+        
+        $footer .= $sep_line . "\n";
+        $footer .= "\t" . $this->completeLine( $line1, 41 ) . "\n";
+
+        return $footer;
+    }
+    
     private function generateTicketArticles() {
-        $temp = "";
+        $temp = "Ticket : ".$this->getId()." \n";
+        $temp .= "Date : ".date('d/m/Y à H:i')." \n\n";
+        
         foreach( $this->factArticles as $article ) {
-            $libelle = $this->completeLine( " ".substr($article->getArticle()->getLibelle(), 0, 14), 15);
+            $libelle = $this->completeLine( " ".substr($article->getArticle(), 0, 20), 20);
             $quantite = $article->getQuantite();
-            $montant = $article->getTotalPrixArticleHT();
+            $montant = $article->getTotalPrixArticleTTC();
             
             $temp .= $this->completeLine($libelle . "\t x " . $quantite, 25) . " \t" . $montant . "\n";
         }
@@ -487,9 +498,9 @@ class Facture
     
     private function generateTicketTotal() {
         $temp = "\n";
-        $temp .= $this->completeLine( " Montant H.T.", 27 ) . "\t" . number_format($this->montantFactureHT, 2) . " \t€\n";
-        $temp .= $this->completeLine( " T.V.A.", 27 ) . "\t" . number_format(($this->montantFactureTTC - $this->montantFactureHT), 2) . " \t€\n\n";
-        $temp .= $this->completeLine( " TOTAL A PAYER", 27 ) . "\t" . number_format($this->montantFactureTTC, 2) . " \t€\n";
+        $temp .= $this->completeLine( " Montant H.T.", 27 ) . "\t" . number_format($this->montantFactureHT, 2) . " \tE\n";
+        $temp .= $this->completeLine( " T.V.A.", 27 ) . "\t" . number_format(($this->montantFactureTTC - $this->montantFactureHT), 2) . " \tE\n";
+        $temp .= $this->completeLine( " TOTAL A PAYER", 27 ) . "\t" . number_format($this->montantFactureTTC, 2) . " \tE\n";
         
         return $temp;
     }

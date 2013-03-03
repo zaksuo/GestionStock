@@ -1,7 +1,7 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-    <h3>Nouvelle fiche client</h3>
+    <h3 class="icon_32_before icon_32_next">Nouvelle fiche client</h3>
     <form action="{{ path('client_create') }}" method="post" {{ form_enctype(form) }}>
         {% include 'BoutiqueGestionStockBundle:Client:form.html.twig' with {'form' : form} %}
         

@@ -1,7 +1,7 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-    <h3>Modification de stock pour l'article " {{ article }} "</h3>
+    <h3 class="icon_32_before icon_32_next">Modification de stock pour l'article " {{ article }} "</h3>
     <form class="form-horizontal " action="{{ path('stock_save', {'id_article': article.id, 'id_stock': stock.id}) }}" method="post" {{ form_enctype(form) }}>
         {% include 'BoutiqueGestionStockBundle:Stock:_form.html.twig' with {'article': article, 'form': form, 'edit': edit} %}
    
