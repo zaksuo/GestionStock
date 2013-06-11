@@ -20,6 +20,7 @@ class ClientRepository extends EntityRepository
                 ->where("client.nom LIKE '%".$search."%'")
                 ->orWhere("client.prenom LIKE '%".$search."%'")
                 ->orWhere("client.mail LIKE '%".$search."%'")
+                ->orderBy('client.nom', 'ASC')
                 ->setFirstResult($offset)
                 ->setMaxResults($limit);
 

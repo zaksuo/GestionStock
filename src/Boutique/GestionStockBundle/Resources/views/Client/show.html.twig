@@ -18,6 +18,10 @@
                 <td class="">{{ client.dateNaissance|date('d/m/Y') }}</td>
             </tr>
             <tr>
+                <th class="width30">N° Téléphone</th>
+                <td class="">{{ client.telephone|phone_format }}</td>
+            </tr>
+            <tr>
                 <th class="width30">e-mail</th>
                 <td class="">{{ client.mail }}</td>
             </tr>
@@ -58,7 +62,7 @@
         {% if pagination|length > 0 %}
             {% for facture in pagination %}
                 <tr>
-                    <td>Facture n°{{ facture.id }}</td>
+                    <td><a href="{{ path('facture_show', {'id' : facture.id}) }}">Facture n°{{ facture.id }}</a></td>
                     <td>{{ facture.dateCreation|date('d/m/y H:i:s') }}</td>
                     <td>{{ facture.montantFactureTTC }} €</td>
                     <td>{% if facture.valide %}<div class="icon_24 icon_24_ok"></div>{% else %}<div class="icon_24 icon_24_nok"></div>{% endif %}</td>

@@ -22,7 +22,7 @@ class ClientController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $dql = "SELECT c FROM BoutiqueDatabaseBundle:Client c";
+        $dql = "SELECT c FROM BoutiqueDatabaseBundle:Client c ORDER BY c.nom ASC";
         $query = $em->createQuery($dql);
         
         $paginator = $this->get('knp_paginator');

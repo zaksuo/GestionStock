@@ -13,7 +13,7 @@
         <tbody>
         {% for article in articles %}
             <tr>
-                <td class="article_code">{{ article.code }}</td>
+                <td class="article_code"><a href="{{ path('article_show', {'id' : article.id}) }}">{{ article.code }}</a></td>
                 <td class="article_code">{{ article.codeFournisseur }}</td>
                 <td class="article_libelle">{{ article.libelle }}</td>
                 <td class="article_prixVente">{{ article.prixVente }} €</td>

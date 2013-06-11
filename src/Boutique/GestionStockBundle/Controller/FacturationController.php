@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Boutique\DatabaseBundle\Entity\Facture;
+use Boutique\DatabaseBundle\Entity\FactureFilter;
+use Boutique\DatabaseBundle\Form\FactureFilterType;
 use Boutique\DatabaseBundle\Entity\FactureArticle;
 use Boutique\DatabaseBundle\Form\FactureArticleType;
 use Boutique\DatabaseBundle\Entity\Client;
@@ -19,22 +21,37 @@ use Boutique\DatabaseBundle\Form\ClientType;
  */
 class FacturationController extends Controller
 {
-    public function indexFactureAction() {
+    public function indexFactureAction(Request $request, $year = null, $month = null) {
         $em = $this->getDoctrine()->getManager();
         
-        $dql = "SELECT f AS facture, 
-                (SELECT count(fa.id) FROM BoutiqueDatabaseBundle:FactureArticle fa WHERE fa.facture = f.id) AS articles
-            FROM BoutiqueDatabaseBundle:Facture f ORDER BY f.id DESC";
-        $query = $em->createQuery($dql);
+        $factureFilter = new FactureFilter();
+       
+        if( $request->getMethod() == 'POST' ) {
+            $formFilter = $this->createForm(new FactureFilterType(), $factureFilter);
+            $formFilter->bind($request);
+        }
+        else {
+            $factureFilter->setYear($year);
+            $factureFilter->setMonth($month);
+            $formFilter = $this->createForm(new FactureFilterType(), $factureFilter);
+        }
         
+//        echo "Mois : ".$factureFilter->getMonth()."<br />";
+//        echo "Année : ".$factureFilter->getYear()."<br />";
+        
+        $query = $em->getRepository('BoutiqueDatabaseBundle:Facture')->getFacturesFilter( $factureFilter->getYear(), $factureFilter->getMonth() );
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
             $this->get('request')->query->get('page', 1)/*page number*/,
             30 /*limit per page*/
         );
+       
+        $pagination->setParam('year', $factureFilter->getYear());
+        $pagination->setParam('month', $factureFilter->getMonth());
+            
+        return $this->render('BoutiqueGestionStockBundle:Facture:index.html.twig', array('pagination' => $pagination, 'form' => $formFilter->createView()));
         
-        return $this->render('BoutiqueGestionStockBundle:Facture:index.html.twig', compact('pagination'));
     }
     
     public function newFactureAction() {
@@ -216,7 +233,7 @@ class FacturationController extends Controller
         $fact_article->setFacture($facture);
         $fact_article->setArticle($article);
         $fact_article->setPrixUnitaire($article->getPrixVente()); // correspond au prix de vente TTC
-        $fact_article->setTvaUnitaire( round($article->getPrixVente() * $ratio, 2) );
+        $fact_article->setTvaUnitaire( $article->getPrixVente() - $article->getPrixHT() );
         $fact_article->setQuantite(1);
         $em->persist($fact_article);
         

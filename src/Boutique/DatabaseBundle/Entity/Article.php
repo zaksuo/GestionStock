@@ -26,6 +26,7 @@ class Article
 
     /**
      * @var float $prixVente
+     * Correspond au prix de l'article TTC
      */
     private $prixVente;
 

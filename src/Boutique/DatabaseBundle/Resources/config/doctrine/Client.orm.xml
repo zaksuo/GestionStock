@@ -7,7 +7,8 @@
         <field name="dateCreation" type="datetime" column="date_creation" nullable="false"/>
         <field name="nom" type="string" column="nom" length="50" nullable="false"/>
         <field name="prenom" type="string" column="prenom" length="50" nullable="false"/>
-        <field name="dateNaissance" type="string" column="date_naissance" length="10" nullable="true"/>
+        <field name="dateNaissance" type="datetime" column="date_naissance" nullable="true"/>
+        <field name="telephone" type="string" column="telephone" length="10" nullable="true"/>
         <field name="mail" type="string" column="mail" length="50" nullable="false"/>
         <field name="adresseNumero" type="integer" column="adresse_numero" nullable="true"/>
         <field name="adresseVoie" type="string" column="adresse_voie" length="255" nullable="true"/>

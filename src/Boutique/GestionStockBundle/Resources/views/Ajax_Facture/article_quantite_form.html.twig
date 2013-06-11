@@ -1,5 +1,5 @@
 <tr id="{{ fact_article.article.id }}">
-    <td class="center">{{ fact_article.article.code }}</td>
+    <td class="center"><a href="{{ path('article_show', {'id' : fact_article.article.id}) }}">{{ fact_article.article.code }}</a></td>
     <td class="">{{ fact_article.article.libelle }}</td>
     <td class="center">
         <form class="facture_article_quantite facture-quantite-form" action="{{ path('facture_article_update_quantite', {'id_fact_article': fact_article.id}) }}" method="post">

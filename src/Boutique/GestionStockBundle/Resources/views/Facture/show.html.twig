@@ -4,23 +4,9 @@
         <div class="">
             <h3 class="icon_32_before icon_32_next">Facture {{ facture.id }} - Crée le {{ facture.dateCreation|date('d/m/Y à H:i:s') }} {% if facture.valide %}- Validée le {{ facture.dateValidation|date('d/m/Y à H:i:s') }} {% endif %}</h3>
 
-            <div class="span6 well">
-                <h4>La Dame de Quilt</h4>
-                SIRET : 789 145 265<br />
-
-                <div class="icon_16_before icon_16_letter">
-                    32 Rue de l'Eglise<br />
-                    77250 Moret sur Loing
-                </div><br />
-
-                <div class="icon_16_before icon_16_phone">N/A</div>
-                <div class="icon_16_before icon_16_contact_email">dame.de.quilt@gmail.com</div><br />
-
-                <div class="icon_16_before icon_16_clock">8h à 13h - 15h à 19h du lundi au samedi</div>
-            </div>
-
-            <div class="span6 well">
-                {% if facture.client|length > 0 %}
+            {% if facture.client|length > 0 %}
+                <div class="well">
+                    <h4>Client : </h4>
                     <div class="icon_16_before icon_16_sharp">{{ facture.client.id }}</div>
                     <div class="icon_16_before icon_16_user">{{ facture.client.prenom }} {{ facture.client.nom }}</div>
                     <div class="icon_16_before icon_16_contact_email">{{ facture.client.mail }}</div>
@@ -30,8 +16,8 @@
                         {% if facture.client.adresseComplement|length > 0 %}{{ facture.client.adresseComplement }}<br />{% endif %}
                         {{ facture.client.codePostal }} {{ facture.client.adresseVille }}
                     </div>
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
         </div>
 
     <table class="table table-striped table-bordered top10">
@@ -45,7 +31,7 @@
         {% if facture.hasFactArticles %}
             {% for fact_article in facture.factArticles %}
                 <tr>
-                    <td class="center">{{ fact_article.article.code }}</td>
+                    <td class="center"><a href="{{ path('article_show', {'id' : fact_article.article.id}) }}">{{ fact_article.article.code }}</a></td>
                     <td class="left">{{ fact_article.article.libelle }}</td>
                     <td class="center">{{ fact_article.quantite }}</td>
                     <td class="center">{{ fact_article.getPrixUnitaire }} € / {{ fact_article.article.typeVente.unite }}</td>

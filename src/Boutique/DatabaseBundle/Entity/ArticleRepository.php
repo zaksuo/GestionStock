@@ -13,14 +13,37 @@ use Doctrine\ORM\EntityRepository;
 class ArticleRepository extends EntityRepository
 {	
     public function getArticlesForSearch( $search, $offset = 0, $limit = 0 ) {
+        
+        $search = $this->splitSearch( $search );
+        
+        
         $qb = $this->getEntityManager()
                 ->createQueryBuilder()
                 ->select('article')
-                ->from('BoutiqueDatabaseBundle:Article', 'article')
-                ->where("article.libelle LIKE '%".$search."%'")
-                ->orWhere("article.code LIKE '%".$search."%'")
-                //->orWhere("article.codeFournisseur LIKE '%".$search."%'")
-                ->orWhere("article.description LIKE '%".$search."%'")
+                ->from('BoutiqueDatabaseBundle:Article', 'article');
+            
+            if( count($search) > 1 ) {
+                $qb->where("article.libelle LIKE '%".$search[0]."%'")
+                        ->orWhere("article.code LIKE '%".$search[0]."%'")
+                        ->orWhere("article.description LIKE '%".$search[0]."%'");
+                
+                for( $i = 0; $i < count($search) - 1; $i++ ) {
+                    $qb->orWhere("article.libelle LIKE '%".$search[$i]."%'");
+                }
+                for( $i = 0; $i < count($search) - 1; $i++ ) {
+                    $qb->orWhere("article.code LIKE '%".$search[$i]."%'");
+                }
+                for( $i = 0; $i < count($search) - 1; $i++ ) {
+                    $qb->orWhere("article.description LIKE '%".$search[$i]."%'");
+                }
+            }
+            else {
+                $qb->where("article.libelle LIKE '%".$search[0]."%'")
+                        ->orWhere("article.code LIKE '%".$search[0]."%'")
+                        ->orWhere("article.description LIKE '%".$search[0]."%'");
+            }
+                
+            $qb->orderBy('article.code', 'ASC')
                 ->setFirstResult($offset)
                 ->setMaxResults($limit);
 
@@ -41,4 +64,15 @@ class ArticleRepository extends EntityRepository
 
         return (isset($data[0]))?$data[0]['code']:null;
     }
+    
+    private function splitSearch( $search ) {
+        if( !empty($search) ) {
+            $search = explode(' ', $search);
+        }
+        else {
+            $search[0] = $search;
+        }
+        return $search;
+    }
+    
 }

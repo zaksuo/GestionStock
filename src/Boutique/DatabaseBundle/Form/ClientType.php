@@ -13,8 +13,9 @@ class ClientType extends AbstractType
         $builder
             ->add('nom', 'text', array('required' => true, 'label' => 'Nom'))
             ->add('prenom', 'text', array('required' => true, 'label' => 'Prénom'))
-            ->add('dateNaissance', 'date', array('required' => true, 'label' => 'Date de naissance'))
-            ->add('mail', 'text', array('required' => true, 'label' => 'Adresse e-mail'))
+            ->add('dateNaissance', 'birthday', array('required' => true, 'label' => 'Date de naissance', 'format' => 'dd-MM-yyyy',))
+            ->add('mail', 'text', array('required' => false, 'label' => 'Adresse e-mail'))
+            ->add('telephone', 'text', array('required' => false, 'label' => 'N° de téléphone'))
             ->add('adresseNumero', 'text', array('required' => false, 'label' => 'Numéro'))
             ->add('adresseVoie', 'text', array('required' => false, 'label' => 'Voie'))
             ->add('adresseComplement', 'text', array('required' => false, 'label' => 'Complément'))

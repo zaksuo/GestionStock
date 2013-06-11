@@ -25,9 +25,45 @@ class Client
     private $mail;
 
     /**
+     * @var string $telephone
+     */
+    private $telephone;    
+    
+    /**
      * @var integer $id
      */
     private $id;
+    /**
+     * @var \DateTime $dateCreation
+     */
+    
+    private $dateCreation;
+
+    /**
+     * @var integer $adresseNumero
+     */
+    private $adresseNumero;
+
+    /**
+     * @var string $adresseVoie
+     */
+    private $adresseVoie;
+
+    /**
+     * @var string $adresseComplement
+     */
+    private $adresseComplement;
+
+    /**
+     * @var string $codePostal
+     */
+    private $codePostal;
+
+    /**
+     * @var string $adresseVille
+     */
+    private $adresseVille;
+
 
 
     /**
@@ -98,6 +134,29 @@ class Client
     {
         return $this->mail;
     }
+    
+     /**
+     * Set telephone
+     *
+     * @param string $telephone
+     * @return Client
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    
+        return $this;
+    }
+
+    /**
+     * Get telephone
+     *
+     * @return string 
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
 
         /**
      * Get id
@@ -108,36 +167,6 @@ class Client
     {
         return $this->id;
     }
-    /**
-     * @var \DateTime $dateCreation
-     */
-    private $dateCreation;
-
-    /**
-     * @var integer $adresseNumero
-     */
-    private $adresseNumero;
-
-    /**
-     * @var string $adresseVoie
-     */
-    private $adresseVoie;
-
-    /**
-     * @var string $adresseComplement
-     */
-    private $adresseComplement;
-
-    /**
-     * @var string $codePostal
-     */
-    private $codePostal;
-
-    /**
-     * @var string $adresseVille
-     */
-    private $adresseVille;
-
 
     /**
      * Set dateCreation

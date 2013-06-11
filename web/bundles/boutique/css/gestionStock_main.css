@@ -46,10 +46,10 @@ h3 { border-bottom : 1px dashed #CDCDCD; }
 
 table { font-size : 12px; }
 table th { padding: 5px; font-size : 14px; }
-table th.blue {
-    background-color : #A2B5BF;
-}
+table th.blue { background-color : #A2B5BF; }
 table td { padding: 5px; background : white; }
+
+.filters { float : right; }
 
 .ajax_form { padding : 20px; background-color : #EEEEEE; border : 1px solid gray; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; position : absolute; margin : 0 auto; z-index : 5; }
 

@@ -21,6 +21,7 @@ class FournisseurRepository extends EntityRepository
                 ->orWhere("fournisseur.siren LIKE '%".$search."%'")
                 //->orWhere("article.codeFournisseur LIKE '%".$search."%'")
                 ->orWhere("fournisseur.telephone LIKE '%".$search."%'")
+                ->orderBy('fournisseur.nom', 'ASC')
                 ->setFirstResult($offset)
                 ->setMaxResults($limit);
 

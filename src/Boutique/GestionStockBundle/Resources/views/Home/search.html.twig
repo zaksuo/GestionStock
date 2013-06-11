@@ -54,7 +54,7 @@
             {% if clients|length > 0 %}
                 {% for client in clients %}
                     <tr>
-                        <td class="bold"><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.prenom }} {{ client.nom }}</a></td>
+                        <td class="bold"><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.nom }} {{ client.prenom }}</a></td>
                         <td class="center">{{ client.mail }}</td>
                         <td class="center">{{ client.dateNaissance|date('d/m/Y') }}</td>
                         <td class="action_menu width15">

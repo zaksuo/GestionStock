@@ -26,7 +26,7 @@ class HomeController extends Controller
         $search = $request->get('general_search');
         
         $clients = $em->getRepository('BoutiqueDatabaseBundle:Client')->getClientsForSearch( $search, 0, 15 );
-        $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch( $search, 0, 15 );
+        $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch( $search, 0, 30 );
         $fournisseurs = $em->getRepository('BoutiqueDatabaseBundle:Fournisseur')->getFournisseursForSearch( $search, 0, 15 );
         
         return $this->render('BoutiqueGestionStockBundle:Home:search.html.twig', 

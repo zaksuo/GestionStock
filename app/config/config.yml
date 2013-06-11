@@ -17,6 +17,20 @@ framework:
     trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
     session:         ~
 
+services:
+   twig.extension.text:
+       class: Twig_Extensions_Extension_Text
+       tags:
+           - { name: twig.extension }
+   twig.extension.debug:
+       class: Twig_Extensions_Extension_Debug
+       tags:
+           - { name: twig.extension }
+   twig.extension.phone_format:
+       class: Boutique\GestionStockBundle\Twig\PhoneExtension
+       tags:
+           - { name : twig.extension }
+
 # Twig Configuration
 twig:
     debug:            %kernel.debug%

@@ -479,11 +479,13 @@ class Facture
         $temp .= "Date : ".date('d/m/Y à H:i')." \n\n";
         
         foreach( $this->factArticles as $article ) {
-            $libelle = $this->completeLine( " ".substr($article->getArticle(), 0, 20), 20);
+            $libelle = substr($article->getArticle(), 0, 30);
             $quantite = $article->getQuantite();
+            $prixUnitaire = $article->getPrixUnitaire();
             $montant = $article->getTotalPrixArticleTTC();
             
-            $temp .= $this->completeLine($libelle . "\t x " . $quantite, 25) . " \t" . $montant . "\n";
+            $temp .= $libelle . "\n";
+            $temp .= "\t" . $prixUnitaire . " E * " . $quantite . " \t\t" . $montant . " E\n";
         }
         return $temp . "\n";
     }

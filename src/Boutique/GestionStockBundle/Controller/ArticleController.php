@@ -198,10 +198,10 @@ class ArticleController extends Controller
          $em = $this->getDoctrine()->getManager();
          
         if( !is_null($search) ) {
-            $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch($search, 0, 15);
+            $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch($search, 0, 30);
         }
         else {
-            $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch('', 0, 15);
+            $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesForSearch('', 0, 30);
         }
         
         return $this->render('BoutiqueGestionStockBundle:Ajax_Article:article_restock.html.twig', array(

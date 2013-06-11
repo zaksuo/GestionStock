@@ -5,10 +5,16 @@
 
     <a href="{{ path('facture_new') }}" class="btn btn-success"><span class="icon_16 icon_16_plus"></span>Nouvelle facture</a>
     
-    <br /><br />
+    <div class="filters">
+        <form class="form-horizontal" action="{{ path('facture') }}" method="post" {{ form_enctype(form) }}>
+            {{ form_widget(form.year, {'attr' : {'class' : 'input-small'}}) }}
+            {{ form_widget(form.month, {'attr' : {'class' : 'input-small'}}) }}
+                <button class="btn btn-primary" type="submit">Afficher</button>
+        </form>
+    </div>
+</table>
     
     {% if pagination|length > 0 %}
-        {{ pagination|length }} factures :
         <div class="right">{{ knp_pagination_render(pagination) }}</div>
         <table class="table table-striped table-bordered">
             <thead>
@@ -24,7 +30,7 @@
             <thead>
             <tbody>
                 {% for fact in pagination %}
-                    {% set facture = fact['facture'] %}
+                    {% set facture = fact[0] %}
                     {% set count = fact['articles'] %}
                     <tr class="{% if facture.valide %}success{% else %}warning{% endif %}">
                         <td><a href="{% if facture.valide %}{{ path('facture_show', {'id': facture.id}) }}{% else %}{{ path('facture_edit', {'id': facture.id}) }}{% endif %}">facture n°{{ facture.id }}</a></td>

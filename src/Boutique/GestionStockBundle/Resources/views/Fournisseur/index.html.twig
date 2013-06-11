@@ -13,7 +13,7 @@
             <tr>
                 <th class="{% if pagination.isSorted('f.nom') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Raison sociale', 'f.nom')|raw }}</th>
                 <th class="{% if pagination.isSorted('f.siren') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'SIREN', 'f.siren')|raw }}</th>
-                <th class="{% if pagination.isSorted('f.telephone') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Téléphone', 'f.telephone')|raw }}</th>
+                <th class="{% if pagination.isSorted('f.telephone') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'N° Téléphone', 'f.telephone')|raw }}</th>
                 <th class="">Actions</th>
             </tr>
         </thead>
@@ -22,7 +22,7 @@
             <tr>
                 <td class="bold"><a href="{{ path('fournisseur_show', { 'id': fournisseur.id }) }}">{{ fournisseur.nom }}</a></td>
                 <td class="center">{{ fournisseur.siren }}</td>
-                <td class="center">{{ fournisseur.telephone }}</td>
+                <td class="center">{{ fournisseur.telephone|phone_format }}</td>
                 <td class="action_menu width15">
                     <a href="{{ path('fournisseur_show', { 'id': fournisseur.id }) }}"><div class="btn btn-small" title="Consulter la fiche fournisseur"><span class="icon_16 icon_16_view"></span></div></a>
                     <a href="{{ path('fournisseur_edit', { 'id': fournisseur.id }) }}"><div class="btn btn-small" title="Modifier les informations du fournisseur"><span class="icon_16 icon_16_notepad_edit"></span></div></a>
