@@ -1,9 +1,5 @@
 facture:
-  pattern: /{year}/{month}
-  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:indexFacture, year: null, month: null }
-
-facture_filter: 
-  pattern:  /annee/{year}/mois/{month}
+  pattern: /filter/{year}/{month}
   defaults: { _controller: BoutiqueGestionStockBundle:Facturation:indexFacture, year: null, month: null }
 
 facture_show:

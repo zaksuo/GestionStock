@@ -23,6 +23,24 @@ $(document).ready(function(){
        }
    });
    
+   $('#client_search_form_btn').live('click', function(e) {
+        e.preventDefault();
+        $('#facture_client_search_form').ajaxSubmit({
+            target: '#client_search_results',
+            replaceTarget: false,
+            type: 'post'
+        });
+   });
+   
+   $('#article_search_form_btn').live('click', function(e) {
+        e.preventDefault();
+        $('#search_facture_article_form').ajaxSubmit({
+            target: '#article_search_results',
+            replaceTarget: false,
+            type: 'post'
+        });
+   });
+   
     $('.add-article-btn').live('click', function(e) {
             e.preventDefault();
 

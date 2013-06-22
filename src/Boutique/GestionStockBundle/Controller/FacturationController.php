@@ -36,9 +36,6 @@ class FacturationController extends Controller
             $formFilter = $this->createForm(new FactureFilterType(), $factureFilter);
         }
         
-//        echo "Mois : ".$factureFilter->getMonth()."<br />";
-//        echo "Année : ".$factureFilter->getYear()."<br />";
-        
         $query = $em->getRepository('BoutiqueDatabaseBundle:Facture')->getFacturesFilter( $factureFilter->getYear(), $factureFilter->getMonth() );
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -50,8 +47,9 @@ class FacturationController extends Controller
         $pagination->setParam('year', $factureFilter->getYear());
         $pagination->setParam('month', $factureFilter->getMonth());
             
-        return $this->render('BoutiqueGestionStockBundle:Facture:index.html.twig', array('pagination' => $pagination, 'form' => $formFilter->createView()));
-        
+        return $this->render('BoutiqueGestionStockBundle:Facture:index.html.twig', 
+                array('pagination' => $pagination, 'form' => $formFilter->createView())
+        );
     }
     
     public function newFactureAction() {
