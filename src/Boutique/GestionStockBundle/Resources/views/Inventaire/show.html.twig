@@ -1,0 +1,38 @@
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
+
+{% block content %}
+
+    {% include 'BoutiqueGestionStockBundle:Inventaire:_summary.html.twig' with {'inventaire' : inventaire} %}
+
+    <h3>Détail de l'inventaire</h3>
+    <div class="right">{{ knp_pagination_render(pagination) }}</div>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="">Code</th>
+                <th class="">Libellé</th>
+                <th class="">Prix HT</th>
+                <th class="">Quantité estimée</th>
+                <th class="">Quantité réelle</th>
+                <th class="">Erreur</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for inv_article in pagination %}
+            <tr>
+                <td class="bold center">{{ inv_article.article.code }}</td>
+                <td class="center">{{ inv_article.article.libelle }}</td>
+                <td class="right">{{ inv_article.prixUnitaire }} €</td>
+                <td class="center">{{ inv_article.quantiteEstim }}</td>
+                <td class="center">{{ inv_article.quantiteReelle }}</td>
+                <td class="center">{% if inv_article.hasError %}{{ inv_article.getError }}{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="right">{{ knp_pagination_render(pagination) }}</div>
+
+{% endblock %}

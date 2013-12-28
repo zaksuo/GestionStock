@@ -99,8 +99,6 @@ $(document).ready(function(){
                 type: 'post',
             success : updateFactureTotal
             });
-
-            //updateFactureTotal();
             return false;
         }
     });
@@ -115,8 +113,6 @@ $(document).ready(function(){
             type: 'post',
             success : updateFactureTotal
         });
-        
-        //updateFactureTotal();
     });
 
     $('.fact_action_menu a').live('click', function(e) {

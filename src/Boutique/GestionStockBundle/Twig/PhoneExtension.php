@@ -16,7 +16,7 @@ class PhoneExtension extends \Twig_Extension {
             }
             else return $string;
         }
-        else return 'Non renseigné';
+        else return '<i>Non renseigné</i>';
     }
 
     public function getName() {

@@ -31,6 +31,9 @@ body{ width : 80%; padding-left : 10%; }
 .center {text-align : center;}
 .right {text-align : right;}
 
+.bold { font-weight : bold; }
+.italic {font-style: italic;}
+
 .width40 { width: 40%;}
 .width30 { width: 30%;}
 .width20 { width: 20%;}
@@ -41,8 +44,6 @@ h3 { border-bottom : 1px dashed #CDCDCD; }
 
 .top10 { margin-top : 10px; }
 .bottom10 { margin-bottom : 10px; }
-
-.bold { font-weight : bold; }
 
 table { font-size : 12px; }
 table th { padding: 5px; font-size : 14px; }

@@ -1,0 +1,37 @@
+{% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
+
+{% block content %}
+
+    {% include 'BoutiqueGestionStockBundle:Inventaire:_summary.html.twig' with {'inventaire' : inventaire} %}
+
+    <a class="btn btn-danger" href="{{ path('inventaire') }}">Retour</a>
+    <a class="btn" target=_blank href="{{ path('inventaire_print_form', {'id' : inventaire.id}) }}">Imprimer formulaire</a>
+    <a id="inventaire_cloture" class="btn btn-success" href="{{ path('inventaire_clore', {'id' : inventaire.id}) }}">Finaliser l'inventaire</a>
+
+    
+    <h3>Détail de l'inventaire</h3>
+    <div class="right">{{ knp_pagination_render(pagination) }}</div>
+
+    <table class="table table-striped table-bordered facture-form">
+        <thead>
+            <tr>
+                <th class="">Code</th>
+                <th class="">Libellé</th>
+                <th class="">Prix HT</th>
+                <th class="">Quantité estimée</th>
+                <th class="">Quantité réelle</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for inv_article in pagination %}
+            {% include 'BoutiqueGestionStockBundle:Inventaire:_form.html.twig' with {'inv_article' : inv_article} %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="right">{{ knp_pagination_render(pagination) }}</div>
+
+
+
+{% endblock %}

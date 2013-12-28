@@ -3,7 +3,7 @@
 {% block content %}
     <h3 class="icon_32_before icon_32_next">Nouvelle fiche client</h3>
     <form action="{{ path('client_create') }}" method="post" {{ form_enctype(form) }}>
-        {% include 'BoutiqueGestionStockBundle:Client:form.html.twig' with {'form' : form} %}
+        {% include 'BoutiqueGestionStockBundle:Client:_form.html.twig' with {'form' : form} %}
         
         <div class="right">
             <a class="btn" href="{{ path('client') }}">Annuler</a>

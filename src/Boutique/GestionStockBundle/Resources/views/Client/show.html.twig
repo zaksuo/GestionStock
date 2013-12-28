@@ -62,7 +62,7 @@
         {% if pagination|length > 0 %}
             {% for facture in pagination %}
                 <tr>
-                    <td><a href="{{ path('facture_show', {'id' : facture.id}) }}">Facture n°{{ facture.id }}</a></td>
+                    <td>{% if facture.valide %}<a href="{{ path('facture_show', {'id' : facture.id}) }}">{% else %}<a href="{{ path('facture_edit', {'id' : facture.id}) }}">{%endif%}Facture n°{{ facture.id }}</a></td>
                     <td>{{ facture.dateCreation|date('d/m/y H:i:s') }}</td>
                     <td>{{ facture.montantFactureTTC }} €</td>
                     <td>{% if facture.valide %}<div class="icon_24 icon_24_ok"></div>{% else %}<div class="icon_24 icon_24_nok"></div>{% endif %}</td>

@@ -1,0 +1,31 @@
+inventaire:
+  pattern: /
+  defaults: { _controller: BoutiqueGestionStockBundle:Inventaire:index }
+
+inventaire_show:
+  pattern: /{id}/show
+  defaults: { _controller: BoutiqueGestionStockBundle:Inventaire:show }
+  
+inventaire_delete:
+  pattern: /{id}/delete
+  defaults: { _controller: BoutiqueGestionStockBundle:Inventaire:delete }
+
+inventaire_new:
+  pattern: /new
+  defaults: { _controller: BoutiqueGestionStockBundle:Inventaire:new }
+
+inventaire_edit:
+  pattern: /{id}/edit
+  defaults: { _controller: BoutiqueGestionStockBundle:Inventaire:edit }
+  
+inventaire_print_form:
+  pattern: /{id}/print
+  defaults: { _controller: BoutiqueGestionStockBundle:Inventaire:printForm }
+  
+inventaire_article_update_quantite:
+  pattern: /{id}/updateQuantite
+  defaults: { _controller: BoutiqueGestionStockBundle:Inventaire:updateQuantite }
+  
+inventaire_clore:
+  pattern: /{id}/clore
+  defaults: { _controller: BoutiqueGestionStockBundle:Inventaire:clore }

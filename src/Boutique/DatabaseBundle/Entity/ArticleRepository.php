@@ -65,6 +65,19 @@ class ArticleRepository extends EntityRepository
         return (isset($data[0]))?$data[0]['code']:null;
     }
     
+    public function getArticlesForInventaire() {
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('article')
+                ->from('BoutiqueDatabaseBundle:Article', 'article')
+                ->join('article.articleStock', 'stock')
+                ->join('article.typeTva', 'type_tva')
+                ->where('stock.quantite > 0');
+        $data = $qb->getQuery()->getResult();
+
+        return $data;
+    }
+    
     private function splitSearch( $search ) {
         if( !empty($search) ) {
             $search = explode(' ', $search);

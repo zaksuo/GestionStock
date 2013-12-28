@@ -1,0 +1,19 @@
+<h3>Données générales de l'inventaire</h3>
+
+<table class="table table-bordered">
+    <tr>
+        <th class="width30">Inventaire débuté le : </th>
+        <td>{{ inventaire.dateCreation|date('d/m/Y à H:i') }}</td>
+    </tr>
+    <tr>
+        <th class="width30">Inventaire clos : </th>
+        <td>{% if inventaire.cloture %}Le {{ inventaire.dateCloture|date('d/m/Y à H:i') }}{% else %}Non clos{% endif %}</td>
+    </tr>
+    {% if inventaire.cloture %}
+        <tr>
+            <th></th>
+            <td></td>
+        </tr>
+    {% endif %}
+    
+</table>

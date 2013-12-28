@@ -2,6 +2,8 @@
 .facture-form tfoot tr.success td { background-color: #dff0d8; }
 .facture-quantite-form { margin : 0 auto; }
 .facture-quantite-form input { margin : 0 auto; }
+.inventaire-quantite-form { margin : 0 auto; }
+.inventaire-quantite-form input { margin : 0 auto; }
 
 .facture_empty {
     height : 100px;

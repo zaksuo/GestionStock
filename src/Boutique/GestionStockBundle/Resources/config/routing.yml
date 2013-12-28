@@ -25,3 +25,7 @@ boutique_database_client:
 boutique_database_fournisseur:
     resource: "@BoutiqueGestionStockBundle/Resources/config/routing/fournisseur.yml"
     prefix:   /fournisseur
+    
+boutique_database_inventaire:
+    resource: "@BoutiqueGestionStockBundle/Resources/config/routing/inventaire.yml"
+    prefix:   /inventaire
