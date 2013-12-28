@@ -203,7 +203,7 @@ class InventaireArticle
             $valeur = $this->quantiteEstim * $this->prixUnitaire;
         }
         
-        return $valeur;
+        return number_format($valeur, 2);
     }
     
     public function getPerte() {
@@ -212,8 +212,10 @@ class InventaireArticle
         if( !is_null($this->quantiteReelle) ) {
             $valeur = ($this->quantiteReelle - $this->quantiteEstim) * $this->prixUnitaire;
         }
-        
-        return abs($valeur);
+        if( $valeur < 0 ) {
+            return number_format(abs($valeur), 2);
+        }
+        else return 0;
     }
     
     public function hasError() {

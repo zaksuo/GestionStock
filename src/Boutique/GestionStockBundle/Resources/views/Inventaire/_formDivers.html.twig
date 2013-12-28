@@ -1,0 +1,28 @@
+<div class="hidden" id="add_divers_form">
+<br /><br />
+    <form class="form-horizontal" action="{{ path('inventaire_add_divers', {'id' : inventaire.id}) }}" method="post" {{ form_enctype(form) }}>
+        <table class="table table-bordered">
+            <tr class="">
+                <td class="width30"><label>Nom de l'élément</label></td>
+                <td>{{ form_widget(form.libelle, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+            </tr>
+
+            <tr class="">
+                <td class="width30"><label>Prix unitaire HT</label></td>
+                <td>{{ form_widget(form.prixUnitaire, { 'attr' : {'class' : 'input-small'}}) }}</td>
+            </tr>
+
+            <tr class="">
+                <td class="width30"><label>Quantite</label></td>
+                <td>{{ form_widget(form.quantite, { 'attr' : {'class' : 'input-small'}}) }}</td>
+            </tr>
+
+            {{ form_rest(form) }}
+        </table>
+
+        <div class="right">
+            <a id="close_new_divers" class="btn" href="#">Annuler</a>
+            <button class="btn btn-success" type="submit">Ajouter l'élément</button>
+        </div>
+    </form>
+</div>

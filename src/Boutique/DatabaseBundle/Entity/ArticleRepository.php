@@ -71,8 +71,7 @@ class ArticleRepository extends EntityRepository
                 ->select('article')
                 ->from('BoutiqueDatabaseBundle:Article', 'article')
                 ->join('article.articleStock', 'stock')
-                ->join('article.typeTva', 'type_tva')
-                ->where('stock.quantite > 0');
+                ->join('article.typeTva', 'type_tva');
         $data = $qb->getQuery()->getResult();
 
         return $data;

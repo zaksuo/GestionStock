@@ -45,8 +45,8 @@ class Inventaire
     private $id;
     
     private $invArticles;
+    private $invDivers;
     
-
 
     /**
      * Set annee
@@ -161,6 +161,16 @@ class Inventaire
     }
     
     /**
+     * Get divers
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getInvDivers()
+    {
+        return $this->invDivers;
+    }
+    
+    /**
      * Get valeurStock
      *
      * @return float
@@ -197,15 +207,19 @@ class Inventaire
     }
     
     public function clore() {
-        $valeur = 0;
+        $valeurStock = 0;
         $valeurPerte = 0;
         
         foreach( $this->invArticles as $article ) {
-            $valeur += $article->getValeur();
+            $valeurStock += $article->getValeur();
             $valeurPerte += $article->getPerte();
         }
 
-        $this->valeurStock = $valeur;
+        foreach( $this->invDivers as $divers ) {
+            $valeurStock += $divers->getValeur();
+        }
+        
+        $this->valeurStock = $valeurStock;
         $this->valeurPerteEstim = $valeurPerte;
         $this->cloture = true;
         $this->dateCloture = new \DateTime('now');

@@ -11,9 +11,23 @@
     </tr>
     {% if inventaire.cloture %}
         <tr>
-            <th></th>
-            <td></td>
+            <th>Valeur HT du stock : </th>
+            <td>{{ inventaire.valeurStock }} €</td>
+        </tr>
+        <tr>
+            <th>Valeur HT des pertes estimées : </th>
+            <td>{{ inventaire.valeurPerteEstim }} €</td>
         </tr>
     {% endif %}
-    
 </table>
+
+
+<div class="right">
+    {% if inventaire.cloture %}
+        <a class="btn btn-info" target=_blank href="{{ path('inventaire_print', {'id' : inventaire.id}) }}">Imprimer l'inventaire</a>
+    {% else %}
+        <a class="btn btn-info" target=_blank href="{{ path('inventaire_print_form', {'id' : inventaire.id}) }}">Imprimer formulaire</a>
+        <a id="inventaire_cloture" class="btn btn-success" href="{{ path('inventaire_clore', {'id' : inventaire.id}) }}">Finaliser l'inventaire</a>
+    {% endif %}
+    <a class="btn" href="{{ path('inventaire') }}">Retour</a>
+</div>

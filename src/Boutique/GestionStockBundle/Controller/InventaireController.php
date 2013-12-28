@@ -8,6 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Boutique\DatabaseBundle\Entity\Inventaire;
 use Boutique\DatabaseBundle\Entity\InventaireArticle;
+use Boutique\DatabaseBundle\Entity\InventaireDivers;
+
+use Boutique\DatabaseBundle\Form\InventaireDiversType;
 
 /**
  * Home controller.
@@ -110,7 +113,13 @@ class InventaireController extends Controller
             50 /*limit per page*/
         );
         
-        return $this->render('BoutiqueGestionStockBundle:Inventaire:edit.html.twig', array('inventaire' => $inventaire, 'pagination' => $pagination));
+        $divers = new InventaireDivers();
+        $divers->setInventaire($inventaire);
+        $form_divers = $this->createForm(new InventaireDiversType(), $divers);
+        
+        return $this->render('BoutiqueGestionStockBundle:Inventaire:edit.html.twig', 
+                array('form_divers' => $form_divers->createView(), 'inventaire' => $inventaire, 'pagination' => $pagination)
+        );
     }
     
     public function printFormAction( $id ) {
@@ -151,6 +160,52 @@ class InventaireController extends Controller
         $em->persist($inventaire);
         $em->flush();
         
-        return $this->redirect($this->generateUrl('inventaire'));
+        return $this->redirect($this->generateUrl('inventaire_show', array('id' => $id)));
+    }
+    
+    public function printInventaireAction( $id ) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $inventaire = $em->getRepository('BoutiqueDatabaseBundle:Inventaire')->find($id);
+        
+         $html = $this->renderView('BoutiqueGestionStockBundle:Inventaire:pdfInventaire.html.twig', array('inventaire' => $inventaire));
+         $pdfGenerator = $this->get('spraed.pdf.generator');
+
+         return new Response($pdfGenerator->generatePDF($html),
+             200,
+             array('Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename="inventaire'.$id.'.pdf"' )
+         );
+    }
+    
+    public function addDiversAction( Request $request, $id ) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $inventaire = $em->getRepository('BoutiqueDatabaseBundle:Inventaire')->find($id);
+        
+        $divers = new InventaireDivers();
+        $form = $this->createForm(new InventaireDiversType(), $divers);
+        $form->bind($request);
+        
+        if ($form->isValid()) {
+            $divers->setInventaire($inventaire);
+            $em->persist($divers);
+            
+            $em->flush();
+        }
+        
+        return $this->redirect($this->generateUrl('inventaire_edit', array('id' => $inventaire->getId())));
+    }
+    
+    public function removeDiversAction( $id ) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $inv_divers = $em->getRepository('BoutiqueDatabaseBundle:InventaireDivers')->find($id);
+        
+        $inventaire_id = $inv_divers->getInventaire();
+        
+        $em->remove($inv_divers);
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('inventaire_edit', array('id' => $inventaire_id->getId())));
     }
 }

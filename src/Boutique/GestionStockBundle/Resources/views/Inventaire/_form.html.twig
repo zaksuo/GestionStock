@@ -1,5 +1,6 @@
 <tr id="{{ inv_article.article.id }}">
     <td class="center"><a href="{{ path('article_show', {'id' : inv_article.article.id}) }}">{{ inv_article.article.code }}</a></td>
+    <td class="">{{ inv_article.article.codeFournisseur }}</td>
     <td class="">{{ inv_article.article.libelle }}</td>
     <td class="">{{ inv_article.prixUnitaire }} €</td>
     <td class="right">{{ inv_article.quantiteEstim }}</td>

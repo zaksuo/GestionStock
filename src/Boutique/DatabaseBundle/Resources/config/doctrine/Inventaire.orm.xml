@@ -11,5 +11,6 @@
     <field name="valeurPerteEstim" type="float" column="valeur_perte_estim"/>
     <field name="cloture" type="boolean" column="cloture"/>
     <one-to-many field="invArticles" target-entity="InventaireArticle" mapped-by="inventaire"/>
+    <one-to-many field="invDivers" target-entity="InventaireDivers" mapped-by="inventaire"/>
   </entity>
 </doctrine-mapping>

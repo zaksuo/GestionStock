@@ -36,6 +36,23 @@ $(document).ready( function () {
         }
     });
     
+    $('#inv_article_add').live('click', function(e) {
+        e.preventDefault();
+        
+        if( $(this).hasClass('closed') ) {
+            $(this).removeClass('closed').addClass('opened');
+            $('#add_divers_form').removeClass("hidden");
+        }
+        
+    })
+    
+    $('#close_new_divers').live('click', function(e) {
+        e.preventDefault();
+        
+        $('#inv_article_add').removeClass('opened').addClass('closed');
+        $('#add_divers_form').addClass("hidden");
+        $('#inv_article_add').html("Ajouter un élément");
+    });
 })
 
 
