@@ -54,7 +54,7 @@ class InventaireController extends Controller
             $inv_article->setArticle($article);
             $inv_article->setInventaire($inventaire);
             $inv_article->setPrixVente($article->getPrixHT());
-            $inv_article->setPrixAchat($article->getMoyennePrixAchatHT());
+            $inv_article->setPrixAchat($article->getPrixAchatMoyenHT());
             $inv_article->setQuantiteEstim($article->getArticleStock()->getQuantite());
             
             $em->persist($inv_article);
