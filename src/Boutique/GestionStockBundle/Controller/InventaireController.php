@@ -70,11 +70,13 @@ class InventaireController extends Controller
         
         $inventaire = $em->getRepository('BoutiqueDatabaseBundle:Inventaire')->find($id);
         $inv_articles = $inventaire->getInvArticles(); 
-        
+        $inv_divers = $inventaire->getInvDivers();
         foreach( $inv_articles as $article ) {
             $em->remove($article);
         }
-        
+        foreach( $inv_divers as $divers ) {
+            $em->remove($divers);
+        }
         $em->remove($inventaire);
         $em->flush();
         

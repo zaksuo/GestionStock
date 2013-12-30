@@ -339,7 +339,12 @@ class Article
         $qte = 0;
         foreach( $this->getStocks() as $stock ) {
             $qte += $stock->getQuantite();
-            $prixHT += $stock->getPrixAchat() * $stock->getQuantite();
+            if( $stock->getDelottage() ) {
+                $prixHT += $stock->getPrixAchat();
+            }
+            else {
+                $prixHT += $stock->getPrixAchat() * $stock->getQuantite();
+            }
         }
         
         if( $qte > 0 ) { 
