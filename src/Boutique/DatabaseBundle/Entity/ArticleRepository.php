@@ -87,4 +87,20 @@ class ArticleRepository extends EntityRepository
         return $search;
     }
     
+    public function getArticlesPerFournisseurForInventaire( $fournisseur, $inventaire ) {
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('inventaire_article')
+                ->from('BoutiqueDatabaseBundle:InventaireArticle', 'inventaire_article')
+                ->join('inventaire_article.article', 'article')
+                ->join('inventaire_article.inventaire', 'inventaire')
+                ->where('article.fournisseur = ' . $fournisseur)
+                ->andWhere('inventaire.id = ' . $inventaire)
+                ->orderBy('article.code');
+        
+        $data = $qb->getQuery()->getResult();
+        
+        return $data;
+    }
+    
 }

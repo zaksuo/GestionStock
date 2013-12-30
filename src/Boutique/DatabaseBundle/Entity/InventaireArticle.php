@@ -12,7 +12,7 @@ class InventaireArticle
     /**
      * @var float
      */
-    private $prixUnitaire;
+    private $prixVente;
 
     /**
      * @var float
@@ -38,24 +38,25 @@ class InventaireArticle
     /**
      * Set prixUnitaire
      *
-     * @param float $prixUnitaire
+     * @param float $prixVente
      * @return InventaireArticle
      */
-    public function setPrixUnitaire($prixUnitaire)
+    public function setPrixVente($prixVente)
     {
-        $this->prixUnitaire = $prixUnitaire;
+        $this->prixVente = $prixVente;
     
         return $this;
     }
 
     /**
-     * Get prixUnitaire
+     * Get prixVente
      *
      * @return float 
      */
-    public function getPrixUnitaire()
+    public function getPrixVente()
     {
-        return $this->prixUnitaire;
+        return $this->prixVente;
+        
     }
 
     /**
@@ -193,27 +194,52 @@ class InventaireArticle
         return $this->quantiteReelle;
     }
     
-    public function getValeur() {
+    public function getValeurAchat() {
         $valeur = 0;
         
         if( !is_null($this->quantiteReelle) ) {
-            $valeur = $this->quantiteReelle * $this->prixUnitaire;
+            $valeur = $this->quantiteReelle * $this->prixAchat;
         }
         else {
-            $valeur = $this->quantiteEstim * $this->prixUnitaire;
+            $valeur = $this->quantiteEstim * $this->prixAchat;
         }
         
-        return number_format($valeur, 2);
+        return $valeur;
     }
     
-    public function getPerte() {
+    public function getValeurVente() {
         $valeur = 0;
         
         if( !is_null($this->quantiteReelle) ) {
-            $valeur = ($this->quantiteReelle - $this->quantiteEstim) * $this->prixUnitaire;
+            $valeur = $this->quantiteReelle * $this->prixVente;
+        }
+        else {
+            $valeur = $this->quantiteEstim * $this->prixVente;
+        }
+        
+        return $valeur;
+    }
+    
+    public function getPerteAchat() {
+        $valeur = 0;
+        
+        if( !is_null($this->quantiteReelle) ) {
+            $valeur = ($this->quantiteReelle - $this->quantiteEstim) * $this->prixAchat;
         }
         if( $valeur < 0 ) {
-            return number_format(abs($valeur), 2);
+            return abs($valeur);
+        }
+        else return 0;
+    }
+    
+    public function getPerteVente() {
+        $valeur = 0;
+        
+        if( !is_null($this->quantiteReelle) ) {
+            $valeur = ($this->quantiteReelle - $this->quantiteEstim) * $this->prixVente;
+        }
+        if( $valeur < 0 ) {
+            return abs($valeur);
         }
         else return 0;
     }
@@ -230,5 +256,33 @@ class InventaireArticle
     
     public function getError() {
         return $this->quantiteReelle - $this->quantiteEstim;
+    }
+    /**
+     * @var float
+     */
+    private $prixAchat;
+
+
+    /**
+     * Set prixAchat
+     *
+     * @param float $prixAchat
+     * @return InventaireArticle
+     */
+    public function setPrixAchat($prixAchat)
+    {
+        $this->prixAchat = $prixAchat;
+    
+        return $this;
+    }
+
+    /**
+     * Get prixAchat
+     *
+     * @return float 
+     */
+    public function getPrixAchat()
+    {
+        return $this->prixAchat;
     }
 }

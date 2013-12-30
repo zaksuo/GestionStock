@@ -146,7 +146,7 @@ class Article
      */
     public function getPrixVente()
     {
-        return number_format($this->prixVente, 2);
+        return $this->prixVente;
     }
 
     /**
@@ -342,18 +342,23 @@ class Article
             $prixHT += $stock->getPrixAchat() * $stock->getQuantite();
         }
         
-        return number_format(round($prixHT / $qte, 2), 2);
+        if( $qte > 0 ) { 
+            return round($prixHT / $qte, 2);
+        }
+        else {
+            return 0;
+        }
     }
     
     public function getPrixAchatMoyenTTC() {
         $prixHT = $this->getPrixAchatMoyenHT();
         $prixTTC = $prixHT * ( 1 + $this->typeTva->getValeur() / 100 );
-        return number_format(round($prixTTC, 2), 2);
+        return round($prixTTC, 2);
     }
     
     public function getPrixHT() {
         $ratio = ( 1 + $this->getTypeTva()->getValeur() /100 ) ;
-        return number_format(round( ($this->prixVente / $ratio) , 2), 2);
+        return round( ($this->prixVente / $ratio) , 2);
     }
     
     private $alpha_num = array(

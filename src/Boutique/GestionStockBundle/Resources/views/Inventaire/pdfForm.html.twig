@@ -1,3 +1,44 @@
+<h1 class="center">Inventaire</h1>
+
+<table class="table table-bordered">
+    <tr>
+        <th class="width30">Inventaire débuté le : </th>
+        <td>{{ inventaire.dateCreation|date('d/m/Y à H:i') }}</td>
+    </tr>
+    <tr>
+        <th class="width30">Inventaire clos : </th>
+        <td>{% if inventaire.cloture %}Le {{ inventaire.dateCloture|date('d/m/Y à H:i') }}{% else %}Non clos{% endif %}</td>
+    </tr>
+</table>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th class="center">Code</th>
+            <th class="center">Référence</th>
+            <th class="center">Libellé</th>
+            <th class="center">Prix achat HT</th>
+            <th class="center">Prix vente HT</th>
+            <th class="center">Quantité estimée</th>
+            <th class="center">Quantité réelle</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for inv_article in inventaire.invArticles %}
+        <tr>
+            <td class="bold center">{{ inv_article.article.code }}</td>
+            <td class="center">{{ inv_article.article.codeFournisseur }}</td>
+            <td class="center">{{ inv_article.article.libelle }}</td>
+            <td class="center">{{ inv_article.prixAchat|number_format(2, ',',' ') }} €</td>
+            <td class="center">{{ inv_article.prixVente|number_format(2, ',',' ') }} €</td>
+            <td class="center">{{ inv_article.quantiteEstim }}</td>
+            <td class="center"></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    
 <style type="text/css">
     .left {text-align : left;}
     .center {text-align : center;}
@@ -106,42 +147,3 @@
     .table-striped tbody > tr:nth-child(odd) > td,
     .table-striped tbody > tr:nth-child(odd) > th { background-color: #f9f9f9; }
 </style>
-
-    <h1 class="center">Inventaire</h1>
-
-    <table class="table table-bordered">
-        <tr>
-            <th class="width30">Inventaire débuté le : </th>
-            <td>{{ inventaire.dateCreation|date('d/m/Y à H:i') }}</td>
-        </tr>
-        <tr>
-            <th class="width30">Inventaire clos : </th>
-            <td>{% if inventaire.cloture %}Le {{ inventaire.dateCloture|date('d/m/Y à H:i') }}{% else %}Non clos{% endif %}</td>
-        </tr>
-    </table>
-
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th class="center">Code</th>
-                <th class="center">Référence</th>
-                <th class="center">Libellé</th>
-                <th class="center">Prix HT</th>
-                <th class="center">Quantité estimée</th>
-                <th class="center">Quantité réelle</th>
-            </tr>
-        </thead>
-
-        <tbody>
-        {% for inv_article in inventaire.invArticles %}
-            <tr>
-                <td class="bold center">{{ inv_article.article.code }}</td>
-                <td class="center">{{ inv_article.article.codeFournisseur }}</td>
-                <td class="center">{{ inv_article.article.libelle }}</td>
-                <td class="center">{{ inv_article.prixUnitaire }} €</td>
-                <td class="center">{{ inv_article.quantiteEstim }}</td>
-                <td class="center"></td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>

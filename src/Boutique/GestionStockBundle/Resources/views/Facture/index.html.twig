@@ -1,7 +1,7 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-    <h3 class="icon_32_before icon_32_next"> Liste des factures</h3>
+    <h3> Liste des factures</h3>
 
     <a href="{{ path('facture_new') }}" class="btn btn-success"><span class="icon_16 icon_16_plus"></span>Nouvelle facture</a>
     
@@ -37,7 +37,7 @@
                         <td>{% if facture.dateValidation %}{{ facture.dateValidation|date('d/m/Y à  H:i')}}{% else %}-{% endif %}</td>
                         <td>{% if facture.client|length > 0 %} {{ facture.client.prenom }} {{ facture.client.nom }} {% else %} - {% endif %}</td>
                         <td>{{ count }} articles</td>
-                        <td>{{ facture.montantFactureTTC }} €</td>
+                        <td>{{ facture.montantFactureTTC|number_format(2, ',', ' ') }} €</td>
                         <td class="action_menu width15">
                             <a href="{{ path('facture_show', { 'id': facture.id }) }}"><div class="btn btn-small" title="Consulter la facture"><span class="icon_16 icon_16_view"></span></div></a>
                             {% if not facture.valide %}

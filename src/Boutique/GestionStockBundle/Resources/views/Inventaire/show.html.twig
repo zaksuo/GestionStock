@@ -2,64 +2,71 @@
 
 {% block content %}
 
-    {% include 'BoutiqueGestionStockBundle:Inventaire:_summary.html.twig' with {'inventaire' : inventaire} %}
+    <div class="section">
+        {% include 'BoutiqueGestionStockBundle:Inventaire:_summary.html.twig' with {'inventaire' : inventaire} %}
+    </div>
+    
 
     <h3>Détail de l'inventaire</h3>
+    <div class="section">
+        <h4>Elements non articles</h4>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th class="">Libellé</th>
+                    <th class="">Prix HT</th>
+                    <th class="">Quantité</th>
+                    <th class="">Valeur HT</th>
+                </tr>
+            </thead>
 
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th class="">Libellé</th>
-                <th class="">Prix HT</th>
-                <th class="">Quantité</th>
-                <th class="">Valeur HT</th>
-            </tr>
-        </thead>
+            <tbody>
+            {% for inv_divers in inventaire.invDivers %}
+                <tr>
+                    <td class="center">{{ inv_divers.libelle }}</td>
+                    <td class="right">{{ inv_divers.prixUnitaire }} €</td>
+                    <td class="center">{{ inv_divers.quantite }}</td>
+                    <td class="center">{{ inv_divers.getValeur }} €</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-        <tbody>
-        {% for inv_divers in inventaire.invDivers %}
-            <tr>
-                <td class="center">{{ inv_divers.libelle }}</td>
-                <td class="right">{{ inv_divers.prixUnitaire }} €</td>
-                <td class="center">{{ inv_divers.quantite }}</td>
-                <td class="center">{{ inv_divers.getValeur }} €</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    
-    <div class="right">{{ knp_pagination_render(pagination) }}</div>
+        <h4>Liste des articles</h4>
+        <div class="right">{{ knp_pagination_render(pagination) }}</div>
 
-    <table class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th class="">Code</th>
-                <th class="">Libellé</th>
-                <th class="">Prix HT</th>
-                <th class="">Quantité estimée</th>
-                <th class="">Quantité réelle</th>
-                <th class="">Erreur</th>
-                <th class="">Valeur HT</th>
-                <th class="">Perte HT</th>
-            </tr>
-        </thead>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th class="">Code</th>
+                    <th class="">Libellé</th>
+                    <th class="">Prix achat HT</th>
+                    <th class="">Prix vente HT</th>
+                    <th class="">Quantité estimée</th>
+                    <th class="">Quantité réelle</th>
+                    <th class="">Erreur</th>
+                    <th class="">Valeur achat HT</th>
+                    <th class="">Perte vente HT</th>
+                </tr>
+            </thead>
 
-        <tbody>
-        {% for inv_article in pagination %}
-            <tr>
-                <td class="bold center">{{ inv_article.article.code }}</td>
-                <td class="center">{{ inv_article.article.libelle }}</td>
-                <td class="right">{{ inv_article.prixUnitaire }} €</td>
-                <td class="center">{{ inv_article.quantiteEstim }}</td>
-                <td class="center">{% if inv_article.quantiteReelle is null %}{{ inv_article.quantiteEstim }}{% else %}{{ inv_article.quantiteReelle }}{% endif %}</td>
-                <td class="center">{% if inv_article.hasError %}{% if inv_article.getError > 0%} +{% endif %}{{ inv_article.getError }}{% endif %}</td>
-                <td class="center">{{ inv_article.getValeur }} €</td>
-                <td class="center">{% if inv_article.hasError %}{% if inv_article.getError < 0 %}{{ inv_article.getPerte }} €{% endif %}{% endif %}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <tbody>
+            {% for inv_article in pagination %}
+                <tr>
+                    <td class="bold center">{{ inv_article.article.code }}</td>
+                    <td class="center">{{ inv_article.article.libelle }}</td>
+                    <td class="">{{ inv_article.prixAchat|number_format(2, ',', ' ') }} €</td>
+                    <td class="right">{{ inv_article.prixVente|number_format(2, ',', ' ') }} €</td>
+                    <td class="center">{{ inv_article.quantiteEstim }}</td>
+                    <td class="center">{% if inv_article.quantiteReelle is null %}{{ inv_article.quantiteEstim }}{% else %}{{ inv_article.quantiteReelle }}{% endif %}</td>
+                    <td class="center">{% if inv_article.hasError %}{% if inv_article.getError > 0%} +{% endif %}{{ inv_article.getError }}{% endif %}</td>
+                    <td class="center">{{ inv_article.getValeurAchat|number_format(2, ',', ' ') }} €</td>
+                    <td class="center">{% if inv_article.hasError %}{% if inv_article.getError < 0 %}{{ inv_article.getPerteVente|number_format(2, ',', ' ') }} €{% endif %}{% endif %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <div class="right">{{ knp_pagination_render(pagination) }}</div>
-
+        <div class="right">{{ knp_pagination_render(pagination) }}</div>
+    </div>
 {% endblock %}

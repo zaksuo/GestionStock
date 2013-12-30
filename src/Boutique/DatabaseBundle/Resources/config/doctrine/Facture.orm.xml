@@ -10,7 +10,7 @@
     <field name="montantRemiseHT" type="float" column="montant_remise_ht"/>
     <field name="montantRemiseTTC" type="float" column="montant_remise_ttc"/>
     <field name="valide" type="boolean" column="valide"/>
-    <field name="dateValidation" type="datetime" column="date_validation" nullable="false"/>
+    <field name="dateValidation" type="datetime" column="date_validation" nullable="true"/>
     <many-to-one field="client" target-entity="Client">
       <join-columns>
         <join-column name="client" referenced-column-name="id" />

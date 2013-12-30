@@ -1,7 +1,7 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-    <h3 class="icon_32_before icon_32_next">Fournisseur</h3>
+    <h3>Fournisseur</h3>
 
     <table class="table table-bordered">
         <tbody>
@@ -30,7 +30,7 @@
         <a class="btn btn-danger" href="{{ path('fournisseur_delete', { 'id': fournisseur.id }) }}" method="post">Supprimer</a>
     </div>
     
-    <h3 class="icon_32_before icon_32_next">Articles de ce fournisseur</h3>
+    <h3>Articles de ce fournisseur</h3>
     
     <div class="right">{{ knp_pagination_render(pagination) }}</div>
     

@@ -11,12 +11,20 @@
     </tr>
     {% if inventaire.cloture %}
         <tr>
-            <th>Valeur HT du stock : </th>
-            <td>{{ inventaire.valeurStock }} €</td>
+            <th>Valeur d'achat HT totale : </th>
+            <td>{{ inventaire.valeurAchat|number_format(2, ',', ' ') }} €</td>
         </tr>
         <tr>
-            <th>Valeur HT des pertes estimées : </th>
-            <td>{{ inventaire.valeurPerteEstim }} €</td>
+            <th>Valeur de vente HT totale : </th>
+            <td>{{ inventaire.valeurVente|number_format(2, ',', ' ') }} €</td>
+        </tr>
+        <tr>
+            <th>Valeur HT des pertes sur l'achat : </th>
+            <td>{{ inventaire.valeurPerteAchat|number_format(2, ',', ' ') }} €</td>
+        </tr>
+        <tr>
+            <th>Valeur HT des pertes sur la vente : </th>
+            <td>{{ inventaire.valeurPerteVente|number_format(2, ',', ' ') }} €</td>
         </tr>
     {% endif %}
 </table>

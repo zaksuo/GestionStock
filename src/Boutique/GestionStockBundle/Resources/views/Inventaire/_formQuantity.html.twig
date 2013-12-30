@@ -1,0 +1,9 @@
+<div id="quantify_article_form" title="Quantifier un article">
+    <br />
+    <h4>Tapez le code article</h4>
+    <form class="form-inline" id="search_inv_article_form" action="{{ path('inventaire_article_search', {'id_inventaire' : inventaire.id}) }}" method="post">
+            <input id="inv_search_article_field" name='inv_search_article' type="text" placeholder="Rechercher un article">
+        <button id="inv_search_article_submit" type="submit" class="btn">Sélectionner</button>
+    </form>
+    <div id="article_search_results"></div>
+</div>

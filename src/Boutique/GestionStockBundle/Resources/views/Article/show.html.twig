@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h3 class="icon_32_before icon_32_next">Article</h3>
+    <h3>Article</h3>
 
     <table class="table table-bordered">
         <tbody>
@@ -32,11 +32,11 @@
             </tr>
             <tr>
                 <th class="width30">Prix moyen d'achat</th>
-                <td class="">{{ article.getPrixAchatMoyenHT }} € ({{ article.getPrixAchatMoyenTTC }} € TTC)</td>
+                <td class="">{{ article.getPrixAchatMoyenHT|number_format(2, ',', ' ') }} € ({{ article.getPrixAchatMoyenTTC }} € TTC)</td>
             </tr>
             <tr>
                 <th class="width30">Prix TTC</th>
-                <td class="">{{ article.prixVente }} €</td>
+                <td class="">{{ article.prixVente|number_format(2, ',', ' ') }} €</td>
             </tr>
             <tr>
                 <th class="width30">Quantité restante</th>

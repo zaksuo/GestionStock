@@ -41,3 +41,7 @@ inventaire_clore:
 inventaire_print:
   pattern: /{id}/printInv
   defaults: { _controller: BoutiqueGestionStockBundle:Inventaire:printInventaire }
+  
+inventaire_article_search:
+  pattern: /{id_inventaire}/search
+  defaults: { _controller: BoutiqueGestionStockBundle:Inventaire:searchArticle }

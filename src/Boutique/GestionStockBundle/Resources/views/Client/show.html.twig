@@ -1,7 +1,7 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-    <h3 class="icon_32_before icon_32_next">Client</h3>
+    <h3>Fiche client</h3>
 
     <table class="table table-bordered">
         <tbody>
@@ -46,7 +46,7 @@
         <a class="btn btn-success" href="#">Supprimer</a>
     </div>
     
-    <h3 class="icon_32_before icon_32_next">Liste des achats du client</h3>
+    <h3>Liste des achats du client</h3>
     
     <div class="right">{{ knp_pagination_render(pagination) }}</div>
     
@@ -64,7 +64,7 @@
                 <tr>
                     <td>{% if facture.valide %}<a href="{{ path('facture_show', {'id' : facture.id}) }}">{% else %}<a href="{{ path('facture_edit', {'id' : facture.id}) }}">{%endif%}Facture n°{{ facture.id }}</a></td>
                     <td>{{ facture.dateCreation|date('d/m/y H:i:s') }}</td>
-                    <td>{{ facture.montantFactureTTC }} €</td>
+                    <td>{{ facture.montantFactureTTC|number_format(2, ',', ' ') }} €</td>
                     <td>{% if facture.valide %}<div class="icon_24 icon_24_ok"></div>{% else %}<div class="icon_24 icon_24_nok"></div>{% endif %}</td>
                     <td></td>
                 </tr>

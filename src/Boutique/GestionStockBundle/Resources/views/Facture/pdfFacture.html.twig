@@ -47,8 +47,8 @@
                     <td class="center">{{ fact_article.article.code }}</td>
                     <td class="left">{{ fact_article.article.libelle }}</td>
                     <td class="center">{{ fact_article.quantite }}</td>
-                    <td class="center">{{ fact_article.getPrixUnitaire }} € / {{ fact_article.article.typeVente.unite }}</td>
-                    <td class="center">{{ fact_article.getTotalPrixArticleTTC }} €</td>
+                    <td class="center">{{ fact_article.getPrixUnitaire|number_format(2, ',', ' ') }} € / {{ fact_article.article.typeVente.unite }}</td>
+                    <td class="center">{{ fact_article.getTotalPrixArticleTTC|number_format(2, ',', ' ') }} €</td>
                 </tr>
             {% endfor %}
             <tr>
@@ -56,15 +56,15 @@
             </tr>
             <tr class="success">
                 <td class="left" colspan=4>Total HT</td>
-                <td class="center">{{ facture.montantFactureHT }} €</td>
+                <td class="center">{{ facture.montantFactureHT|number_format(2, ',', ' ') }} €</td>
             </tr>
             <tr class="success">
                 <td class="left" colspan=4>Total TVA</td>
-                <td class="center">{{ facture.getTvaTotal }} €</td>
+                <td class="center">{{ facture.getTvaTotal|number_format(2, ',', ' ') }} €</td>
             </tr>
             <tr class="success">
                 <td class="left" colspan=4>Total à payer</td>
-                <td class="center">{{ facture.montantFactureTTC }} €</td>
+                <td class="center">{{ facture.montantFactureTTC|number_format(2, ',', ' ') }} €</td>
             </tr>
         {% else %}
             <tr>

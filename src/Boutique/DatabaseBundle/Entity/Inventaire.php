@@ -27,12 +27,22 @@ class Inventaire
     /**
      * @var float
      */
-    private $valeurStock;
+    private $valeurAchat;
     
     /**
      * @var float
      */
-    private $valeurPerteEstim;
+    private $valeurPerteAchat;
+    
+    /**
+     * @var float
+     */
+    private $valeurVente;
+    
+    /**
+     * @var float
+     */
+    private $valeurPerteVente;
     
     /**
      * @var boolean
@@ -171,56 +181,98 @@ class Inventaire
     }
     
     /**
-     * Get valeurStock
+     * Get valeurAchat
      *
      * @return float
      */
-    public function getValeurStock() {
-        return number_format($this->valeurStock, 2, ',', ' ');
+    public function getValeurAchat() {
+        return $this->valeurAchat;
     }
     
     /**
-     * Set valeurStock
+     * Set valeurAchat
      *
      * @return float 
      */
-    public function setValeurStock( $valeur ) {
-        return $this->valeurStock = $valeur;
+    public function setValeurAchat( $valeur ) {
+        return $this->valeurAchat = $valeur;
     }
     
     /**
-     * Get valeurPerteEstim
+     * Get valeurPerteAchat
      *
      * @return float
      */
-    public function getValeurPerteEstim() {
-        return number_format($this->valeurPerteEstim, 2, ',', ' ');
+    public function getValeurPerteAchat() {
+        return $this->valeurPerteAchat;
     }
     
     /**
-     * Set valeurPerteEstim
+     * Set valeurPerteAchat
      *
      * @return float 
      */
-    public function setValeurPerteEstim( $valeur ) {
-        return $this->valeurPerteEstim = $valeur;
+    public function setValeurPerteAchat( $valeur ) {
+        return $this->valeurPerteAchat = $valeur;
+    }
+    
+    /**
+     * Get valeurVente
+     *
+     * @return float
+     */
+    public function getValeurVente() {
+        return $this->valeurVente;
+    }
+    
+    /**
+     * Set valeurVente
+     *
+     * @return float 
+     */
+    public function setValeurVente( $valeur ) {
+        return $this->valeurVente = $valeur;
+    }
+    
+    /**
+     * Get valeurPerteVente
+     *
+     * @return float
+     */
+    public function getValeurPerteVente() {
+        return $this->valeurPerteVente;
+    }
+    
+    /**
+     * Set valeurPerteVente
+     *
+     * @return float 
+     */
+    public function setValeurPerteVente( $valeur ) {
+        return $this->valeurPerteVente = $valeur;
     }
     
     public function clore() {
-        $valeurStock = 0;
-        $valeurPerte = 0;
+        $valeurAchat = 0;
+        $valeurVente = 0;
+        $valeurPerteAchat = 0;
+        $valeurPerteVente = 0;
         
         foreach( $this->invArticles as $article ) {
-            $valeurStock += $article->getValeur();
-            $valeurPerte += $article->getPerte();
+            $valeurAchat += $article->getValeurAchat();
+            $valeurVente += $article->getValeurVente();
+            $valeurPerteAchat += $article->getPerteAchat();
+            $valeurPerteVente += $article->getPerteVente();
         }
 
         foreach( $this->invDivers as $divers ) {
             $valeurStock += $divers->getValeur();
         }
         
-        $this->valeurStock = $valeurStock;
-        $this->valeurPerteEstim = $valeurPerte;
+        $this->valeurAchat = $valeurAchat;
+        $this->valeurVente = $valeurVente;
+        $this->valeurPerteAchat = $valeurPerteAchat;
+        $this->valeurPerteVente = $valeurPerteVente;
         $this->cloture = true;
         $this->dateCloture = new \DateTime('now');
         

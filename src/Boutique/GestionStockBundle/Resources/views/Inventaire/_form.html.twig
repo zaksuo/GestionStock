@@ -2,7 +2,8 @@
     <td class="center"><a href="{{ path('article_show', {'id' : inv_article.article.id}) }}">{{ inv_article.article.code }}</a></td>
     <td class="">{{ inv_article.article.codeFournisseur }}</td>
     <td class="">{{ inv_article.article.libelle }}</td>
-    <td class="">{{ inv_article.prixUnitaire }} €</td>
+    <td class="">{{ inv_article.prixAchat }} €</td>
+    <td class="">{{ inv_article.prixVente }} €</td>
     <td class="right">{{ inv_article.quantiteEstim }}</td>
     <td class="center">
         <form class="inventaire_article_quantite inventaire-quantite-form" action="{{ path('inventaire_article_update_quantite', {'id': inv_article.id}) }}" method="post">

@@ -1,0 +1,50 @@
+<div id="article_search_results">
+    <h4>Article</h4>
+    {% if article is null %}
+        Aucun article ne correspond à ce code.
+
+        <div class="right">
+            <a id="close_quantify_article" class="btn" href="#">Annuler</a>
+        </div>
+    {% else %}
+        <form id="article_quantity_form_table" class="inventaire_article_quantite inventaire-quantite-form" action="{{ path('inventaire_article_update_quantite', {'id': article.id}) }}" method="post">
+            <table class="table table-bordered">
+                <tr id="{{ article.article.id }}">
+                    <th>Code</th>
+                    <td class="center"><a href="{{ path('article_show', {'id' : article.article.id}) }}">{{ article.article.code }}</a></td>
+                </tr>
+                <tr>
+                    <th>Référence</th>
+                    <td class="">{{ article.article.codeFournisseur }}</td>
+                </tr>
+                <tr>
+                    <th>Libellé</th>
+                    <td class="">{{ article.article.libelle }}</td>
+                </tr>    
+                <tr>
+                    <th>Prix achat HT</th>
+                    <td class="">{{ article.prixAchat|number_format(2, ',', ' ') }} €</td>
+                </tr>    
+                <tr>
+                    <th>Prix vente HT</th>
+                    <td class="">{{ article.prixVente|number_format(2, ',', ' ') }} €</td>
+                </tr>    
+                <tr>    
+                    <th>Quantité estimée</th>
+                    <td class="right">{{ article.quantiteEstim }}</td>
+                </tr>
+                <tr>    
+                    <th>Quantité réelle</th>
+                    <td class="right">
+                        <input type="text" id="inventaire_article_quantity_field" class="input-small" name="quantite" value="{{ article.quantiteReelle }}" size="5" />
+                    </td>
+                </tr>
+            </table>
+
+            <div class="right">
+                <a id="close_quantify_article" class="btn" href="#">Annuler</a>
+                <button id="inv_article_quantity_submit" class="btn btn-success" type="submit">Quantifier l'article</button>
+            </div>    
+        </form>
+    {% endif %}
+</div>

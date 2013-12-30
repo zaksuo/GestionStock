@@ -1,7 +1,7 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-    <h3 class="icon_32_before icon_32_next">Liste des inventaires</h3>
+    <h3>Liste des inventaires</h3>
 
     <a href="{{ path('inventaire_new') }}" class="btn btn-success"><span class="icon_16 icon_16_plus"></span>Nouvel inventaire</a>
     
@@ -16,8 +16,10 @@
                     <th class="{% if pagination.isSorted('i.annee') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Année', 'i.annee') }}</th>
                     <th class="{% if pagination.isSorted('i.dateCreation') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Date création', 'i.dateCreation') }}</th>
                     <th class="{% if pagination.isSorted('i.dateCloture') %}sorted{% endif %}">{{ knp_pagination_sortable(pagination, 'Date clôture', 'i.dateCloture') }}</th>
-                    <th>Valeur HT stock</th>
-                    <th>Perte HT estimée</th>
+                    <th>Valeur HT achat</th>
+                    <th>Perte HT achat</th>
+                    <th>Valeur HT vente</th>
+                    <th>Perte HT vente</th>
                     <th class="">Actions</th>
                 </tr>
             </thead>
@@ -28,8 +30,10 @@
                     <td class="bold center"><a href="{{ path('inventaire_show', { 'id': inventaire.id }) }}">{{ inventaire.annee }}</a></td>
                     <td class="center">{{ inventaire.dateCreation|date('d/m/Y à H:i') }}</td>
                     <td class="center">{% if inventaire.dateCloture %}{{ inventaire.dateCloture|date('d/m/Y à H:i') }}{% else %} - {% endif %}</td>
-                    <td class="center">{% if inventaire.cloture %}{{ inventaire.valeurStock }} €{% else %}-{% endif %}</td>
-                    <td class="center">{% if inventaire.cloture %}{{ inventaire.valeurPerteEstim }} €{% else %}-{% endif %}</td>
+                    <td class="center">{% if inventaire.cloture %}{{ inventaire.valeurAchat }} €{% else %}-{% endif %}</td>
+                    <td class="center">{% if inventaire.cloture %}{{ inventaire.valeurPerteAchat }} €{% else %}-{% endif %}</td>
+                    <td class="center">{% if inventaire.cloture %}{{ inventaire.valeurVente }} €{% else %}-{% endif %}</td>
+                    <td class="center">{% if inventaire.cloture %}{{ inventaire.valeurPerteVente }} €{% else %}-{% endif %}</td>
                     <td class="action_menu width15">
                         <a href="{{ path('inventaire_show', { 'id': inventaire.id }) }}"><div class="btn btn-small" title="Voir le détail de cet inventaire"><span class="ui-menu-icon icon_16 icon_16_view"></span></div></a>
                         {% if not inventaire.cloture %}<a href="{{ path('inventaire_edit', { 'id': inventaire.id }) }}"><div class="btn btn-small" title="Modifier les informations de cet inventaire"><span class="ui-menu-icon icon_16 icon_16_notepad_edit"></span></div></a>{% endif %}

@@ -7,8 +7,10 @@
     <field name="annee" type="integer" column="annee" nullable="false"/>
     <field name="dateCreation" type="datetime" column="date_creation" nullable="false"/>
     <field name="dateCloture" type="datetime" column="date_cloture" nullable="true"/>
-    <field name="valeurStock" type="float" column="valeur_stock"/>
-    <field name="valeurPerteEstim" type="float" column="valeur_perte_estim"/>
+    <field name="valeurAchat" type="float" column="valeur_achat" nullable="true"/>
+    <field name="valeurPerteAchat" type="float" column="valeur_perte_achat" nullable="true"/>
+    <field name="valeurVente" type="float" column="valeur_vente" nullable="true"/>
+    <field name="valeurPerteVente" type="float" column="valeur_perte_vente" nullable="true"/>
     <field name="cloture" type="boolean" column="cloture"/>
     <one-to-many field="invArticles" target-entity="InventaireArticle" mapped-by="inventaire"/>
     <one-to-many field="invDivers" target-entity="InventaireDivers" mapped-by="inventaire"/>

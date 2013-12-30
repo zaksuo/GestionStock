@@ -53,7 +53,8 @@ class InventaireController extends Controller
             $inv_article = new InventaireArticle();
             $inv_article->setArticle($article);
             $inv_article->setInventaire($inventaire);
-            $inv_article->setPrixUnitaire($article->getPrixHT());
+            $inv_article->setPrixVente($article->getPrixHT());
+            $inv_article->setPrixAchat($article->getMoyennePrixAchatHT());
             $inv_article->setQuantiteEstim($article->getArticleStock()->getQuantite());
             
             $em->persist($inv_article);
@@ -166,15 +167,22 @@ class InventaireController extends Controller
     public function printInventaireAction( $id ) {
         $em = $this->getDoctrine()->getManager();
         
+        $data = array();
         $inventaire = $em->getRepository('BoutiqueDatabaseBundle:Inventaire')->find($id);
-        
-         $html = $this->renderView('BoutiqueGestionStockBundle:Inventaire:pdfInventaire.html.twig', array('inventaire' => $inventaire));
-         $pdfGenerator = $this->get('spraed.pdf.generator');
+        $fournisseurs = $em->getRepository('BoutiqueDatabaseBundle:Fournisseur')->findAll();
 
-         return new Response($pdfGenerator->generatePDF($html),
-             200,
-             array('Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename="inventaire'.$id.'.pdf"' )
-         );
+        foreach( $fournisseurs as $fournisseur ) {
+            $articles = $em->getRepository('BoutiqueDatabaseBundle:Article')->getArticlesPerFournisseurForInventaire( $fournisseur->getId(), $inventaire->getId() );
+            $data[] = array('fournisseur' => $fournisseur, 'articles' => $articles);
+        }
+        
+        $html = $this->renderView('BoutiqueGestionStockBundle:Inventaire:pdfInventaire.html.twig', array('inventaire' => $inventaire, 'fournisseurs' => $data));
+        $pdfGenerator = $this->get('spraed.pdf.generator');
+
+        return new Response($pdfGenerator->generatePDF($html),
+            200,
+            array('Content-Type' => 'application/pdf', 'Content-Disposition' => 'inline; filename="inventaire'.$id.'.pdf"' )
+        );
     }
     
     public function addDiversAction( Request $request, $id ) {
@@ -207,5 +215,20 @@ class InventaireController extends Controller
         $em->flush();
         
         return $this->redirect($this->generateUrl('inventaire_edit', array('id' => $inventaire_id->getId())));
+    }
+    
+    public function searchArticleAction( Request $request, $id_inventaire ) {
+        $em = $this->getDoctrine()->getManager();
+        $code = $request->get('inv_search_article');
+        $article = $em->getRepository("BoutiqueDatabaseBundle:Article")->findOneBy(array('code' => $code));
+        if( $article instanceof \Boutique\DatabaseBundle\Entity\Article ) {
+            $inv_article = $em->getRepository("BoutiqueDatabaseBundle:InventaireArticle")->findOneBy(array('inventaire' => $id_inventaire, 'article' => $article->getId()));
+        }
+        else {
+            $inv_article = null;
+        }
+        return $this->render('BoutiqueGestionStockBundle:Inventaire:_article.html.twig', array(
+            'article' => $inv_article
+        ));
     }
 }
