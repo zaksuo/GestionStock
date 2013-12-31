@@ -73,7 +73,7 @@
                 <tr>
                     <td class="width25">{{ vente.dateValidation|date('d/m/Y à H:i:s') }}</td>
                     <td class="width25"><a href="{{ path('facture_show', {'id' : vente.facture_id})}}">{{ vente.facture_id }}</a></td>
-                    <td class="width25">{% if vente.client_id is not null %}<a href="{{ path('facture_show', {'id' : vente.client_id})}}">{{ vente.prenom }} {{ vente.nom }}</a>{% else %} - {% endif %}</td>
+                    <td class="width25">{% if vente.client_id is not null %}<a href="{{ path('client_show', {'id' : vente.client_id})}}">{{ vente.prenom }} {{ vente.nom }}</a>{% else %} - {% endif %}</td>
                     <td class="width25">{{ vente.quantite }}</td>
                 </tr>
             {% endfor %}
