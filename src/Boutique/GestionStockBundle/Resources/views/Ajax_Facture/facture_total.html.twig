@@ -1,12 +1,12 @@
 <tr class="success">
-    <td class="left" colspan=5>Total hors taxes</td>
+    <td class="left bold" colspan=5>Total hors taxes</td>
     <td class="right" colspan=2>{{ facture.montantFactureHT|number_format(2, ',', ' ') }} €</td>
 </tr>
 <tr class="success">
-    <td class="left" colspan=5>Total TVA</td>
+    <td class="left bold" colspan=5>Total TVA</td>
     <td class="right" colspan=2>{{ facture.getTvaTotal|number_format(2, ',', ' ') }} €</td>
 </tr>
 <tr class="success">
-    <td class="left" colspan=5>Total à payer</td>
+    <td class="left bold" colspan=5>Total à payer</td>
     <td class="right" colspan=2>{{ facture.montantFactureTTC|number_format(2, ',', ' ') }} €</td>
 </tr>

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h3>Article</h3>
+    <h3>Détails de l'article</h3>
 
     <table class="table table-bordered">
         <tbody>
@@ -53,13 +53,34 @@
     
     <br />
     
+    <h3>Informations de stock</h3>
     <table class="table table-bordered">
-        <tr>
-            <th class="center" colspan=2>Entrées de stock</th>
-        </tr>
        {% include 'BoutiqueGestionStockBundle:Stock:_list.html.twig' with {'article': article, 'stocks': article.stocks} %}
     </table>
-    
+    <br />
     <!--<a href="{{ path('article_delete', { 'id': article.id }) }}">Supprimer</a>-->
 
+    <h3>Détail des ventes de cet article</h3>
+    <table class="table table-bordered">
+        <tr>
+            <th>Date</th>
+            <th>Facture</th>
+            <th>Client</th>
+            <th>Quantité</th>
+        </tr>
+        {% if ventes|length > 0 %}
+            {% for vente in ventes %}
+                <tr>
+                    <td class="width25">{{ vente.dateValidation|date('d/m/Y à H:i:s') }}</td>
+                    <td class="width25"><a href="{{ path('facture_show', {'id' : vente.facture_id})}}">{{ vente.facture_id }}</a></td>
+                    <td class="width25">{% if vente.client_id is not null %}<a href="{{ path('facture_show', {'id' : vente.client_id})}}">{{ vente.prenom }} {{ vente.nom }}</a>{% else %} - {% endif %}</td>
+                    <td class="width25">{{ vente.quantite }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan=4>Aucune vente n'a été effectuée sur cet article.</td>
+            </tr>
+        {% endif %}
+    </table>
 {% endblock %}

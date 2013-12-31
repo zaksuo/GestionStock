@@ -103,4 +103,20 @@ class ArticleRepository extends EntityRepository
         return $data;
     }
     
+    public function getVentesForArticle( $id ) {
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('facture_article.quantite, client.id AS client_id, client.nom, client.prenom, facture.dateValidation, facture.id AS facture_id')
+                ->from('BoutiqueDatabaseBundle:FactureArticle', 'facture_article')
+                ->join('facture_article.facture', 'facture')
+                ->join('facture.client', 'client')
+                ->where('facture_article.article = ' . $id)
+                ->andWhere('facture.dateValidation IS NOT NULL')
+                ->orderBy('facture.dateValidation', 'DESC');
+        
+        $data = $qb->getQuery()->getResult();
+        
+        return $data;
+    }
+    
 }

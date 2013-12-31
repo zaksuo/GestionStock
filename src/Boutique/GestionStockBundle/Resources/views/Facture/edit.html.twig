@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h3>Facture n°{{ facture.id }}</h3>
+    <h3>Création de facture n°{{ facture.id }}</h3>
 
     <div class="hidden" id="id_facture">{{ facture.id }}</div>
 
@@ -20,35 +20,40 @@
         </div>
     </div>
     
+    
+    <h3>Contenu de la facture</h3>
     {% include 'BoutiqueGestionStockBundle:Ajax_Client:facture_client_show.html.twig' with {'facture' : facture} %}
         
-    <table class="table table-striped table-bordered facture-form">
-        <thead>
-            <tr>
-                <th>Code</th>
-                <th>Libellé</th>
-                <th>Quantité</th>
-                <th>Prix HT</th>
-                <th>TVA</th>
-                <th>Montant TTC</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if facture.factArticles|length > 0 %}
-                {% for fact_article in facture.factArticles %}
-                    {% include 'BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig' with {'fact_article' : fact_article} %}
-                {% endfor %}
-            {% else %}
+    <div class="section">
+        <h4>Facture</h4>
+        <table class="table table-striped table-bordered facture-form">
+            <thead>
                 <tr>
-                    <td colspan=7 class="facture_empty" {% if facture.factArticles|length > 0 %}style="display : none;" {% endif %}>Cette facture ne contient actuellement aucun article. Vous pouvez en ajouter en utilisant le champ de recherche.</td>
+                    <th>Code</th>
+                    <th>Libellé</th>
+                    <th>Quantité</th>
+                    <th>Prix HT</th>
+                    <th>TVA</th>
+                    <th>Montant TTC</th>
+                    <th></th>
                 </tr>
-            {% endif %}
-        </tbody>
-        <tfoot>
-            {% include 'BoutiqueGestionStockBundle:Ajax_Facture:facture_total.html.twig' with {'facture' : facture} %}
-        </tfoot>
-    </table>
+            </thead>
+            <tbody>
+                {% if facture.factArticles|length > 0 %}
+                    {% for fact_article in facture.factArticles %}
+                        {% include 'BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig' with {'fact_article' : fact_article} %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan=7 class="facture_empty" {% if facture.factArticles|length > 0 %}style="display : none;" {% endif %}>Cette facture ne contient actuellement aucun article. Vous pouvez en ajouter en utilisant le champ de recherche.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+            <tfoot>
+                {% include 'BoutiqueGestionStockBundle:Ajax_Facture:facture_total.html.twig' with {'facture' : facture} %}
+            </tfoot>
+        </table>
 
-    {% include 'BoutiqueGestionStockBundle:Ajax_Facture:facture_commit_form.html.twig' with {'facture' : facture} %}
+        {% include 'BoutiqueGestionStockBundle:Ajax_Facture:facture_commit_form.html.twig' with {'facture' : facture} %}
+    </div>
 {% endblock %}

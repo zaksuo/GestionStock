@@ -4,82 +4,83 @@
 
     <h3>Ajouter un article</h3>
 
+    
     <form class="form-horizontal" action="{{ path('article_create') }}" method="post" {{ form_enctype(form) }}>
-        <table class="table table-bordered">
-            <tr>
-                <th colspan=2 class="blue">Informations générales de l'article</th>
-            </tr>
-            <tr class="">
-                <td class="width30"><label>Code article</label></td>
-                <td>{{ form_widget(form.code, { 'attr' : {'class' : 'input-small uneditable-input', 'disabled' : 'disabled'}}) }}</td>
-            </tr>
+        <div class="section">
+            <h4>Informations générales de l'article</h4>
+            <table class="table table-bordered">
+                <tr class="">
+                    <td class="width30"><label>Code article</label></td>
+                    <td>{{ form_widget(form.code, { 'attr' : {'class' : 'input-small uneditable-input', 'disabled' : 'disabled'}}) }}</td>
+                </tr>
 
-            <tr class="">
-                <td class="width30"><label>Nom de l'article</label></td>
-                <td>{{ form_widget(form.libelle, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
-            </tr>
+                <tr class="">
+                    <td class="width30"><label>Nom de l'article</label></td>
+                    <td>{{ form_widget(form.libelle, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+                </tr>
 
-            <tr class="">
-                <td class="width30"><label>Description</label></td>
-                <td>{{ form_widget(form.description, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
-            </tr>
+                <tr class="">
+                    <td class="width30"><label>Description</label></td>
+                    <td>{{ form_widget(form.description, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+                </tr>
 
-            <tr class="">
-                <td class="width30"><label>Fournisseur</label></td>
-                <td>{{ form_widget(form.fournisseur, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
-            </tr>    
+                <tr class="">
+                    <td class="width30"><label>Fournisseur</label></td>
+                    <td>{{ form_widget(form.fournisseur, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+                </tr>    
 
-            <tr class="">
-                <td class="width30"><label>Référence fournisseur</label></td>
-                <td>{{ form_widget(form.codeFournisseur, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
-            </tr> 
+                <tr class="">
+                    <td class="width30"><label>Référence fournisseur</label></td>
+                    <td>{{ form_widget(form.codeFournisseur, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+                </tr> 
 
-            <tr class="">
-                <td class="width30"><label>Prix de vente TTC</label></td>
-                <td>{{ form_widget(form.prixVente, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
-            </tr> 
+                <tr class="">
+                    <td class="width30"><label>Prix de vente TTC</label></td>
+                    <td>{{ form_widget(form.prixVente, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+                </tr> 
 
-            <tr class="">
-                <td class="width30"><label>Type TVA</label></td>
-                <td>{{ form_widget(form.typeTva, { 'attr' : {'class' : 'input-medium'}}) }}</td>
-            </tr>
+                <tr class="">
+                    <td class="width30"><label>Type TVA</label></td>
+                    <td>{{ form_widget(form.typeTva, { 'attr' : {'class' : 'input-medium'}}) }}</td>
+                </tr>
 
-            <tr class="">
-                <td class="width30"><label>Catégorie d'article</label></td>
-                <td>{{ form_widget(form.typeArticle, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
-            </tr>    
+                <tr class="">
+                    <td class="width30"><label>Catégorie d'article</label></td>
+                    <td>{{ form_widget(form.typeArticle, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+                </tr>    
 
-            <tr class="">
-                <td class="width30"><label>Type de vente</label></td>
-                <td>{{ form_widget(form.typeVente, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
-            </tr>
+                <tr class="">
+                    <td class="width30"><label>Type de vente</label></td>
+                    <td>{{ form_widget(form.typeVente, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+                </tr>
+            </table>
+        </div>
+            
+        <div class="section">
+            <h4>Informations du premier stock</h4>
+            <table class="table table-bordered">
+                <tr class="">
+                    <td class="width30"><label>Quantité d'articles</label></td>
+                    <td>{{ form_widget(form.new_stock.quantite, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+                </tr>     
 
-            <tr>
-                <th colspan=2 class="blue">Informations du premier stock</th>
-            </tr>
-            <tr class="">
-                <td class="width30"><label>Quantité d'articles</label></td>
-                <td>{{ form_widget(form.new_stock.quantite, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
-            </tr>     
+                <tr class="">
+                    <td class="width30"><label>Prix d'achat HT à l'unité</label></td>
+                    <td>{{ form_widget(form.new_stock.prixAchat, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+                </tr>    
 
-            <tr class="">
-                <td class="width30"><label>Prix d'achat HT à l'unité</label></td>
-                <td>{{ form_widget(form.new_stock.prixAchat, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
-            </tr>    
+                <tr class="">
+                    <td class="width30"><label>Ces éléments ont-il été achetés en lot pour une vente à  l'unité ?</label></td>
+                    <td>{{ form_widget(form.new_stock.delottage, { 'attr' : {'class' : 'input-xlarge'}}) }} Oui</td>
+                </tr>  
 
-            <tr class="">
-                <td class="width30"><label>Ces éléments ont-il été achetés en lot pour une vente à  l'unité ?</label></td>
-                <td>{{ form_widget(form.new_stock.delottage, { 'attr' : {'class' : 'input-xlarge'}}) }} Oui</td>
-            </tr>  
-
-            {{ form_rest(form) }}
-        </table>
-
+                {{ form_rest(form) }}
+            </table>
+        </div>
         <div class="right">
             <a class="btn" href="{{ path('article') }}">Annuler</a>
             <button class="btn btn-success" type="submit">Créer l'article</button>
         </div>
     </form>
-    
 
 {% endblock %}

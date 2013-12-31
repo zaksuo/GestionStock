@@ -1,71 +1,76 @@
 {% extends "BoutiqueGestionStockBundle::layout.html.twig" %}
 
 {% block content %}
-        <div class="">
-            <h3>Facture {{ facture.id }} - Crée le {{ facture.dateCreation|date('d/m/Y à H:i:s') }} {% if facture.valide %}- Validée le {{ facture.dateValidation|date('d/m/Y à H:i:s') }} {% endif %}</h3>
+    <h3>Facture n°{{ facture.id }} {% if facture.valide %}- Validée le {{ facture.dateValidation|date('d/m/Y à H:i:s') }} {% endif %}</h3>
 
-            {% if facture.client|length > 0 %}
-                <div class="well">
-                    <h4>Client : </h4>
-                    <div class="icon_16_before icon_16_sharp">{{ facture.client.id }}</div>
-                    <div class="icon_16_before icon_16_user">{{ facture.client.prenom }} {{ facture.client.nom }}</div>
-                    <div class="icon_16_before icon_16_contact_email">{{ facture.client.mail }}</div>
-
-                    <div class="icon_16_before icon_16_letter">
-                        {{ facture.client.adresseNumero }} {{ facture.client.adresseVoie }}<br />
-                        {% if facture.client.adresseComplement|length > 0 %}{{ facture.client.adresseComplement }}<br />{% endif %}
-                        {{ facture.client.codePostal }} {{ facture.client.adresseVille }}
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-
-    <table class="table table-striped table-bordered top10">
-        <tr>
-            <th>Code Article</th>
-            <th>Nom de l'article</th>
-            <th>Quantité</th>
-            <th>Prix</th>
-            <th>Montant TTC</th>
-        </tr>
-        {% if facture.hasFactArticles %}
-            {% for fact_article in facture.factArticles %}
-                <tr>
-                    <td class="center"><a href="{{ path('article_show', {'id' : fact_article.article.id}) }}">{{ fact_article.article.code }}</a></td>
-                    <td class="left">{{ fact_article.article.libelle }}</td>
-                    <td class="center">{{ fact_article.quantite }}</td>
-                    <td class="center">{{ fact_article.getPrixUnitaire|number_format(2, ',', ' ') }} € / {{ fact_article.article.typeVente.unite }}</td>
-                    <td class="center">{{ fact_article.getTotalPrixArticleTTC|number_format(2, ',', ' ') }} €</td>
+    {% if facture.client|length > 0 %}
+        <div class="section">    
+            <h4>Informations du client</h4>
+            <table class="ui-widget">
+                <tr><td><div class="icon_16_before icon_16_sharp">{{ facture.client.id }}</div></td></tr>
+                <tr><td><div class="icon_16_before icon_16_user">{{ facture.client.prenom }} {{ facture.client.nom }}</div></td></tr>
+                <tr><td><div class="icon_16_before icon_16_contact_email">{{ facture.client.mail }}</div></td></tr>
+                <tr><td class="icon_16_before icon_16_letter">
+                    {{ facture.client.adresseNumero }} {{ facture.client.adresseVoie }}<br />
+                    {% if facture.client.adresseComplement|length > 0 %}{{ facture.client.adresseComplement }}<br />{% endif %}
+                    {{ facture.client.codePostal }} {{ facture.client.adresseVille }}
                 </tr>
-            {% endfor %}
-
-            <tr class="success">
-                <td class="left" colspan=4>Total HT</td>
-                <td class="center">{{ facture.montantFactureHT|number_format(2, ',', ' ') }} €</td>
-            </tr>
-            <tr class="success">
-                <td class="left" colspan=4>Total TVA</td>
-                <td class="center">{{ facture.getTvaTotal|number_format(2, ',', ' ') }} €</td>
-            </tr>
-            <tr class="success">
-                <td class="left" colspan=4>Total à payer</td>
-                <td class="center">{{ facture.montantFactureTTC|number_format(2, ',', ' ') }} €</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td>Cette facture ne contient aucun article.</td>
-            </tr>
-        {% endif %}
-    </table>
+            </table>
+        </div>
+    {% endif %}
     
-    <div class="right">
-        {% if facture.valide %}
-            <a class="btn btn-warning" href="{{ path('facture_rollback', {'id' : facture.id}) }}">Annuler validation</a>
-            <a class="btn btn-success" target=_blank href="{{ path('facture_show', {'id' : facture.id, 'type' : 'pdf'}) }}">Imprimer Facture</a>
-            <a class="btn btn-success" target=_blank href="{{ path('facture_show', {'id' : facture.id, 'type' : 'ticket'}) }}">Imprimer Ticket</a>
-        {% else %}
-            <a class="btn btn-warning" href="{{ path('facture_edit', {'id' : facture.id}) }}">Modifier la facture</a>
-            <a class="btn btn-success" href="{{ path('facture_commit', {'id': facture.id}) }}">Valider la facture</a>
-        {% endif %}
+    <div class="section">
+        <h4>Contenu de la facture</h4>
+        <table class="table table-striped table-bordered top10">
+            <tr>
+                <th>Code Article</th>
+                <th>Nom de l'article</th>
+                <th>Quantité</th>
+                <th>Prix TTC unitaire</th>
+                <th>Montant TTC</th>
+                <th>TVA</th>
+            </tr>
+            {% if facture.hasFactArticles %}
+                {% for fact_article in facture.factArticles %}
+                    <tr>
+                        <td class="center"><a href="{{ path('article_show', {'id' : fact_article.article.id}) }}">{{ fact_article.article.code }}</a></td>
+                        <td class="left">{{ fact_article.article.libelle }}</td>
+                        <td class="center">{{ fact_article.quantite }}</td>
+                        <td class="center">{{ fact_article.getPrixUnitaire|number_format(2, ',', ' ') }} € / {{ fact_article.article.typeVente.unite }} ({{fact_article.tvaUnitaire|number_format(2, ',', ' ')}} € de TVA)</td>
+                        <td class="center">{{ fact_article.getTotalPrixArticleTTC|number_format(2, ',', ' ') }} €</td>
+                        <td class="center">{{ fact_article.getTotalTvaArticle|number_format(2, ',', ' ') }} €</td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="success">
+                    <td class="left bold" colspan=4>Total HT</td>
+                    <td class="center" colspan=2>{{ facture.montantFactureHT|number_format(2, ',', ' ') }} €</td>
+                </tr>
+                <tr class="success">
+                    <td class="left bold" colspan=4>Total TVA</td>
+                    <td class="center" colspan=2>{{ facture.getTvaTotal|number_format(2, ',', ' ') }} €</td>
+                </tr>
+                <tr class="success">
+                    <td class="left bold" colspan=4>Total à payer</td>
+                    <td class="center" colspan=2>{{ facture.montantFactureTTC|number_format(2, ',', ' ') }} €</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td>Cette facture ne contient aucun article.</td>
+                </tr>
+            {% endif %}
+        </table>
+
+        <div class="right">
+            {% if facture.valide %}
+                <a class="btn btn-warning" href="{{ path('facture_rollback', {'id' : facture.id}) }}">Annuler validation</a>
+                <a class="btn btn-success" target=_blank href="{{ path('facture_show', {'id' : facture.id, 'type' : 'pdf'}) }}">Imprimer Facture</a>
+                <a class="btn btn-success" target=_blank href="{{ path('facture_show', {'id' : facture.id, 'type' : 'ticket'}) }}">Imprimer Ticket</a>
+            {% else %}
+                <a class="btn btn-warning" href="{{ path('facture_edit', {'id' : facture.id}) }}">Modifier la facture</a>
+                <a class="btn btn-success" href="{{ path('facture_commit', {'id': facture.id}) }}">Valider la facture</a>
+            {% endif %}
+            <a class="btn" href="{{ path('facture') }}">Retour</a>
+        </div>
     </div>
 {% endblock %}

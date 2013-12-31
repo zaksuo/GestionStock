@@ -53,9 +53,12 @@ class ArticleController extends Controller
         if (!$article) {
             throw $this->createNotFoundException('Erreur : Cet article n\'exite pas.');
         }
+        
+        $ventes = $em->getRepository('BoutiqueDatabaseBundle:Article')->getVentesForArticle($article->getId());
 
         return $this->render('BoutiqueGestionStockBundle:Article:show.html.twig', array(
-            'article'      => $article
+            'article'   => $article,
+            'ventes'    => $ventes
         ));
     }
 
@@ -170,7 +173,7 @@ class ArticleController extends Controller
             $em->persist($article);
             $em->flush();
             
-            return $this->redirect($this->generateUrl('article'));
+            return $this->redirect($this->generateUrl('article_show', array('id' => $article->getId())));
         }
 
         return $this->render('BoutiqueGestionStockBundle:Article:edit.html.twig', array(

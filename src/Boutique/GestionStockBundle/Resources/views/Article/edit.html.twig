@@ -2,59 +2,60 @@
 
 {% block content %}
 
-    <h3>Modification de l'article "{{ article.code }} - {{ article.libelle }}"</h3>
+    <h3>Mise à jour d'article - "{{ article.code }} / {{ article.libelle }}"</h3>
 
     <form class="form-horizontal" action="{{ path('article_update', { 'id': article.id }) }}" method="post" {{ form_enctype(form) }}>
-        <div class="control-group">
-            <label class="control-label">Code article</label>
-            {{ form_widget(form.code, { 'attr' : {'class' : 'input-small uneditable-input', 'disabled' : 'disabled'}}) }}
-        </div>
+        <table class="table table-bordered">
+            <tr>
+                <th>Code article</th>
+                <td>{{ form_widget(form.code, { 'attr' : {'class' : 'input-small uneditable-input', 'disabled' : 'disabled'}}) }}</td>
+            </tr>
 
-        <div class="control-group">
-            <label class="control-label">Nom de l'article</label>
-            {{ form_widget(form.libelle, { 'attr' : {'class' : 'input-xlarge'}}) }}
-        </div>
+            <tr>
+                <th>Nom de l'article</th>
+                <td>{{ form_widget(form.libelle, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+            </tr>
 
-        <div class="control-group">
-            <label class="control-label">Description</label>
-            {{ form_widget(form.description, { 'attr' : {'class' : 'input-xlarge'}}) }}
-        </div>
+            <tr>
+                <th>Description</th>
+                <td>{{ form_widget(form.description, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+            </tr>
 
-        <div class="control-group">
-            <label class="control-label">Fournisseur</label>
-            {{ form_widget(form.fournisseur, { 'attr' : {'class' : 'input-xlarge'}}) }}
-        </div>    
+            <tr>
+                <th>Fournisseur</th>
+                <td>{{ form_widget(form.fournisseur, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+            </tr>    
 
-        <div class="control-group">
-            <label class="control-label">Référence fournisseur</label>
-            {{ form_widget(form.codeFournisseur, { 'attr' : {'class' : 'input-xlarge'}}) }}
-        </div> 
+            <tr>
+                <th>Référence fournisseur</th>
+                <td>{{ form_widget(form.codeFournisseur, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+            </tr> 
 
-        <div class="control-group">
-            <label class="control-label">Prix de vente TTC</label>
-            {{ form_widget(form.prixVente, { 'attr' : {'class' : 'input-xlarge'}}) }}
-        </div> 
+            <tr>
+                <th>Prix de vente TTC</th>
+                <td>{{ form_widget(form.prixVente, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+            </tr> 
 
-        <div class="control-group">
-            <label class="control-label">Type TVA</label>
-            {{ form_widget(form.typeTva, { 'attr' : {'class' : 'input-medium'}}) }}
-        </div>
+            <tr>
+                <th>Type TVA</th>
+                <td>{{ form_widget(form.typeTva, { 'attr' : {'class' : 'input-medium'}}) }}</td>
+            </tr>
 
-        <div class="control-group">
-            <label class="control-label">Catégorie d'article</label>
-            {{ form_widget(form.typeArticle, { 'attr' : {'class' : 'input-xlarge'}}) }}
-        </div>    
+            <tr>
+                <th>Catégorie d'article</th>
+                <td>{{ form_widget(form.typeArticle, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+            </tr>    
 
-        <div class="control-group">
-            <label class="control-label">Type de vente</label>
-            {{ form_widget(form.typeVente, { 'attr' : {'class' : 'input-xlarge'}}) }}
-        </div>
-        
+            <tr>
+                <th>Type de vente</th>
+                <td>{{ form_widget(form.typeVente, { 'attr' : {'class' : 'input-xlarge'}}) }}</td>
+            </tr>
+        </table>
         {{ form_rest(form) }}
         
         <div class="right">
-            <a class="btn btn-danger" href="{{ path('article_show' , {'id' : article.id}) }}">Annuler</a>
-            <a class="btn btn-warning" href="{{ path('article_delete', { 'id': article.id }) }}">Supprimer</a>
+            <a class="btn" href="{{ path('article_show' , {'id' : article.id}) }}">Annuler</a>
+            <!--<a class="btn btn-danger" href="{{ path('article_delete', { 'id': article.id }) }}">Supprimer</a>-->
             <button class="btn btn-success" type="submit">Enregistrer</button>
         </div>    
         

@@ -1,17 +1,13 @@
-<div id="facture_client">
+<div id="facture_client" class="section">
+    <h4>Informations du client</h4>
     <table class="ui-widget">
-        <tr>
-            <th class="ui-widget-header width10">Client</th>
-            <td>
-                {% if facture.client|length > 0 %}
-                    <div class="icon_16_before icon_16_sharp">{{ facture.client.id }}</div>
-                    <div class="icon_16_before icon_16_user">{{ facture.client.prenom }} {{ facture.client.nom }}</div>
-                    <div class="icon_16_before icon_16_contact_email">{{ facture.client.mail }}</div>
-                {% else %}
-                    Aucun client
-                {% endif %}
-            </td>
+        {% if facture.client|length > 0 %}
+            <tr><td><div class="icon_16_before icon_16_sharp">{{ facture.client.id }}</div></td></tr>
+            <tr><td><div class="icon_16_before icon_16_user">{{ facture.client.prenom }} {{ facture.client.nom }}</div></td></tr>
+            <tr><td><div class="icon_16_before icon_16_contact_email">{{ facture.client.mail }}</div></td></tr>
+        {% else %}
+            <tr><td>Aucun client séléctionné.</td></tr>
+        {% endif %}
         </tr>
     </table>
-    <br />
 </div>
