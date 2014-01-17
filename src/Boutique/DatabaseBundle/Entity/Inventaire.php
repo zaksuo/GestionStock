@@ -251,31 +251,4 @@ class Inventaire
     public function setValeurPerteVente( $valeur ) {
         return $this->valeurPerteVente = $valeur;
     }
-    
-    public function clore() {
-        $valeurAchat = 0;
-        $valeurVente = 0;
-        $valeurPerteAchat = 0;
-        $valeurPerteVente = 0;
-        
-        foreach( $this->invArticles as $article ) {
-            $valeurAchat += $article->getValeurAchat();
-            $valeurVente += $article->getValeurVente();
-            $valeurPerteAchat += $article->getPerteAchat();
-            $valeurPerteVente += $article->getPerteVente();
-        }
-
-        foreach( $this->invDivers as $divers ) {
-            $valeurStock += $divers->getValeur();
-        }
-        
-        $this->valeurAchat = $valeurAchat;
-        $this->valeurVente = $valeurVente;
-        $this->valeurPerteAchat = $valeurPerteAchat;
-        $this->valeurPerteVente = $valeurPerteVente;
-        $this->cloture = true;
-        $this->dateCloture = new \DateTime('now');
-        
-        return $this;
-    }
 }

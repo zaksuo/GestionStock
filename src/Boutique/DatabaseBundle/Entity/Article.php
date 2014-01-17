@@ -227,8 +227,15 @@ class Article
         return $this->stocks;
     }
     
+    public function addStock($stock) {
+        $stocks = $this->getStocks();
+        $stocks[] = $stock;
+        return $this->setStocks($stocks);
+    }
+    
     public function setStocks($stocks) {
         $this->stock = $stocks;
+        return $stocks;
     }
     
     /**

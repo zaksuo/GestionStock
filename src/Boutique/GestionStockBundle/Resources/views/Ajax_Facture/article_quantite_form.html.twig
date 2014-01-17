@@ -10,6 +10,7 @@
     <td class="right">{{ fact_article.getTotalTvaArticle|number_format(2, ',', ' ') }} €</td>
     <td class="right">{{ fact_article.getTotalPrixArticleTTC|number_format(2, ',', ' ') }} €</td>
     <td class="action_menu">
+        <div class="btn btn-small" title="Ajouter une remise sur cet article"><span class="icon_16 icon_16_plus"></span></div>
         <a href="{{ path('facture_article_remove', {'id_fact_article': fact_article.id}) }}">
             <div class="btn btn-small" title="Supprimer cet article"><span class="icon_16 icon_16_trash2"></span></div>
         </a>

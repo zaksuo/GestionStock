@@ -14,7 +14,7 @@ class ArticleRepository extends EntityRepository
 {	
     public function getArticlesForSearch( $search, $offset = 0, $limit = 0 ) {
         
-        $search = $this->splitSearch( $search );
+        //$search = $this->splitSearch( $search );
         
         
         $qb = $this->getEntityManager()
@@ -22,26 +22,28 @@ class ArticleRepository extends EntityRepository
                 ->select('article')
                 ->from('BoutiqueDatabaseBundle:Article', 'article');
             
-            if( count($search) > 1 ) {
-                $qb->where("article.libelle LIKE '%".$search[0]."%'")
-                        ->orWhere("article.code LIKE '%".$search[0]."%'")
-                        ->orWhere("article.description LIKE '%".$search[0]."%'");
+//            if( count($search) > 1 ) {
+//                $qb->where("article.libelle LIKE '%".$search[0]."%'")
+//                        ->orWhere("article.code LIKE '%".$search[0]."%'")
+//                        ->orWhere("article.description LIKE '%".$search[0]."%'");
+//                
+//                for( $i = 0; $i < count($search) - 1; $i++ ) {
+//                    $qb->orWhere("article.libelle LIKE '%".$search[$i]."%'");
+//                }
+//                for( $i = 0; $i < count($search) - 1; $i++ ) {
+//                    $qb->orWhere("article.code LIKE '%".$search[$i]."%'");
+//                }
+//                for( $i = 0; $i < count($search) - 1; $i++ ) {
+//                    $qb->orWhere("article.description LIKE '%".$search[$i]."%'");
+//                }
+//            }
+//            else {
+                $qb->where("article.libelle LIKE '%".$search."%'")
+                        ->orWhere("article.code LIKE '%".$search."%'")
+                        ->orWhere("article.description LIKE '%".$search."%'")
+                        ->orWhere("article.codeFournisseur LIKE '%".$search."%'");
                 
-                for( $i = 0; $i < count($search) - 1; $i++ ) {
-                    $qb->orWhere("article.libelle LIKE '%".$search[$i]."%'");
-                }
-                for( $i = 0; $i < count($search) - 1; $i++ ) {
-                    $qb->orWhere("article.code LIKE '%".$search[$i]."%'");
-                }
-                for( $i = 0; $i < count($search) - 1; $i++ ) {
-                    $qb->orWhere("article.description LIKE '%".$search[$i]."%'");
-                }
-            }
-            else {
-                $qb->where("article.libelle LIKE '%".$search[0]."%'")
-                        ->orWhere("article.code LIKE '%".$search[0]."%'")
-                        ->orWhere("article.description LIKE '%".$search[0]."%'");
-            }
+//            }
                 
             $qb->orderBy('article.code', 'ASC')
                 ->setFirstResult($offset)

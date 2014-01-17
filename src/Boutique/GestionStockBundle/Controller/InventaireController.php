@@ -11,6 +11,7 @@ use Boutique\DatabaseBundle\Entity\InventaireArticle;
 use Boutique\DatabaseBundle\Entity\InventaireDivers;
 
 use Boutique\DatabaseBundle\Form\InventaireDiversType;
+use Boutique\DatabaseBundle\Entity\Stock;
 
 /**
  * Home controller.
@@ -156,9 +157,48 @@ class InventaireController extends Controller
     
     public function cloreAction( $id ) {
         $em = $this->getDoctrine()->getManager();
-        
         $inventaire = $em->getRepository('BoutiqueDatabaseBundle:Inventaire')->find($id);
-        $inventaire->clore();
+        
+        $valeurAchat = 0;
+        $valeurVente = 0;
+        $valeurPerteAchat = 0;
+        $valeurPerteVente = 0;
+        
+        foreach( $inventaire->getInvArticles() as $invArticle ) {
+            $valeurAchat += $invArticle->getValeurAchat();
+            $valeurVente += $invArticle->getValeurVente();
+            $valeurPerteAchat += $invArticle->getPerteAchat();
+            $valeurPerteVente += $invArticle->getPerteVente();
+            
+            if( $invArticle->hasError() ) {
+                $article = $invArticle->getArticle();
+                $stock_article = $article->getArticleStock();
+                $quantite = $invArticle->getError();
+                
+                $new_stock = new Stock();
+                $new_stock->setIdArticle($article);
+                $new_stock->setDateEntree(new \DateTime('now'));
+                $new_stock->setQuantite($quantite);
+                $new_stock->setPrixAchat($invArticle->getPrixAchat());
+                $new_stock->setDelottage(false);
+                $new_stock->setCommentaire("Régularisation du stock après inventaire");
+                $em->persist($new_stock);
+                
+                $stock_article->setQuantite( $stock_article->getQuantite() + $quantite );
+                $em->persist($stock_article);
+            }
+        }
+
+        foreach( $inventaire->getInvDivers() as $divers ) {
+            $valeurAchat += $divers->getValeur();
+        }
+        
+        $inventaire->setValeurAchat( $valeurAchat );
+        $inventaire->setValeurVente( $valeurVente );
+        $inventaire->setValeurPerteAchat( $valeurPerteAchat );
+        $inventaire->setValeurPerteVente( $valeurPerteVente );
+        $inventaire->setCloture( true );
+        $inventaire->setDateCloture( new \DateTime('now') );
         
         $em->persist($inventaire);
         $em->flush();
