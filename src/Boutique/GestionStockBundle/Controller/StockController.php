@@ -107,7 +107,7 @@ class StockController extends Controller
             $em->persist($article_stock);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('article'));
+            return $this->redirect($this->generateUrl('article', array('id' => $article->getId())));
         }
         
         return $this->render('BoutiqueGestionStockBundle:Stock:edit.html.twig', array(
