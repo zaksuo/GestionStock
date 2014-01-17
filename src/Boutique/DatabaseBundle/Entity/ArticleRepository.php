@@ -45,9 +45,9 @@ class ArticleRepository extends EntityRepository
                 
 //            }
                 
-            $qb->orderBy('article.code', 'ASC')
-                ->setFirstResult($offset)
-                ->setMaxResults($limit);
+            $qb->orderBy('article.code', 'ASC');
+//                ->setFirstResult($offset)
+//                ->setMaxResults($limit);
 
         //var_dump($qb->getQuery()->getSQL()); exit;
 
