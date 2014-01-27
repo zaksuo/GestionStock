@@ -285,7 +285,7 @@ class InventaireController extends Controller
                 $em->persist($inv_article);
             }
             if( $inv_article->getArticle()->getPrixHT() != $inv_article->getPrixVente() ) {
-                $inv_article->setPrixAchat( $inv_article->getArticle()->getPrixHT() );
+                $inv_article->setPrixVente( $inv_article->getArticle()->getPrixHT() );
                 $em->persist($inv_article);
             }
         }
