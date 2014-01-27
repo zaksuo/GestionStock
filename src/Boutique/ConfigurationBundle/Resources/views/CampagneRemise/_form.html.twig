@@ -1,0 +1,20 @@
+<table class="table table-bordered">    
+    <tr>
+        <th>Date de début</th>
+        <td>{{ form_widget(form.dateDebut, {'attr': {'class' : 'datepicker'}}) }}</td>
+    </tr>
+    <tr>
+        <th>Date de fin</th>
+        <td>{{ form_widget(form.dateFin, {'attr': {'class' : 'datepicker'}}) }}</td>
+    </tr>
+    <tr>
+        <th>Remise</th>
+        <td>{{ form_widget(form.remise) }}</td>
+    </tr>
+    <tr>
+        <th>Campagne active ?</th>
+        <td>{{ form_widget(form.active) }}</td>
+    </tr>
+
+    {{ form_rest(form) }}
+</table>

@@ -33,27 +33,22 @@
             {% if facture.hasFactArticles %}
                 {% for fact_article in facture.factArticles %}
                     <tr>
-                        <td class="center"><a href="{{ path('article_show', {'id' : fact_article.article.id}) }}">{{ fact_article.article.code }}</a></td>
+                        <td class="center" rowspan="{{ fact_article.factureRemiseArticles|length + 1 }}"><a href="{{ path('article_show', {'id' : fact_article.article.id}) }}">{{ fact_article.article.code }}</a></td>
                         <td class="left">{{ fact_article.article.libelle }}</td>
                         <td class="center">{{ fact_article.quantite }}</td>
                         <td class="center">{{ fact_article.getPrixUnitaire|number_format(2, ',', ' ') }} € / {{ fact_article.article.typeVente.unite }} ({{fact_article.tvaUnitaire|number_format(2, ',', ' ')}} € de TVA)</td>
                         <td class="center">{{ fact_article.getTotalPrixArticleTTC|number_format(2, ',', ' ') }} €</td>
                         <td class="center">{{ fact_article.getTotalTvaArticle|number_format(2, ',', ' ') }} €</td>
+                        
+                        {% for fact_rem_art in fact_article.factureRemiseArticles %}
+                            <tr class="rem{{ fact_article.article.id }}">
+                                <td colspan=3>{{ fact_rem_art.campagneArticle.campagneRemise.remise }}</td>
+                                <td colspan=2>- {{ fact_rem_art.valeur }}  €</td>
+                        {% endfor %}
                     </tr>
                 {% endfor %}
 
-                <tr class="success">
-                    <td class="left bold" colspan=4>Total HT</td>
-                    <td class="center" colspan=2>{{ facture.montantFactureHT|number_format(2, ',', ' ') }} €</td>
-                </tr>
-                <tr class="success">
-                    <td class="left bold" colspan=4>Total TVA</td>
-                    <td class="center" colspan=2>{{ facture.getTvaTotal|number_format(2, ',', ' ') }} €</td>
-                </tr>
-                <tr class="success">
-                    <td class="left bold" colspan=4>Total à payer</td>
-                    <td class="center" colspan=2>{{ facture.montantFactureTTC|number_format(2, ',', ' ') }} €</td>
-                </tr>
+                {% include 'BoutiqueGestionStockBundle:Ajax_Facture:facture_total.html.twig' with {'facture' : facture} %}
             {% else %}
                 <tr>
                     <td>Cette facture ne contient aucun article.</td>

@@ -1,0 +1,28 @@
+{% extends "BoutiqueConfigurationBundle::layout.html.twig" %}
+
+{% block content %}
+    <h4>Modification d'une campagne de remises</h4>
+
+    <form action="{{ path('campagneremise_update', { 'id': campagne.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        {% include "BoutiqueConfigurationBundle:CampagneRemise:_form.html.twig" with {'form' : edit_form} %} 
+        <div class="right">
+            <a class="btn" href="{{ path('campagneremise') }}">Annuler</a>
+            <button class="btn btn-success" type="submit">Enregistrer</button>
+        </div> 
+    </form>
+    
+    <h4>Articles de la campagne de remises</h4>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="row-fluid">
+                <div class="span6 listeArticles">
+                    <script type="text/javascript">$(".listeArticles").load( '{{ path('campagneremise_liste_articles', {'campagne' : campagne.id}) }}');</script>
+                    {#{% include "BoutiqueConfigurationBundle:CampagneRemise:_listArticles.html.twig" with {'pagination' : pagination} %} #}
+                </div> 
+                <div class="span6">
+                    {% include "BoutiqueConfigurationBundle:CampagneRemise:_listArticlesCampagne.html.twig" with {'campagne' : campagne} %} 
+                </div> 
+            </div>
+        </div>
+    </div>
+{% endblock %}

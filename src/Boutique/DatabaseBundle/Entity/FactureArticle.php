@@ -186,4 +186,49 @@ class FactureArticle
         return round( $this->tvaUnitaire * $this->quantite, 2 );
     }
     
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $factureRemiseArticles;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->factureRemiseArticles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add factureRemiseArticles
+     *
+     * @param \Boutique\DatabaseBundle\Entity\FactureRemiseArticle $factureRemiseArticles
+     * @return FactureArticle
+     */
+    public function addFactureRemiseArticle(\Boutique\DatabaseBundle\Entity\FactureRemiseArticle $factureRemiseArticles)
+    {
+        $this->factureRemiseArticles[] = $factureRemiseArticles;
+    
+        return $this;
+    }
+
+    /**
+     * Remove factureRemiseArticles
+     *
+     * @param \Boutique\DatabaseBundle\Entity\FactureRemiseArticle $factureRemiseArticles
+     */
+    public function removeFactureRemiseArticle(\Boutique\DatabaseBundle\Entity\FactureRemiseArticle $factureRemiseArticles)
+    {
+        $this->factureRemiseArticles->removeElement($factureRemiseArticles);
+    }
+
+    /**
+     * Get factureRemiseArticles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFactureRemiseArticles()
+    {
+        return $this->factureRemiseArticles;
+    }
 }

@@ -10,15 +10,48 @@ use Doctrine\ORM\Mapping as ORM;
 class Remise
 {
     /**
-     * @var integer $id
+     * @var string
+     */
+    private $mail;
+
+    /**
+     * @var integer
      */
     private $id;
 
     /**
-     * @var Boutique\DatabaseBundle\Entity\TypeRemise
+     * @var \Boutique\DatabaseBundle\Entity\TypeRemise
      */
     private $typeRemise;
 
+    /**
+     * @var \Boutique\DatabaseBundle\Entity\CategorieRemise
+     */
+    private $categorieRemise;
+
+
+    /**
+     * Set mail
+     *
+     * @param string $mail
+     * @return Remise
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+    
+        return $this;
+    }
+
+    /**
+     * Get mail
+     *
+     * @return string 
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
 
     /**
      * Get id
@@ -33,7 +66,7 @@ class Remise
     /**
      * Set typeRemise
      *
-     * @param Boutique\DatabaseBundle\Entity\TypeRemise $typeRemise
+     * @param \Boutique\DatabaseBundle\Entity\TypeRemise $typeRemise
      * @return Remise
      */
     public function setTypeRemise(\Boutique\DatabaseBundle\Entity\TypeRemise $typeRemise = null)
@@ -46,10 +79,33 @@ class Remise
     /**
      * Get typeRemise
      *
-     * @return Boutique\DatabaseBundle\Entity\TypeRemise 
+     * @return \Boutique\DatabaseBundle\Entity\TypeRemise 
      */
     public function getTypeRemise()
     {
         return $this->typeRemise;
+    }
+
+    /**
+     * Set categorieRemise
+     *
+     * @param \Boutique\DatabaseBundle\Entity\CategorieRemise $categorieRemise
+     * @return Remise
+     */
+    public function setCategorieRemise(\Boutique\DatabaseBundle\Entity\CategorieRemise $categorieRemise = null)
+    {
+        $this->categorieRemise = $categorieRemise;
+    
+        return $this;
+    }
+
+    /**
+     * Get categorieRemise
+     *
+     * @return \Boutique\DatabaseBundle\Entity\CategorieRemise 
+     */
+    public function getCategorieRemise()
+    {
+        return $this->categorieRemise;
     }
 }

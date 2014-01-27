@@ -1,0 +1,9 @@
+{% extends "BoutiqueConfigurationBundle::layout.html.twig" %}
+
+{% block content %}
+    <h4>Nouveau type de TVA</h4>
+
+    <form  class="form-horizontal" action="{{ path('typeTva_create') }}" method="post" {{ form_enctype(form) }}>
+        {% include "BoutiqueConfigurationBundle:TypeTva:_form.html.twig" with {'form' : form} %} 
+    </form>
+{% endblock %}

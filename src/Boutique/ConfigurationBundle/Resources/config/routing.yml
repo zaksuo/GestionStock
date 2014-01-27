@@ -1,0 +1,19 @@
+config_home:
+    pattern: /config
+    defaults: { _controller: BoutiqueConfigurationBundle:Configuration:index }
+    
+boutique_database_typeTva:
+    resource: "@BoutiqueConfigurationBundle/Resources/config/routing/type_tva.yml"
+    prefix:   /typeTva
+    
+boutique_database_typeArticle:
+    resource: "@BoutiqueConfigurationBundle/Resources/config/routing/type_article.yml"
+    prefix:   /categorie
+    
+boutique_database_remise:
+    resource: "@BoutiqueConfigurationBundle/Resources/config/routing/remise.yml"
+    prefix:   /remise
+    
+boutique_database_campagneremise:
+    resource: "@BoutiqueConfigurationBundle/Resources/config/routing/campagneremise.yml"
+    prefix:   /campagneremise

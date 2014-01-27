@@ -1,0 +1,9 @@
+{% extends "BoutiqueConfigurationBundle::layout.html.twig" %}
+
+{% block content %}
+    <h4>Modification du type de TVA "{{ entity.libelle }}"</h4>
+
+    <form  class="form-horizontal" action="{{ path('typeTva_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        {% include "BoutiqueConfigurationBundle:TypeTva:_form.html.twig" with {'form' : edit_form} %} 
+    </form>
+{% endblock %}

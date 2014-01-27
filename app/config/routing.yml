@@ -1,3 +1,7 @@
+boutique_configuration:
+    resource: "@BoutiqueConfigurationBundle/Resources/config/routing.yml"
+    prefix:   /
+
 #site_presentation:
 #    resource: "@SitePresentationBundle/Resources/config/routing.yml"
 #    prefix:   /

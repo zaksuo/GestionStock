@@ -1,0 +1,30 @@
+typeArticle:
+    pattern:  /
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeArticle:index" }
+
+typeArticle_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeArticle:show" }
+
+typeArticle_new:
+    pattern:  /new
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeArticle:new" }
+
+typeArticle_create:
+    pattern:  /create
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeArticle:create" }
+    requirements: { _method: post }
+
+typeArticle_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeArticle:edit" }
+
+typeArticle_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeArticle:update" }
+    requirements: { _method: post }
+
+typeArticle_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeArticle:delete" }
+    requirements: { _method: post }

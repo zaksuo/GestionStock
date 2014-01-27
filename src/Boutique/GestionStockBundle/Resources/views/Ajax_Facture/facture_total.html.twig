@@ -7,6 +7,14 @@
     <td class="right" colspan=2>{{ facture.getTvaTotal|number_format(2, ',', ' ') }} €</td>
 </tr>
 <tr class="success">
-    <td class="left bold" colspan=5>Total à payer</td>
+    <td class="left bold" colspan=5>Total remises</td>
+    <td class="right" colspan=2>{{ facture.getMontantRemise|number_format(2, ',', ' ') }} €</td>
+</tr>
+<tr class="success">
+    <td class="left bold" colspan=5>Total avant remises</td>
     <td class="right" colspan=2>{{ facture.montantFactureTTC|number_format(2, ',', ' ') }} €</td>
+</tr>
+<tr class="success">
+    <td class="left bold" colspan=5>Total à payer</td>
+    <td class="right" colspan=2>{{ facture.montantAPayer|number_format(2, ',', ' ') }} €</td>
 </tr>

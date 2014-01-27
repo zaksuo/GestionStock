@@ -7,8 +7,8 @@
     <field name="dateCreation" type="datetime" column="date_creation" nullable="false"/>
     <field name="montantFactureHT" type="float" column="montant_facture_ht"/>
     <field name="montantFactureTTC" type="float" column="montant_facture_ttc"/>
-    <field name="montantRemiseHT" type="float" column="montant_remise_ht"/>
-    <field name="montantRemiseTTC" type="float" column="montant_remise_ttc"/>
+    <field name="montantRemise" type="float" column="montant_remise"/>
+    <field name="montantAPayer" type="float" column="montant_a_payer"/>
     <field name="valide" type="boolean" column="valide"/>
     <field name="dateValidation" type="datetime" column="date_validation" nullable="true"/>
     <many-to-one field="client" target-entity="Client">

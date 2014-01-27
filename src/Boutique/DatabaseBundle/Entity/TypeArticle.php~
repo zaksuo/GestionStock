@@ -84,4 +84,60 @@ class TypeArticle
     {
         return $this->id;
     }
+    /**
+     * @var string $description
+     */
+    private $description;
+
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return TypeArticle
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    /**
+     * @var integer
+     */
+    private $parent;
+
+
+    /**
+     * Set parent
+     *
+     * @param integer $parent
+     * @return TypeArticle
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return integer 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
 }

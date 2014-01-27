@@ -1,0 +1,16 @@
+<table class="table table-bordered">    
+    <tr>
+        <th>Objet de la remise</th>
+        <td>{{ form_widget(form.categorieRemise, { 'attr' : {'class' : 'input-large'}}) }}</td>
+    </tr>
+    <tr>
+        <th>Type de remise</th>
+        <td>{{ form_widget(form.typeRemise, { 'attr' : {'class' : 'input-large'}}) }}</td>
+    </tr>
+    <tr>
+        <th>Valeur de la remise</th>
+        <td>{{ form_widget(form.value, { 'attr' : {'class' : 'input-small'}}) }}</td>
+    </tr>
+
+    {{ form_rest(form) }}
+</table>

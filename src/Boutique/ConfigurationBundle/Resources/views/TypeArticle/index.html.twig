@@ -1,0 +1,51 @@
+{% extends "BoutiqueConfigurationBundle::layout.html.twig" %}
+
+{% block content %}
+    <h4>Liste des catégories d'articles</h4>
+
+    <a href="{{ path('typeArticle_new') }}" class="btn btn-success">Nouvelle catégorie</a>
+    
+    <br /><br />
+    <ul class="category-list">
+    {% for categorie in entities %}
+        <li>
+            <div class="list-opened">{{ categorie }}</div> 
+            {% if categorie.hasChildren %}
+                {% include "BoutiqueConfigurationBundle:TypeArticle:_children.html.twig"  with {'categories': categorie.children, 'level' : 2} %}
+            {% endif %}
+        </li>
+    {% endfor %}
+    
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Libelle</th>
+                <th>Description</th>
+                <th>Parent</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('typeArticle_show', { 'id': entity.id }) }}">{{ entity.libelle }}</a></td>
+                <td>{{ entity.description }}</td>
+                <td>{{ entity.parent }}</td>
+                <td>{{ entity.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('typeArticle_show', { 'id': entity.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('typeArticle_edit', { 'id': entity.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}

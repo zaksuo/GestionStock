@@ -23,7 +23,20 @@ class TypeArticle
      * @var integer $id
      */
     private $id;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $children;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     public function __toString() {
         return $this->libelle;
     }
@@ -111,5 +124,74 @@ class TypeArticle
     public function getDescription()
     {
         return $this->description;
+    }
+    /**
+     * @var integer
+     */
+    private $parent;
+
+
+    /**
+     * Set parent
+     *
+     * @param integer $parent
+     * @return TypeArticle
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return integer 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    public function hasChildren()
+    {
+        if(count($this->children) > 0) {
+            return true;
+        }
+        else return false;
+    }
+    
+    /**
+     * Add children
+     *
+     * @param \Boutique\DatabaseBundle\Entity\TypeArticle $children
+     * @return TypeArticle
+     */
+    public function addChildren(\Boutique\DatabaseBundle\Entity\TypeArticle $children)
+    {
+        $this->children[] = $children;
+    
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Boutique\DatabaseBundle\Entity\TypeArticle $children
+     */
+    public function removeChildren(\Boutique\DatabaseBundle\Entity\TypeArticle $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }

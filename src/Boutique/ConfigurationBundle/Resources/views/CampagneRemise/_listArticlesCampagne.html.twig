@@ -1,0 +1,18 @@
+<fieldset>
+    <table class="table table-striped table-bordered listeArticlesCampagne">
+        <caption>Articles liés à la campagne</caption>
+        <thead>
+            <tr>
+                <th class="">Code</th>
+                <th class="">Libellé</th>
+                <th class="">Prix TTC</th>
+                <th class="">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for camp_article in campagne.campagneArticles %}
+            {% include "BoutiqueConfigurationBundle:CampagneRemise:_article.html.twig" with {'camp_article' : camp_article} %} 
+        {% endfor %}
+        </tbody>
+    </table>
+</fieldset> 

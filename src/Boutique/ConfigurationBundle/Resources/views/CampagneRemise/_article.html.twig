@@ -1,0 +1,8 @@
+<tr id="c{{camp_article.article.id}}">
+    <td class="bold center">{{ camp_article.article.code }}</td>
+    <td class="">{{ camp_article.article.libelle }}</td>
+    <td class="center">{{ camp_article.article.prixVente|number_format(2, ',', ' ') }} €</td>
+    <td class="action_menu width15">
+        <a href="{{ path('campagneremise_remove_article', {'campagne_article' : camp_article.id}) }}" class="btn btn-danger removeArticle" title="Retirer cet article de la campagne de remises">Retirer</a>
+    </td>
+</tr>

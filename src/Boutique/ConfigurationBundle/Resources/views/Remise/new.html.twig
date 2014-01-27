@@ -1,0 +1,13 @@
+{% extends "BoutiqueConfigurationBundle::layout.html.twig" %}
+
+{% block content %}
+    <h4>Nouvelle remise</h4>
+
+    <form action="{{ path('remise_create') }}" method="post" {{ form_enctype(form) }}>
+        {% include "BoutiqueConfigurationBundle:Remise:_form.html.twig" with {'form' : form} %} 
+        <div class="right">
+            <a class="btn" href="{{ path('remise') }}">Annuler</a>
+            <button class="btn btn-success" type="submit">Enregistrer</button>
+        </div>
+    </form>
+{% endblock %}

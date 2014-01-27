@@ -10,47 +10,22 @@ use Doctrine\ORM\Mapping as ORM;
 class TypeRemise
 {
     /**
-     * @var string $code
-     */
-    private $code;
-
-    /**
-     * @var string $libelle
+     * @var string
      */
     private $libelle;
-
+    
     /**
-     * @var string $desc
+     * @var string
      */
-    private $desc;
+    private $sigle;
 
     /**
-     * @var integer $id
+     * @var integer
      */
     private $id;
 
-
-    /**
-     * Set code
-     *
-     * @param string $code
-     * @return TypeRemise
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-    
-        return $this;
-    }
-
-    /**
-     * Get code
-     *
-     * @return string 
-     */
-    public function getCode()
-    {
-        return $this->code;
+    public function __toString() {
+        return $this->libelle;
     }
 
     /**
@@ -77,29 +52,6 @@ class TypeRemise
     }
 
     /**
-     * Set desc
-     *
-     * @param string $desc
-     * @return TypeRemise
-     */
-    public function setDesc($desc)
-    {
-        $this->desc = $desc;
-    
-        return $this;
-    }
-
-    /**
-     * Get desc
-     *
-     * @return string 
-     */
-    public function getDesc()
-    {
-        return $this->desc;
-    }
-
-    /**
      * Get id
      *
      * @return integer 
@@ -108,60 +60,27 @@ class TypeRemise
     {
         return $this->id;
     }
-    /**
-     * @var string $description
-     */
-    private $description;
-
 
     /**
-     * Set description
+     * Set sigle
      *
-     * @param string $description
-     * @return TypeRemise
+     * @param string $sigle
      */
-    public function setDescription($description)
+    public function setSigle($sigle)
     {
-        $this->description = $description;
+        $this->sigle = $sigle;
     
         return $this;
     }
 
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-    /**
-     * @var string $object
-     */
-    private $object;
-
-
-    /**
-     * Set object
-     *
-     * @param string $object
-     * @return TypeRemise
-     */
-    public function setObject($object)
-    {
-        $this->object = $object;
     
-        return $this;
-    }
-
     /**
-     * Get object
+     * Get sigle
      *
      * @return string 
      */
-    public function getObject()
+    public function getSigle()
     {
-        return $this->object;
+        return $this->sigle;
     }
 }

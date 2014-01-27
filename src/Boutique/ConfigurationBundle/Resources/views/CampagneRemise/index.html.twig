@@ -1,0 +1,28 @@
+{% extends "BoutiqueConfigurationBundle::layout.html.twig" %}
+
+{% block content %}
+    <h4>Liste des campagnes de remises</h4>
+
+    <a href="{{ path('campagneremise_new') }}" class="btn btn-success">Nouvelle campagne de remises</a>
+    <br /><br />
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Date début</th>
+            <th>Date fin</th>
+            <th>Remise</th>
+            <th>Active ?</th>
+            <th>Actions</th>
+        </tr>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.dateDebut|date('d/m/Y') }}</td>
+                <td>{% if entity.dateFin %}{{ entity.dateFin|date('d/m/Y') }}{% else %} - {% endif %}</td>
+                <td>{{ entity.remise }}</td>
+                <td>{% if entity.active %}Oui{% else %}Non{% endif %}</td>
+                <td class="action_menu width15">
+                    <a href="{{ path('campagneremise_edit', { 'id': entity.id }) }}"><div class="btn btn-small" title="Modifier les informations de cette campagne de remises"><span class="ui-menu-icon icon_16 icon_16_notepad_edit"></span></div></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "BoutiqueConfigurationBundle::layout.html.twig" %}
+
+{% block content %}
+    <h1>CampagneRemise</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Datedebut</th>
+                <td>{{ entity.dateDebut|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Datefin</th>
+                <td>{{ entity.dateFin|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{{ entity.active }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('campagneremise') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('campagneremise_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>
+            <form action="{{ path('campagneremise_delete', { 'id': entity.id }) }}" method="post">
+                {{ form_widget(delete_form) }}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    </ul>
+{% endblock %}

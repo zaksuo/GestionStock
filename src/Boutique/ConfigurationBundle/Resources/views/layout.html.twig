@@ -1,0 +1,12 @@
+{% extends "::configuration.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/boutique/js/libs/jquery-ui-1.9.0.custom/development-bundle/ui/i18n/jquery.ui.datepicker-fr.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/boutique/js/bundles/gestionStock_configuration.js') }}"></script>
+{% endblock %}

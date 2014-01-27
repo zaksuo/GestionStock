@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Boutique\DatabaseBundle\Entity\FactureRemiseArticle" table="facture_remise_article">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <many-to-one field="factureArticle" target-entity="FactureArticle">
+      <join-columns>
+        <join-column name="facture_article" referenced-column-name="id" />
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="campagneArticle" target-entity="campagneArticle">
+      <join-columns>
+        <join-column name="campagne_article" referenced-column-name="id" />
+      </join-columns>
+    </many-to-one>
+    <field name="valeur" type="float" column="valeur" nullable="false" />
+  </entity>
+</doctrine-mapping>

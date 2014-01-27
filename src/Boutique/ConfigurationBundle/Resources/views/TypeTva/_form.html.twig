@@ -1,0 +1,17 @@
+<table class="table table-bordered">
+    <tr>
+        <th>Libellé</th>
+        <td>{{ form_widget(form.libelle, { 'attr' : {'class' : 'input-large'}}) }}</td>
+    </tr>
+
+    <tr>
+        <th>Valeur pour le calcul</th>
+        <td>{{ form_widget(form.valeur, { 'attr' : {'class' : 'input-small'}}) }}</td>
+    </tr>
+</table>
+{{ form_rest(form) }}
+
+<div class="right">
+    <a class="btn" href="{{ path('typeTva') }}">Annuler</a>
+    <button class="btn btn-success" type="submit">Enregistrer</button>
+</div> 

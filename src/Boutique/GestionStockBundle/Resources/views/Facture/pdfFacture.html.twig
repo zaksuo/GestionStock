@@ -44,11 +44,16 @@
         {% if facture.hasFactArticles %}
             {% for fact_article in facture.factArticles %}
                 <tr>
-                    <td class="center">{{ fact_article.article.code }}</td>
+                    <td class="center" rowspan="{{ fact_article.factureRemiseArticles|length + 1 }}">{{ fact_article.article.code }}</td>
                     <td class="left">{{ fact_article.article.libelle }}</td>
                     <td class="center">{{ fact_article.quantite }}</td>
                     <td class="center">{{ fact_article.getPrixUnitaire|number_format(2, ',', ' ') }} € / {{ fact_article.article.typeVente.unite }}</td>
                     <td class="center">{{ fact_article.getTotalPrixArticleTTC|number_format(2, ',', ' ') }} €</td>
+                    {% for fact_rem_art in fact_article.factureRemiseArticles %}
+                        <tr class="">
+                            <td colspan=3>{{ fact_rem_art.campagneArticle.campagneRemise.remise }}</td>
+                            <td class="center" colspan=1>- {{ fact_rem_art.valeur }}  €</td>
+                    {% endfor %}
                 </tr>
             {% endfor %}
             <tr>
@@ -63,8 +68,16 @@
                 <td class="center">{{ facture.getTvaTotal|number_format(2, ',', ' ') }} €</td>
             </tr>
             <tr class="success">
-                <td class="left" colspan=4>Total à payer</td>
-                <td class="center">{{ facture.montantFactureTTC|number_format(2, ',', ' ') }} €</td>
+                <td class="left bold" colspan=4>Total remises</td>
+                <td class="center" colspan=2>{{ facture.getMontantRemise|number_format(2, ',', ' ') }} €</td>
+            </tr>
+            <tr class="success">
+                <td class="left bold" colspan=4>Total avant remises</td>
+                <td class="center" colspan=2>{{ facture.montantFactureTTC|number_format(2, ',', ' ') }} €</td>
+            </tr>
+            <tr class="success">
+                <td class="left bold" colspan=4>Total à payer</td>
+                <td class="center" colspan=2>{{ facture.montantAPayer|number_format(2, ',', ' ') }} €</td>
             </tr>
         {% else %}
             <tr>

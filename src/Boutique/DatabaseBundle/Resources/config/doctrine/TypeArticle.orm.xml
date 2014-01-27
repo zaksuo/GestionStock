@@ -5,6 +5,8 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="libelle" type="string" column="libelle" length="50" nullable="false"/>
-    <field name="description" type="string" column="description" length="255" nullable="false"/>
+    <field name="description" type="string" column="description" length="255" nullable="true"/>
+    <one-to-many field="children" target-entity="TypeArticle" mapped-by="parent" />
+    <many-to-one field="parent" target-entity="TypeArticle" inversed-by="children" />
   </entity>
 </doctrine-mapping>

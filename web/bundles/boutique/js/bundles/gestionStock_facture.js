@@ -97,7 +97,13 @@ $(document).ready(function(){
                 target: articleRow,
                 replaceTarget: true,
                 type: 'post',
-            success : updateFactureTotal
+            beforeSubmit: function( arr, $form, options ) {
+                var rem_id = ".rem" + articleRow.attr('id');
+                $(rem_id).remove();
+            },
+            success : function() {
+                updateFactureTotal();
+            }
             });
             return false;
         }
@@ -111,6 +117,10 @@ $(document).ready(function(){
             target: articleRow,
             replaceTarget: true,
             type: 'post',
+            beforeSubmit: function( arr, $form, options ) {
+                var rem_id = ".rem" + articleRow.attr('id');
+                $(rem_id).remove();
+            },
             success : updateFactureTotal
         });
     });

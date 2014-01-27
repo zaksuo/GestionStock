@@ -20,6 +20,27 @@ class FactureArticle
     private $id;
 
     /**
+    * @var float $prixUnitaire
+    */
+    private $prixUnitaire;
+
+    /**
+    * @var float $tvaUnitaire
+    */
+    private $tvaUnitaire;
+        
+    /**
+     * @var Boutique\DatabaseBundle\Entity\Facture
+     */
+    private $facture;
+
+    /**
+     * @var Boutique\DatabaseBundle\Entity\Article
+     */
+    private $article;
+    
+    
+    /**
      * Set quantite
      *
      * @param integer $quantite
@@ -52,19 +73,6 @@ class FactureArticle
         return $this->id;
     }
 
-    private $prixUnitaire;
-
-    /**
-     * @var Boutique\DatabaseBundle\Entity\Facture
-     */
-    private $facture;
-
-    /**
-     * @var Boutique\DatabaseBundle\Entity\Article
-     */
-    private $article;
-
-
     /**
      * Set prixUnitaire
      *
@@ -85,7 +93,7 @@ class FactureArticle
      */
     public function getPrixUnitaire()
     {
-        return number_format($this->prixUnitaire, 2);
+        return $this->prixUnitaire;
     }
 
     /**
@@ -134,23 +142,93 @@ class FactureArticle
         return $this->article;
     }
     
-    public function getArticlePrixTotal() {
-        return number_format(round($this->quantite * $this->prixUnitaire, 2), 2);
+    /**
+     * Set tvaUnitaire
+     *
+     * @param float $tvaUnitaire
+     * @return FactureArticle
+     */
+    public function setTvaUnitaire($tvaUnitaire)
+    {
+        $this->tvaUnitaire = $tvaUnitaire;
+    
+        return $this;
+    }
+
+    /**
+     * Get tvaUnitaire
+     *
+     * @return float 
+     */
+    public function getTvaUnitaire()
+    {
+        return $this->tvaUnitaire;
     }
     
-    public function getTva() {
-        return number_format(round($this->prixUnitaire * $this->getArticle()->getTypeTva()->getValeur() / 100, 2), 2);
+    
+    public function getTotalPrixArticleTTC() {
+        return round($this->quantite * $this->prixUnitaire, 2);
     }
     
-    public function getTotalArticleTva() {
-        return number_format(round( $this->prixUnitaire * $this->getArticle()->getTypeTva()->getValeur() / 100 * $this->quantite, 2 ), 2);
+    public function getTotalPrixArticleHT() {
+        return round($this->quantite * ( $this->prixUnitaire - $this->tvaUnitaire ), 2);
     }
     
-    public function getPrixUnitaireTTC() {
-        return number_format(round( $this->getPrixUnitaire() + $this->getTva() ,2),2);
+    public function getPrixArticleHT() {
+        return round( $this->prixUnitaire - $this->tvaUnitaire, 2);
     }
     
-    public function getTotalArticleTTC() {
-        return number_format(round( $this->getPrixUnitaireTTC() * $this->quantite ,2),2);
+    public function getTvaArticle() {
+        return round($this->tvaUnitaire, 2);
     }
-} 
+    
+    public function getTotalTvaArticle() {
+        return round( $this->tvaUnitaire * $this->quantite, 2 );
+    }
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $factureRemiseArticles;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->factureRemiseArticles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add factureRemiseArticles
+     *
+     * @param \Boutique\DatabaseBundle\Entity\FactureRemiseArticle $factureRemiseArticles
+     * @return FactureArticle
+     */
+    public function addFactureRemiseArticle(\Boutique\DatabaseBundle\Entity\FactureRemiseArticle $factureRemiseArticles)
+    {
+        $this->factureRemiseArticles[] = $factureRemiseArticles;
+    
+        return $this;
+    }
+
+    /**
+     * Remove factureRemiseArticles
+     *
+     * @param \Boutique\DatabaseBundle\Entity\FactureRemiseArticle $factureRemiseArticles
+     */
+    public function removeFactureRemiseArticle(\Boutique\DatabaseBundle\Entity\FactureRemiseArticle $factureRemiseArticles)
+    {
+        $this->factureRemiseArticles->removeElement($factureRemiseArticles);
+    }
+
+    /**
+     * Get factureRemiseArticles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFactureRemiseArticles()
+    {
+        return $this->factureRemiseArticles;
+    }
+}

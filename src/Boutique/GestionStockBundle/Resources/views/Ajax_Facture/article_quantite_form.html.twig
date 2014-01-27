@@ -1,5 +1,5 @@
 <tr id="{{ fact_article.article.id }}">
-    <td class="center"><a href="{{ path('article_show', {'id' : fact_article.article.id}) }}">{{ fact_article.article.code }}</a></td>
+    <td class="center" rowspan="{{ fact_article.factureRemiseArticles|length + 1 }}"><a href="{{ path('article_show', {'id' : fact_article.article.id}) }}">{{ fact_article.article.code }}</a></td>
     <td class="">{{ fact_article.article.libelle }}</td>
     <td class="center">
         <form class="facture_article_quantite facture-quantite-form" action="{{ path('facture_article_update_quantite', {'id_fact_article': fact_article.id}) }}" method="post">
@@ -10,9 +10,19 @@
     <td class="right">{{ fact_article.getTotalTvaArticle|number_format(2, ',', ' ') }} €</td>
     <td class="right">{{ fact_article.getTotalPrixArticleTTC|number_format(2, ',', ' ') }} €</td>
     <td class="action_menu">
-        <div class="btn btn-small" title="Ajouter une remise sur cet article"><span class="icon_16 icon_16_plus"></span></div>
+        {#<div class="btn btn-small" title="Ajouter une remise sur cet article"><span class="icon_16 icon_16_plus"></span></div>#}
         <a href="{{ path('facture_article_remove', {'id_fact_article': fact_article.id}) }}">
             <div class="btn btn-small" title="Supprimer cet article"><span class="icon_16 icon_16_trash2"></span></div>
         </a>
     </td>
+    {% for fact_rem_art in fact_article.factureRemiseArticles %}
+        <tr class="rem{{ fact_article.article.id }}">
+            <td colspan=4>{{ fact_rem_art.campagneArticle.campagneRemise.remise }}</td>
+            <td>- {{ fact_rem_art.valeur }}  €</td>
+            <td class="action_menu">
+                <a href="{{ path('facturation_remise_article_remove', {'facture': fact_article.facture.id, 'id_fact_rem_article' : fact_rem_art.id}) }}">
+                    <div class="btn btn-small" title="Supprimer la remise de cet article"><span class="icon_16 icon_16_trash2"></span></div>
+                </a>
+            </td>
+    {% endfor %}
 </tr>

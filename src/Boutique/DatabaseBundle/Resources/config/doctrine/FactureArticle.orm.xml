@@ -17,5 +17,6 @@
         <join-column name="facture" referenced-column-name="id" />
       </join-columns>
     </many-to-one>
+    <one-to-many field="factureRemiseArticles" target-entity="FactureRemiseArticle" mapped-by="factureArticle" />
   </entity>
 </doctrine-mapping>

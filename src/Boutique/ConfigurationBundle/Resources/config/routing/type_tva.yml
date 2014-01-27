@@ -1,0 +1,26 @@
+typeTva:
+    pattern:  /
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeTva:index" }
+
+typeTva_new:
+    pattern:  /new
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeTva:new" }
+
+typeTva_create:
+    pattern:  /create
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeTva:create" }
+    requirements: { _method: post }
+
+typeTva_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeTva:edit" }
+
+typeTva_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeTva:update" }
+    requirements: { _method: post }
+
+typeTva_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "BoutiqueConfigurationBundle:TypeTva:delete" }
+    requirements: { _method: post }

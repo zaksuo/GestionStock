@@ -382,8 +382,8 @@ class Facture
     public function init() {
         $this->montantFactureHT = 0;
         $this->montantFactureTTC = 0;
-        $this->montantRemiseHT = 0;
-        $this->montantRemiseTTC = 0;
+        $this->montantRemise = 0;
+        $this->montantAPayer = 0;
         $this->dateCreation = new \DateTime('now');
         $this->valide = false;
         
@@ -413,6 +413,20 @@ class Facture
         }
         
         return number_format(round( $prix_total_ht, 2 ), 2);
+    }
+    
+    public function getTotalRemises() {
+        $total_remises = 0;
+        
+        if( count( $this->getFactArticles() ) > 0 ) {
+            foreach($this->factArticles as $article) {
+                foreach($article->getFactureRemiseArticles() as $remise_article) {
+                    $total_remises += $remise_article->getValeur();
+                }
+            }
+        }
+        
+        return number_format(round( $total_remises, 2 ), 2);
     }
     
     public function getTvaTotal() {
@@ -483,9 +497,15 @@ class Facture
             $quantite = $article->getQuantite();
             $prixUnitaire = $article->getPrixUnitaire();
             $montant = $article->getTotalPrixArticleTTC();
+            $remises = $article->getFactureRemiseArticles();
             
             $temp .= $libelle . "\n";
             $temp .= "\t" . $prixUnitaire . " E * " . $quantite . " \t\t" . $montant . " E\n";
+            foreach( $remises as $remise ) {
+                $val_rem = $remise->getCampagneArticle()->getCampagneRemise()->getRemise()->getValue();
+                $type_rem = $remise->getCampagneArticle()->getCampagneRemise()->getRemise()->getTypeRemise();
+                $temp .= "\tRemise : " . $val_rem . " " . $type_rem->getSigle() . " \t\t-" . $remise->getValeur() . " E\n";
+            }
         }
         return $temp . "\n";
     }
@@ -502,7 +522,12 @@ class Facture
         $temp = "\n";
         $temp .= $this->completeLine( " Montant H.T.", 27 ) . "\t" . number_format($this->montantFactureHT, 2) . " \tE\n";
         $temp .= $this->completeLine( " T.V.A.", 27 ) . "\t" . number_format(($this->montantFactureTTC - $this->montantFactureHT), 2) . " \tE\n";
-        $temp .= $this->completeLine( " TOTAL A PAYER", 27 ) . "\t" . number_format($this->montantFactureTTC, 2) . " \tE\n";
+        if( $this->montantRemise > 0 ) {
+            $temp .= $this->completeLine( " Total avant remises", 27 ) . "\t" . number_format($this->montantFactureTTC, 2) . " \tE\n";
+            $temp .= $this->completeLine( " Total remises", 27 ) . "\t-" . number_format($this->montantRemise, 2) . " \tE\n";
+        }
+        
+        $temp .= $this->completeLine( " TOTAL A PAYER", 27 ) . "\t" . number_format($this->montantAPayer, 2) . " \tE\n";
         
         return $temp;
     }
@@ -515,4 +540,32 @@ class Facture
         return $temp_head;
     }
     
+    /**
+     * @var float
+     */
+    private $montantAPayer;
+
+
+    /**
+     * Set montantAPayer
+     *
+     * @param float $montantAPayer
+     * @return Facture
+     */
+    public function setMontantAPayer($montantAPayer)
+    {
+        $this->montantAPayer = $montantAPayer;
+    
+        return $this;
+    }
+
+    /**
+     * Get montantAPayer
+     *
+     * @return float 
+     */
+    public function getMontantAPayer()
+    {
+        return $this->montantAPayer;
+    }
 }

@@ -1,0 +1,10 @@
+<ul>
+{% for categorie in categories %}
+    <li class="">
+        <div class="list-opened">{{ categorie }}</div>    
+        {% if categorie.hasChildren %}
+            {% include "BoutiqueConfigurationBundle:TypeArticle:_children.html.twig"  with {'categories': categorie.children, 'level' : level + 1} %}
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>

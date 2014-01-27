@@ -1,0 +1,30 @@
+{% extends "BoutiqueConfigurationBundle::layout.html.twig" %}
+
+{% block content %}
+    <h4>Liste des remises configurées</h4>
+
+    <a href="{{ path('remise_new') }}" class="btn btn-success">Configurer un nouvelle remise</a>
+    <br /><br />
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Objet remise</th>
+            <th>Type remise</th>
+            <th>Valeur</th>
+            <th>Actions</th>
+        </tr>
+        {% if entities|length > 0 %}
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.categorieRemise.libelle }}</td>
+                    <td>{{ entity.typeRemise.libelle }}</td>
+                    <td>{{ entity.value }} </td>
+                    <td class="action_menu width15">
+                        <a href="{{ path('remise_edit', { 'id': entity.id }) }}"><div class="btn btn-small" title="Modifier les informations de cette remise"><span class="ui-menu-icon icon_16 icon_16_notepad_edit"></span></div></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+             <tr><td colspan=4>Aucune remise n'a été configurée.</td></tr>
+        {% endif %}
+    </table>
+{% endblock %}

@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Boutique\DatabaseBundle\BoutiqueDatabaseBundle(),
             new Spraed\PDFGeneratorBundle\SpraedPDFGeneratorBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Boutique\ConfigurationBundle\BoutiqueConfigurationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

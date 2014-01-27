@@ -1,0 +1,27 @@
+<fieldset>
+    <table class="table table-striped table-bordered">
+        <caption>Liste des articles</caption>
+        <thead>
+            <tr>
+                <th class="">Code</th>
+                <th class="">Libellé</th>
+                <th class="">Prix TTC</th>
+                <th class="">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in pagination %}
+            <tr id="a{{article.id}}">
+                <td class="bold center">{{ article.code }}</td>
+                <td class="">{{ article.libelle }}</td>
+                <td class="center">{{ article.prixVente|number_format(2, ',', ' ') }} €</td>
+                <td class="action_menu width15">
+                    <a href="{{ path('campagneremise_add_article', {'campagne' : campagne.id, 'article' : article.id}) }}" class="btn btn-success addArticle {% if campagne.hasArticle( article.id) %}disabled{%endif%}" title="Ajouter cet article à la campagne de remises">Ajouter</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        
+    <div class="right">{{ knp_pagination_render(pagination) }}</div>
+</fieldset> 

@@ -10,19 +10,14 @@ use Doctrine\ORM\Mapping as ORM;
 class Facture
 {
     /**
-     * @var \DateTime $date
+     * @var \DateTime $dateCreation
      */
-    private $date;
+    private $dateCreation;
 
     /**
      * @var integer $client
      */
     private $client;
-
-    /**
-     * @var float $montant
-     */
-    private $montantFacture;
 
     /**
      * @var float $montantRemise
@@ -35,7 +30,34 @@ class Facture
     private $id;
     
     private $factArticles;
+    
     private $factRemises;
+        
+    /**
+     * @var float $montantFactureHT
+     */
+    private $montantFactureHT;
+
+    /**
+     * @var float $montantFactureTTC
+     */
+    private $montantFactureTTC;
+
+    /**
+     * @var float $montantRemiseHT
+     */
+    private $montantRemiseHT;
+
+    /**
+     * @var float $montantRemiseTTC
+     */
+    private $montantRemiseTTC;
+    
+    /**
+    * @var \DateTime $dateValidation
+    */
+    private $dateValidation;
+    
     
     /**
      * Constructor
@@ -52,9 +74,9 @@ class Facture
      * @param \DateTime $date
      * @return Facture
      */
-    public function setDate($date)
+    public function setDateCreation($dateCreation)
     {
-        $this->date = $date;
+        $this->dateCreation = $dateCreation;
     
         return $this;
     }
@@ -64,15 +86,15 @@ class Facture
      *
      * @return \DateTime 
      */
-    public function getDate()
+    public function getDateCreation()
     {
-        return $this->date;
+        return $this->dateCreation;
     }
 
     /**
      * Set client
      *
-     * @param integer $client
+     * @param Boutique\DatabaseBundle\Entity\Client $client
      * @return Facture
      */
     public function setClient($client)
@@ -176,14 +198,27 @@ class Facture
         return $this->valide;
     }
     
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Facture
+     */
+    public function setDateValidation($dateValidation)
+    {
+        $this->dateValidation = $dateValidation;
     
-    public function init() {
-        $this->montantFacture = 0;
-        $this->montantRemise = 0;
-        $this->date = new \DateTime('now');
-        $this->valide = false;
-        
         return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDateValidation()
+    {
+        return $this->dateValidation;
     }
     
     /**
@@ -251,6 +286,110 @@ class Facture
     {
         return $this->factRemises;
     }
+
+    /**
+     * Set montantFactureHT
+     *
+     * @param float $montantFactureHT
+     * @return Facture
+     */
+    public function setMontantFactureHT($montantFactureHT)
+    {
+        $this->montantFactureHT = $montantFactureHT;
+    
+        return $this;
+    }
+
+    /**
+     * Get montantFactureHT
+     *
+     * @return float 
+     */
+    public function getMontantFactureHT()
+    {
+        return number_format($this->montantFactureHT, 2);
+    }
+
+    /**
+     * Set montantFactureTTC
+     *
+     * @param float $montantFactureTTC
+     * @return Facture
+     */
+    public function setMontantFactureTTC($montantFactureTTC)
+    {
+        $this->montantFactureTTC = $montantFactureTTC;
+    
+        return $this;
+    }
+
+    /**
+     * Get montantFactureTTC
+     *
+     * @return float 
+     */
+    public function getMontantFactureTTC()
+    {
+        return number_format($this->montantFactureTTC, 2);
+    }
+
+    /**
+     * Set montantRemiseHT
+     *
+     * @param float $montantRemiseHT
+     * @return Facture
+     */
+    public function setMontantRemiseHT($montantRemiseHT)
+    {
+        $this->montantRemiseHT = $montantRemiseHT;
+    
+        return $this;
+    }
+
+    /**
+     * Get montantRemiseHT
+     *
+     * @return float 
+     */
+    public function getMontantRemiseHT()
+    {
+        return number_format($this->montantRemiseHT, 2);
+    }
+
+    /**
+     * Set montantRemiseTTC
+     *
+     * @param float $montantRemiseTTC
+     * @return Facture
+     */
+    public function setMontantRemiseTTC($montantRemiseTTC)
+    {
+        $this->montantRemiseTTC = $montantRemiseTTC;
+    
+        return $this;
+    }
+
+    /**
+     * Get montantRemiseTTC
+     *
+     * @return float 
+     */
+    public function getMontantRemiseTTC()
+    {
+        return number_format($this->montantRemiseTTC, 2);
+    }
+    
+    public function init() {
+        $this->montantFactureHT = 0;
+        $this->montantFactureTTC = 0;
+        $this->montantRemiseHT = 0;
+        $this->montantRemiseTTC = 0;
+        $this->dateCreation = new \DateTime('now');
+        $this->valide = false;
+        
+        return $this;
+    }
+    
     
     public function hasFactArticles() {
         if( count($this->factArticles) > 0 )
@@ -269,24 +408,125 @@ class Facture
         
         if( count( $this->getFactArticles() ) > 0 ) {
             foreach($this->factArticles as $article) {
-                $prix_total_ht += $article->getQuantite() * $article->getPrixUnitaire();
+                $prix_total_ht += $article->getQuantite() * ( $article->getPrixUnitaire() - $article->getTvaUnitaire() );
             }
         }
         
-        return $prix_total_ht;
+        return number_format(round( $prix_total_ht, 2 ), 2);
+    }
+    
+    public function getTotalRemises() {
+        $total_remises = 0;
+        
+        if( count( $this->getFactArticles() ) > 0 ) {
+            foreach($this->factArticles as $article) {
+                foreach($article->getFactureRemiseArticles() as $remise_article) {
+                    $total_remises += $remise_article->getValeur();
+                }
+            }
+        }
+        
+        return number_format(round( $total_remises, 2 ), 2);
     }
     
     public function getTvaTotal() {
         $tva_total = 0;
         if( count( $this->getFactArticles() ) > 0 ) {
             foreach($this->factArticles as $article) {
-                $tva_total += $article->getArticle()->getTypeTva()->getValeur() * ($article->getQuantite() * $article->getPrixUnitaire()) /100;
+                $tva_total += ($article->getQuantite() * $article->getTvaUnitaire());
             }
         }
-        return $tva_total;
+        return number_format(round( $tva_total, 2 ), 2);
     }
     
     public function getPrixTotalTtc() {
-        return $this->getPrixTotalHt() + $this->getTvaTotal();
+        $prix_total = $this->getPrixTotalHt() + $this->getTvaTotal();
+        return number_format(round( $prix_total, 2 ), 2);
     }
+    
+    public function generateTicket() {
+        $ticketTxt = "";
+        
+        $ticketTxt .= $this->generateTicketHeader("-");
+        $ticketTxt .= $this->generateTicketArticles();
+        $ticketTxt .= "   " . $this->getSepLine( '=', 36 ) . "   \n";
+        $ticketTxt .= $this->generateTicketTotal()."\n";
+        $ticketTxt .= $this->generateTicketFooter("-");
+
+        return $ticketTxt;
+    }
+    
+    private function generateTicketHeader( $horiz_char ) {
+        $vert_char = '|';
+        $header = '';
+        $line1 = "La Dame de Quilt";
+        $line2 = "32 Rue de l'Eglise";
+        $line3 = "77250 - Moret sur Loing";
+        $line4 = "SIRET : 789 145 265 000 11";
+        $line5 = "Tel : 01 60 72 73 84";
+        
+        $sep_line = $this->getSepLine( $horiz_char, 42 );
+        $header .= substr($sep_line, 0, 40) . "\n";
+        $header .= $vert_char . " " . $this->completeLine( $line1, 41 ) . $vert_char . "\n";
+        $header .= $vert_char . " " . $this->completeLine( $line2, 41 ) . $vert_char . "\n";
+        $header .= $vert_char . " " . $this->completeLine( $line3, 41 ) . $vert_char . "\n";
+        $header .= $vert_char . " " . $this->completeLine( $line4, 41 ) . $vert_char . "\n";
+        $header .= $vert_char . " " . $this->completeLine( $line5, 41 ) . $vert_char . "\n";
+        $header .= $sep_line . "\n\n";
+
+        return $header;
+    }
+    
+    private function generateTicketFooter( $horiz_char ) {
+        $footer = '';
+        $sep_line = $this->getSepLine( $horiz_char, 42 );
+        $line1 = "Merci, et à bientôt !";
+        
+        $footer .= $sep_line . "\n";
+        $footer .= "\t" . $this->completeLine( $line1, 41 ) . "\n";
+
+        return $footer;
+    }
+    
+    private function generateTicketArticles() {
+        $temp = "Ticket : ".$this->getId()." \n";
+        $temp .= "Date : ".date('d/m/Y à H:i')." \n\n";
+        
+        foreach( $this->factArticles as $article ) {
+            $libelle = substr($article->getArticle(), 0, 30);
+            $quantite = $article->getQuantite();
+            $prixUnitaire = $article->getPrixUnitaire();
+            $montant = $article->getTotalPrixArticleTTC();
+            
+            $temp .= $libelle . "\n";
+            $temp .= "\t" . $prixUnitaire . " E * " . $quantite . " \t\t" . $montant . " E\n";
+        }
+        return $temp . "\n";
+    }
+    
+    private function getSepLine( $char, $size ) {
+        $sep_line = "";
+        for( $i = 0; $i < $size; $i ++) {
+            $sep_line .= $char;
+        }
+        return $sep_line;
+    }
+    
+    private function generateTicketTotal() {
+        $temp = "\n";
+        $temp .= $this->completeLine( " Montant H.T.", 27 ) . "\t" . number_format($this->montantFactureHT, 2) . " \tE\n";
+        $temp .= $this->completeLine( " T.V.A.", 27 ) . "\t" . number_format(($this->montantFactureTTC - $this->montantFactureHT), 2) . " \tE\n";
+        $temp .= $this->completeLine( " TOTAL A PAYER", 27 ) . "\t" . number_format($this->montantFactureTTC, 2) . " \tE\n";
+        
+        return $temp;
+    }
+    
+    private function completeLine( $string, $size ) {
+        $temp_head = $string;
+        for( $i = strlen($temp_head)+2; $i < $size; $i++ ) {
+            $temp_head .= " ";
+        }
+        return $temp_head;
+    }
+    
 }

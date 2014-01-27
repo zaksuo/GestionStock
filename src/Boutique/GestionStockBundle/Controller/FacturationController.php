@@ -11,6 +11,7 @@ use Boutique\DatabaseBundle\Entity\FactureFilter;
 use Boutique\DatabaseBundle\Form\FactureFilterType;
 use Boutique\DatabaseBundle\Entity\FactureArticle;
 use Boutique\DatabaseBundle\Form\FactureArticleType;
+use Boutique\DatabaseBundle\Entity\FactureRemiseArticle;
 use Boutique\DatabaseBundle\Entity\Client;
 use Boutique\DatabaseBundle\Form\ClientType;
 
@@ -120,6 +121,9 @@ class FacturationController extends Controller
         
         if( $facture->hasFactArticles() ) {
             foreach( $facture->getFactArticles() as $article ) {
+                foreach( $article->getFactureRemiseArticles() as $remise ) {
+                    $em->remove($remise);
+                }
                 $em->remove($article);
             }
         }
@@ -141,8 +145,7 @@ class FacturationController extends Controller
         
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id);
         
-        $facture->setMontantFactureHT( $facture->getPrixTotalHt());
-        $facture->setMontantFactureTTC( $facture->getPrixTotalTtc());
+        $this->updateTotalFacture($facture->getId());
         
         foreach($facture->getFactArticles() as $fact_article) {
             $article_stock = $fact_article->getArticle()->getArticleStock();
@@ -222,6 +225,7 @@ class FacturationController extends Controller
     public function addArticleAction($id_facture, $id_article) {
         $em = $this->getDoctrine()->getManager();
         
+        $remises_article = null;
         $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($id_facture);
         $article = $em->getRepository('BoutiqueDatabaseBundle:Article')->find($id_article);
         
@@ -236,7 +240,33 @@ class FacturationController extends Controller
         $em->persist($fact_article);
         
         $em->persist($facture);
+        
+        $remises_article = $em->getRepository('BoutiqueDatabaseBundle:CampagneArticle')->findBy(array('article' => $id_article));
+        
+        if( !is_null($remises_article) ) {
+            foreach( $remises_article as $remise ) {
+                if( $remise->getCampagneRemise()->getActive() ) {
+                    $fact_rem_art = new FactureRemiseArticle();
+                    $fact_rem_art->setCampagneArticle($remise);
+                    $fact_rem_art->setFactureArticle($fact_article);
+
+                    $type_remise = $remise->getCampagneRemise()->getRemise()->getTypeRemise()->getLibelle();
+                    switch($type_remise) {
+                        case "Euros" :
+                            $valeur = $remise->getCampagneRemise()->getRemise()->getValue(); 
+                        break;
+                        case "Pourcents" :
+                            $valeur = $remise->getCampagneRemise()->getRemise()->getValue() * $fact_article->getPrixUnitaire() / 100;
+                        break;
+                    }
+                    $fact_rem_art->setValeur(round($valeur, 2));
+                    $em->persist($fact_rem_art);
+                }
+            }
+        }
+        
         $em->flush();
+        $em->refresh($fact_article);
         
         $this->updateTotalFacture($id_facture);
         
@@ -300,6 +330,21 @@ class FacturationController extends Controller
         $em->persist($fact_article);
         $em->flush();
         
+        foreach( $fact_article->getFactureRemiseArticles() as $remise ) {
+            $type_remise = $remise->getCampagneArticle()->getCampagneRemise()->getRemise()->getTypeRemise()->getLibelle();
+            switch($type_remise) {
+                case "Euros" :
+                    $valeur = $remise->getCampagneArticle()->getCampagneRemise()->getRemise()->getValue() * $fact_article->getQuantite(); 
+                break;
+                case "Pourcents" :
+                    $valeur = $remise->getCampagneArticle()->getCampagneRemise()->getRemise()->getValue() * $fact_article->getPrixUnitaire() / 100 * $fact_article->getQuantite();
+                break;
+            }
+            $remise->setValeur(round($valeur, 2));
+            $em->persist($remise);
+            $em->flush();
+        }
+        
         $this->updateTotalFacture($fact_article->getFacture()->getId());
         
         return $this->render('BoutiqueGestionStockBundle:Ajax_Facture:article_quantite_form.html.twig', array(
@@ -312,8 +357,27 @@ class FacturationController extends Controller
         
         $fact_article = $em->getRepository('BoutiqueDatabaseBundle:FactureArticle')->find($id_fact_article);
         $facture = $fact_article->getFacture();
+
+        $facture_remise_articles = $em->getRepository('BoutiqueDatabaseBundle:FactureRemiseArticle')->findBy(array('factureArticle' => $id_fact_article));
         
+        foreach($facture_remise_articles as $fact_rem_art) {
+            $em->remove($fact_rem_art);
+        }
         $em->remove($fact_article);
+        $em->flush();
+        
+        $this->updateTotalFacture($facture->getId());
+        
+        return $this->redirect($this->generateUrl('facture_edit', array('id' => $facture->getId())));
+    }
+    
+    public function removeFactRemiseArticleAction($facture, $id_fact_rem_article) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $facture_remise_article = $em->getRepository('BoutiqueDatabaseBundle:FactureRemiseArticle')->find($id_fact_rem_article);
+        $facture = $em->getRepository('BoutiqueDatabaseBundle:Facture')->find($facture);
+        
+        $em->remove($facture_remise_article);
         $em->flush();
         
         $this->updateTotalFacture($facture->getId());
@@ -328,6 +392,8 @@ class FacturationController extends Controller
         
         $facture->setMontantFactureHT( $facture->getPrixTotalHT() );
         $facture->setMontantFactureTTC( $facture->getPrixTotalTTC() );
+        $facture->setMontantRemise( $facture->getTotalRemises() );
+        $facture->setMontantAPayer( $facture->getPrixTotalTTC() - $facture->getTotalRemises() );
         
         $em->persist($facture);
         $em->flush();

@@ -1,0 +1,30 @@
+remise:
+    pattern:  /
+    defaults: { _controller: "BoutiqueConfigurationBundle:Remise:index" }
+
+remise_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "BoutiqueConfigurationBundle:Remise:show" }
+
+remise_new:
+    pattern:  /new
+    defaults: { _controller: "BoutiqueConfigurationBundle:Remise:new" }
+
+remise_create:
+    pattern:  /create
+    defaults: { _controller: "BoutiqueConfigurationBundle:Remise:create" }
+    requirements: { _method: post }
+
+remise_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "BoutiqueConfigurationBundle:Remise:edit" }
+
+remise_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "BoutiqueConfigurationBundle:Remise:update" }
+    requirements: { _method: post }
+
+remise_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "BoutiqueConfigurationBundle:Remise:delete" }
+    requirements: { _method: post }

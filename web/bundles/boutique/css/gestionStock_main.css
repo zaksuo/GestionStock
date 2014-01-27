@@ -26,6 +26,8 @@ body{ width : 80%; padding-left : 10%; }
             background-clip: padding-box;
 }
 
+.block { display : block }
+
 .hidden {display : none;}
 .left {text-align : left;}
 .center {text-align : center;}
@@ -105,13 +107,35 @@ table td { padding: 5px; background : white; }
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* Mise en page de liste sous forme d'arbre */
+ul.category-list,
+ul.category-list ul {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+ul.category-list ul { margin-left: 15px; }
+ul.category-list li .list-opened { background: url("images/12px/arrow_bottom_12.png") 0 3px no-repeat; padding-left : 20px;}
+ul.category-list li .list-opened-hover { background: url("images/12px/arrow_bottom_hover_12.png") 0 3px no-repeat; padding-left : 20px;}
+ul.category-list li .list-closed { background: url("images/12px/arrow_right_12.png") 0 3px no-repeat; padding-left : 20px;}
+ul.category-list li .list-closed-hover { background: url("images/12px/arrow_right_hover_12.png") 0 3px no-repeat; padding-left : 20px;}
+
 /* Wrap icons */
+.icon_12 {width: 12px; height: 12px;}
 .icon_16 {width: 16px; height: 16px;}
 .icon_24 {width: 24px; height: 24px;}
 .icon_32 {width: 24px; height: 24px;}
+.icon_12_before { height: 16px; background-repeat: no-repeat; padding-left : 16px; line-height : 16px; }
 .icon_16_before { height: 16px; background-repeat: no-repeat; padding-left : 20px; line-height : 16px; }
 .icon_24_before { height: 24px; background-repeat: no-repeat; padding-left : 32px; line-height : 24px; }
 .icon_32_before { height: 32px; background-repeat: no-repeat; padding-left : 36px; line-height : 32px; }
+
+/* Icons 12px */
+.icon_12_arrow_bottom {background-image: url(images/12px/arrow_bottom_12.png);}
+.icon_12_arrow_bottom_hover {background-image: url(images/12px/arrow_bottom_hover_12.png);}
+.icon_12_arrow_right {background-image: url(images/12px/arrow_right_12.png);}
+.icon_12_arrow_right_hover {background-image: url(images/12px/arrow_right_hover_12.png);}
 
 /* Icons 16px */
 .icon_16_address {background-image: url(images/16px/address_16.png);}

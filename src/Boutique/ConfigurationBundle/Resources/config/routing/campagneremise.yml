@@ -1,0 +1,45 @@
+campagneremise:
+    pattern:  /
+    defaults: { _controller: "BoutiqueConfigurationBundle:CampagneRemise:index" }
+
+campagneremise_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "BoutiqueConfigurationBundle:CampagneRemise:show" }
+
+campagneremise_new:
+    pattern:  /new
+    defaults: { _controller: "BoutiqueConfigurationBundle:CampagneRemise:new" }
+
+campagneremise_create:
+    pattern:  /create
+    defaults: { _controller: "BoutiqueConfigurationBundle:CampagneRemise:create" }
+    requirements: { _method: post }
+
+campagneremise_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "BoutiqueConfigurationBundle:CampagneRemise:edit" }
+
+campagneremise_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "BoutiqueConfigurationBundle:CampagneRemise:update" }
+    requirements: { _method: post }
+
+campagneremise_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "BoutiqueConfigurationBundle:CampagneRemise:delete" }
+    requirements: { _method: post }
+    
+campagneremise_add_article:
+    pattern:  /{campagne}/{article}/add
+    defaults: { _controller: "BoutiqueConfigurationBundle:CampagneRemise:addArticle" }
+    requirements: { _method: get }
+
+campagneremise_remove_article:
+    pattern:  /{campagne_article}/remove
+    defaults: { _controller: "BoutiqueConfigurationBundle:CampagneRemise:removeArticle" }
+    requirements: { _method: get }
+    
+campagneremise_liste_articles: 
+    pattern:  /{campagne}/listeArticles
+    defaults: { _controller: "BoutiqueConfigurationBundle:CampagneRemise:listeArticles" }
+    requirements: { _method: get }

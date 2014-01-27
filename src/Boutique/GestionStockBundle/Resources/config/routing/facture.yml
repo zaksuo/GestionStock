@@ -57,3 +57,7 @@ facture_article_remove:
 facture_client_new:
   pattern: /{id_facture}/newClient
   defaults: { _controller: BoutiqueGestionStockBundle:Facturation:newClient }
+  
+facturation_remise_article_remove:
+  pattern: /{facture}/remise_article_remove/{id_fact_rem_article}
+  defaults: { _controller: BoutiqueGestionStockBundle:Facturation:removeFactRemiseArticle }
