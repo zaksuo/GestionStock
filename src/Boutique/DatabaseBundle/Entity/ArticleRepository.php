@@ -111,7 +111,7 @@ class ArticleRepository extends EntityRepository
                 ->select('facture_article.quantite, client.id AS client_id, client.nom, client.prenom, facture.dateValidation, facture.id AS facture_id')
                 ->from('BoutiqueDatabaseBundle:FactureArticle', 'facture_article')
                 ->join('facture_article.facture', 'facture')
-                ->join('facture.client', 'client')
+                ->leftJoin('facture.client', 'client')
                 ->where('facture_article.article = ' . $id)
                 ->andWhere('facture.dateValidation IS NOT NULL')
                 ->orderBy('facture.dateValidation', 'DESC');
