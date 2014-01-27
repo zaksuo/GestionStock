@@ -273,4 +273,20 @@ class InventaireController extends Controller
             'article' => $inv_article
         ));
     }
+    
+    public function updatePrixAchatsAction( $inventaire ) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $inventaire = $em->getRepository('BoutiqueDatabaseBundle:Inventaire')->find($inventaire);
+        
+        foreach( $inventaire->getInvArticles() as $inv_article ) {
+            if( $inv_article->getArticle()->getPrixAchatMoyenHT() != $inv_article->getPrixAchat() ) {
+                $inv_article->setPrixAchat( $inv_article->getArticle()->getPrixAchatMoyenHT() );
+                $em->persist($inv_article);
+            }
+        }
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('inventaire_edit', array('id' => $inventaire->getId())));
+    } 
 }

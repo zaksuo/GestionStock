@@ -45,3 +45,7 @@ inventaire_print:
 inventaire_article_search:
   pattern: /{id_inventaire}/search
   defaults: { _controller: BoutiqueGestionStockBundle:Inventaire:searchArticle }
+  
+inventaire_update_prix_achats:
+  pattern: /{inventaire}/updatePrixAchats
+  defaults: { _controller: BoutiqueGestionStockBundle:Inventaire:updatePrixAchats }

@@ -242,10 +242,11 @@ class FacturationController extends Controller
         $em->persist($facture);
         
         $remises_article = $em->getRepository('BoutiqueDatabaseBundle:CampagneArticle')->findBy(array('article' => $id_article));
+        $now_date = new \DateTime('now');
         
         if( !is_null($remises_article) ) {
             foreach( $remises_article as $remise ) {
-                if( $remise->getCampagneRemise()->getActive() ) {
+                if( $remise->getCampagneRemise()->getActive() && $now_date >= $remise->getCampagneRemise()->getDateDebut() && $now_date <= $remise->getCampagneRemise()->getDateFin() ) {
                     $fact_rem_art = new FactureRemiseArticle();
                     $fact_rem_art->setCampagneArticle($remise);
                     $fact_rem_art->setFactureArticle($fact_article);
