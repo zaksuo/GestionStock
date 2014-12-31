@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CategorieRemise
 {
+    public static $TYPE_ARTICLE = 1;
+    public static $TYPE_FACTURE = 2;
+
     /**
      * @var string
      */

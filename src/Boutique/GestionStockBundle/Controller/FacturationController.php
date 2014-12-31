@@ -98,7 +98,8 @@ class FacturationController extends Controller
             'facture' => $facture,
         ));
     }
-    
+
+    /* @TODO récupération des campagnes de remises */
     public function editFactureAction( $id ) {
         $em = $this->getDoctrine()->getManager();
         
@@ -106,9 +107,11 @@ class FacturationController extends Controller
         
         $client = new Client();
         $client_form = $this->createForm(new ClientType(), $client);
-                
+        $remises_factures = $em->getRepository('BoutiqueDatabaseBundle:CampagneRemise')->getFactureRemisesActives();
+
         return $this->render('BoutiqueGestionStockBundle:Facture:edit.html.twig', array(
             'facture' => $facture,
+            'remises_facture' => $remises_factures,
             'errors' => array(),
             'form' => $client_form->createView()
         ));

@@ -17,3 +17,6 @@
 .bloc_facture.bloc_detail { margin-top : 175px; }
 .bloc_facture_article_list { list-style-type: none; margin-top : 10px; }
 .bloc_facture_article { line-height : 20px; padding-left : 20px; }
+
+.facture-modal { width : 700px; overflow-y: auto; max-height: 500px; }
+.facture-modal.modal-body{ padding : 7px; }

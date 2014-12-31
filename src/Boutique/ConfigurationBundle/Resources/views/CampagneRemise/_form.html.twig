@@ -1,4 +1,8 @@
-<table class="table table-bordered">    
+<table class="table table-bordered">
+    <tr>
+        <th>Nom de la campagne de remises</th>
+        <td>{{ form_widget(form.nomCampagne, {'attr': {'class' : ''}}) }}</td>
+    </tr>
     <tr>
         <th>Date de début</th>
         <td>{{ form_widget(form.dateDebut, {'attr': {'class' : 'datepicker'}}) }}</td>

@@ -7,6 +7,7 @@
     <br /><br />
     <table class="table table-bordered table-striped">
         <tr>
+            <th>Nom campagne</th>
             <th>Date début</th>
             <th>Date fin</th>
             <th>Remise</th>
@@ -15,6 +16,7 @@
         </tr>
         {% for entity in entities %}
             <tr>
+                <td>{{ entity.nomCampagne }}</td>
                 <td>{{ entity.dateDebut|date('d/m/Y') }}</td>
                 <td>{% if entity.dateFin %}{{ entity.dateFin|date('d/m/Y') }}{% else %} - {% endif %}</td>
                 <td>{{ entity.remise }}</td>

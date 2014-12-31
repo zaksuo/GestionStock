@@ -1,4 +1,5 @@
 $(document).ready(function(){
+/*
     $('#search_facture_article_field').live('keypress', function(e) {
         if(e.which == 13 || $('#search_facture_article_field').val().length >= 2) {
             $('#search_facture_article_field').val( $('#search_facture_article_field').val() + String.fromCharCode(e.which) );
@@ -10,7 +11,7 @@ $(document).ready(function(){
             return false;
         }
     });
-    
+
     $('#facture_client_search_field').live('keypress', function(e) {
        if(e.which == 13 || $('#facture_client_search_field').val().length >= 2 ) {
            $('#facture_client_search_field').val( $('#facture_client_search_field').val() + String.fromCharCode(e.which) );
@@ -22,55 +23,60 @@ $(document).ready(function(){
            return false;
        }
    });
-   
+ */
+
    $('#client_search_form_btn').live('click', function(e) {
         e.preventDefault();
+        $('#client_search_results').html("<div class='loader'></div>");
         $('#facture_client_search_form').ajaxSubmit({
             target: '#client_search_results',
-            replaceTarget: false,
+            replaceTarget: true,
             type: 'post'
         });
    });
    
    $('#article_search_form_btn').live('click', function(e) {
-        e.preventDefault();
-        $('#search_facture_article_form').ajaxSubmit({
+       e.preventDefault();
+       $('#article_search_results').html("<div class='loader'></div>");
+       $('#search_facture_article_form').ajaxSubmit({
             target: '#article_search_results',
-            replaceTarget: false,
+            replaceTarget: true,
             type: 'post'
         });
    });
    
     $('.add-article-btn').live('click', function(e) {
-            e.preventDefault();
+        e.preventDefault();
 
-            var article_existant = false;
-            var_id_facture = $('#id_facture').text();
-            var id_article = $(this).parent().attr('id');
-            var url = $(this).attr('href');
+        var article_existant = false;
+        var_id_facture = $('#id_facture').text();
+        var id_article = $(this).parent().attr('id');
+        var url = $(this).attr('href');
 
-            $(".facture-form tbody tr").each( function() {
-                if( $(this).attr('id') == id_article ) {
-                    article_existant = true;
+        $(".facture-form tbody tr").each( function() {
+            if( $(this).attr('id') == id_article ) {
+                article_existant = true;
+            }
+        });
+
+        if( article_existant ) {
+            $("#articles_warnings")
+                .html("Cet article a déjà été ajouté à la facture. Augmentez la quantité pour en ajouter.")
+                .show()
+                .fadeOut(4600);
+        }
+
+        else {
+            $.ajax({
+                url : url,
+                success: function( data ) {
+                    $('.facture_empty').hide();
+                    $(".facture-form tbody").append(data);
+                    updateFactureTotal();
                 }
             });
-
-            if( article_existant ) {
-                $("#facture_erreurs .modal-body").html("<p>Cet article a déjà été ajouté à la facture. Augmentez la quantité pour en ajouter.</p>");
-                $("#facture_erreurs").modal("toggle");
-            }
-            
-            else {
-                $.ajax({
-                    url : url,
-                    success: function( data ) {
-                        $('.facture_empty').hide();
-                        $(".facture-form tbody").append(data);
-                        updateFactureTotal();
-                    }
-                });
-                $("#article_search_results").empty();
-            }
+            $("#articles_success").html("Article ajouté à la facture.").show().fadeOut(1200);
+        }
     });
 
     $('.select_facture_client_link').live('click', function(e) {
@@ -140,16 +146,16 @@ $(document).ready(function(){
         });
     });
 
-//    $('#facture_client_new').live('click', function(e) {
-//       e.preventDefault();
-//       $('#facture_client_new_container').removeClass('hidden');
-//    });
-//
-//    $('#client_new_form_cancel').live('click', function(e) {
-//        e.preventDefault();
-//       $('#facture_client_new_container').addClass('hidden');
-//    });
-//    
+    $('#facture_client_new_link').live('click', function(e) {
+       e.preventDefault();
+       $('#facture_client_new').show();
+    });
+
+    $('#facture_client_new_close').live('click', function(e) {
+        e.preventDefault();
+       $('#facture_client_new').hide();
+    });
+
     $('#facture_client_new_submit').live('click', function(e) {
         e.preventDefault();
         var form = $('#facture_client_new_form');
@@ -175,7 +181,7 @@ $(document).ready(function(){
     }
     
     function hideClientForm() {
-        $('#facture_client_new_container').hide();
+        $('#client_form_modal').hideModal();
     }
 });
 

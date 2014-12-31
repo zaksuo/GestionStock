@@ -1,2 +1,4 @@
 /app/logs/
 cache
+/src/Site/
+/vendor/

@@ -2,26 +2,19 @@
 
 {% block content %}
 
-    <h3>Création de facture n°{{ facture.id }}</h3>
-
+    <h3>Facture n°{{ facture.id }}</h3>
     <div class="hidden" id="id_facture">{{ facture.id }}</div>
 
-    {% include 'BoutiqueGestionStockBundle:Ajax_Facture:client_search_form.html.twig' with {'facture' : facture} %}
-    {% include 'BoutiqueGestionStockBundle:Ajax_Facture:article_search_form.html.twig' with {'facture' : facture} %}
-    
-    <div id="facture_erreurs" class="modal hide fade modal-danger"  tabindex="-1" aria-labelledby="modal-error" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-            <h3 id="modal-error">Erreur</h3>
-        </div>
-        <div class="modal-body"></div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>
-        </div>
+    <div class="right">
+        <button class="btn btn-info" data-toggle="modal" data-target="#article_form_modal">Ajouter un article</button>
+        <button class="btn btn-info" data-toggle="modal" data-target="#client_form_modal">Ajouter un client</button>
+        <button class="btn btn-info" data-toggle="modal" data-target="#remise_facture_form_modal">Ajouter une remise</button>
     </div>
-    
-    
-    <h3>Contenu de la facture</h3>
+
+    {% include 'BoutiqueGestionStockBundle:Ajax_Facture:article_search_form.html.twig' with {'facture' : facture} %}
+    {% include 'BoutiqueGestionStockBundle:Ajax_Facture:client_search_form.html.twig' with {'facture' : facture} %}
+    {% include 'BoutiqueGestionStockBundle:Ajax_Facture:remise_facture_search_form.html.twig' with {'facture' : facture} %}
+
     {% include 'BoutiqueGestionStockBundle:Ajax_Client:facture_client_show.html.twig' with {'facture' : facture} %}
         
     <div class="section">
@@ -29,13 +22,13 @@
         <table class="table table-striped table-bordered facture-form">
             <thead>
                 <tr>
-                    <th>Code</th>
+                    <th class="width10">Code</th>
                     <th>Libellé</th>
-                    <th>Quantité</th>
-                    <th>Prix HT</th>
-                    <th>TVA</th>
+                    <th class="width10">Quantité</th>
+                    <th class="width10">Prix HT</th>
+                    <th class="width10">TVA</th>
                     <th>Montant TTC</th>
-                    <th></th>
+                    <th class="width10"></th>
                 </tr>
             </thead>
             <tbody>
@@ -55,5 +48,16 @@
         </table>
 
         {% include 'BoutiqueGestionStockBundle:Ajax_Facture:facture_commit_form.html.twig' with {'facture' : facture} %}
+    </div>
+
+    <div id="facture_erreurs" class="modal hide fade modal-danger"  tabindex="-1" aria-labelledby="modal-error" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+            <h3 id="modal-error">Erreur</h3>
+        </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>
+        </div>
     </div>
 {% endblock %}

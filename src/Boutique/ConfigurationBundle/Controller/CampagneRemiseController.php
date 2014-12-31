@@ -2,6 +2,7 @@
 
 namespace Boutique\ConfigurationBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,9 +24,7 @@ class CampagneRemiseController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('BoutiqueDatabaseBundle:CampagneRemise')->findAll();
-
         return $this->render('BoutiqueConfigurationBundle:CampagneRemise:index.html.twig', array(
             'entities' => $entities,
         ));

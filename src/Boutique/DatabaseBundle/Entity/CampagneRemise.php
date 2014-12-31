@@ -10,6 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 class CampagneRemise
 {
     /**
+     * @var String
+     */
+    private $nomCampagne;
+
+    /**
      * @var \DateTime
      */
     private $dateDebut;
@@ -34,6 +39,21 @@ class CampagneRemise
      */
     private $remise;
 
+    /**
+     * @return String
+     */
+    public function getNomCampagne()
+    {
+        return $this->nomCampagne;
+    }
+
+    /**
+     * @param String $nomCampagne
+     */
+    public function setNomCampagne($nomCampagne)
+    {
+        $this->nomCampagne = $nomCampagne;
+    }
 
     /**
      * Set dateDebut

@@ -11,6 +11,7 @@ class CampagneRemiseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('nomCampagne', 'text', array('required' => true))
             ->add('dateDebut', 'text', array('required' => true) )
             ->add('dateFin', 'text', array('required' => true) )
             ->add('active', 'checkbox', array('required' => false))

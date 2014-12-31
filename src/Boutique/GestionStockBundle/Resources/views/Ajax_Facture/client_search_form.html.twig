@@ -1,35 +1,34 @@
-<div class="section">
-    <h4>Sélection du client</h4>
-    <form class="form-horizontal" id="facture_client_search_form" action="{{ path('facture_client_search', {'id_facture' : facture.id}) }}" method="post">
-        <div class="control-group">
-            <label class="control-label" for="facture_client_search_field">Rechercher un client </label>
-            <div class="controls">
-                <div class="input-prepend">
-                    <span class="add-on"><i class="icon-search"></i></span>
-                    <input id="facture_client_search_field" name='search_facture_client' type="text" class="" placeholder="Recherche un client">
-                    <button type="submit" id="client_search_form_btn" class="btn">Rechercher</button>
-                </div>
-            </div>
-        </div>
-    </form>
-
-    <div id="client_search_results"></div>
-
-    Le client que vous cherchez n'existe pas ? Créez en un : <a id="" href="#facture_client_new" role="button" data-toggle="modal">Nouvelle fiche client</a>
-
-    <div id="facture_client_new" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="facture_client_new_label" aria-hidden="true">
-        <form id="facture_client_new_form" action="{{ path('facture_client_new', {'id_facture' : facture.id}) }}" method="post" {{ form_enctype(form) }}>
+<div id="client_form_modal" class="modal modal-facture fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>Nouvelle fiche client</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                <b>Sélection du client</b>
             </div>
             <div class="modal-body">
-                {% include 'BoutiqueGestionStockBundle:Client:_form.html.twig' with {'client_form' : form} %}
+                <form class="form-horizontal" id="facture_client_search_form" action="{{ path('facture_client_search', {'id_facture' : facture.id}) }}" method="post">
+                    <div class="input-prepend">
+                        <span class="add-on"><i class="icon-search"></i></span>
+                        <input id="facture_client_search_field" name='search_facture_client' type="text" class="" placeholder="Recherche un client">
+                        <button type="submit" id="client_search_form_btn" class="btn">Rechercher</button>
+                    </div>
+                </form>
+
+                <div id="client_search_results"></div>
+
+                Le client que vous cherchez n'existe pas ? Créez en un : <a id="facture_client_new_link" href="#facture_client_new">Nouvelle fiche client</a>
+
+                <div id="facture_client_new" class="hide">
+                    <form id="facture_client_new_form" action="{{ path('facture_client_new', {'id_facture' : facture.id}) }}" method="post" {{ form_enctype(form) }}>
+                        {% include 'BoutiqueGestionStockBundle:Client:_form.html.twig' with {'client_form' : form} %}
+                        <a id="facture_client_new_close" href="#" class="btn">Annuler</a>
+                        <button id="facture_client_new_submit" class="btn btn-success" type="submit">Enregistrer</button>
+                    </form>
+                </div>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Annuler</a>
-                <button id="facture_client_new_submit" class="btn btn-success" type="submit">Enregistrer</button>
-            </div>  
-        </form>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
     </div>
 </div>
